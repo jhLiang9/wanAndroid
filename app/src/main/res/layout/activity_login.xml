@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-
+        android:id="@+id/logintoolbar"
         app:titleTextColor="@color/white"
         android:background="@color/design_default_color_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </androidx.appcompat.widget.Toolbar>
+
     <ImageView
         android:layout_marginTop="100dp"
         android:layout_marginBottom="20dp"
