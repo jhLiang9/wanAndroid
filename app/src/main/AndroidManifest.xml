@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid">
+        <activity android:name=".TestActivity"></activity>
+        <!-- dialog -->
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".HelpActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity
             android:name=".RegisterActivity"
-            android:label="注册">
-        </activity>
-
+            android:label="注册"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".LoginActivity"
-            android:label="登录">
-        </activity>
-
+            android:label="登录"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

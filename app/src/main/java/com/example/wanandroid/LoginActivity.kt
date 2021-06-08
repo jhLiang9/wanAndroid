@@ -24,8 +24,7 @@ class LoginActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.more -> Toast.makeText(this, "You clicked HELP",
-                Toast.LENGTH_SHORT).show()
+            R.id.more -> Toast.makeText(this, "You clicked HELP", Toast.LENGTH_SHORT).show()
             R.id.register ->{
                 Toast.makeText(this, "You clicked register", Toast.LENGTH_SHORT).show()
                 val intent=Intent(this,RegisterActivity::class.java)
