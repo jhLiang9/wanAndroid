@@ -3,6 +3,7 @@ package com.example.wanandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.FormBody
@@ -14,6 +15,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
+
         register.setOnClickListener {
             val account = accountEdit.text.toString()
             if (account==""){
@@ -41,25 +44,31 @@ class RegisterActivity : AppCompatActivity() {
             val response = client.newCall(request).execute()
             val responseData = response.body?.string()
             if (responseData != null) {
-                parseJSONWithJSONObject(responseData)
+                try{
+                    val jsonArray = JSONArray(responseData)
+                    val jsonObject= jsonArray.getJSONObject(0)
+                    val errorCode = jsonObject.getString("errorCode")
+                    val errorMessage =jsonObject.getString("errorMessage")
+                    if(errorCode=="-1"){
+                        Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
+                    }else if (errorCode=="0"){//注册成功
+                        //直接登录 TODO
+
+
+
+
+
+
+                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
             }
 
         }
     }
 
 
-    private fun parseJSONWithJSONObject(jsonData: String) {
-        try {
-            val jsonArray = JSONArray(jsonData)
-            for (i in 0 until jsonArray.length()) {
-                val jsonObject = jsonArray.getJSONObject(i)
-                val id = jsonObject.getString("id")
-                Log.d("MainActivity", "id is $id")
 
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
 }
