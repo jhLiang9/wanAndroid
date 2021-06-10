@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity() {
 
                     val title = jsonObject.getString("title")
                     val time = jsonObject.getString("niceDate")
-                    val author = jsonObject.getString("author")
+                    var author = jsonObject.getString("author")
+                    if(author==""){
+                        author=jsonObject.getString("shareUser")
+                    }
                     val classify=jsonObject.getString("superChapterName")
                     articleList.add(Article(title, author, time, classify))
                 }
