@@ -8,19 +8,22 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="524dp"
-        android:layout_marginBottom="0dp"
-        />
+        android:layout_height="match_parent"
+        android:name="com.example.wanandroid.HomePageFragment"
+        app:navGraph="@navigation/navigation_test"
+        android:layout_weight="1" />
+
+    <!--放在fragment中-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="524dp"-->
+<!--        android:layout_marginBottom="0dp"-->
+<!--        />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

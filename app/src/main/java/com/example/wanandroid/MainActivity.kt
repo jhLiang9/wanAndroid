@@ -17,17 +17,14 @@ class MainActivity : AppCompatActivity() {
     private  val articleList=ArrayList<Article>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//
         setContentView(R.layout.activity_main)
-        test.setOnClickListener {
-            intent = Intent(this,TestActivity::class.java)
-            startActivity(intent)
-        }
-        initArticles() // 初始化文章数据
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        val adapter = HomeArticleAdapter(articleList)
-        recyclerView.adapter = adapter
+
+
+        //initArticles() // 初始化文章数据
+//        val layoutManager = LinearLayoutManager(this)
+//        recyclerView.layoutManager = layoutManager
+//        val adapter = HomeArticleAdapter(articleList)
+//        recyclerView.adapter = adapter
 
     }
 

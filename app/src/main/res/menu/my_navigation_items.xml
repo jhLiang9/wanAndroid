@@ -3,21 +3,21 @@
     <item
         android:id="@+id/item_news"
         android:icon="@drawable/logo"
-        android:title="首页" />
+        android:title="@string/home_page" />
     <item
         android:id="@+id/item_lib"
         android:icon="@drawable/logo"
-        android:title="体系" />
+        android:title="@string/system" />
     <item
         android:id="@+id/item_find"
         android:icon="@drawable/logo"
-        android:title="动态" />
+        android:title="@string/new_message" />
     <item
         android:id="@+id/project"
         android:icon="@drawable/logo"
-        android:title="项目" />
+        android:title="@string/project" />
     <item
         android:id="@+id/item_more"
         android:icon="@drawable/logo"
-        android:title="我的" />
+        android:title="@string/profile" />
 </menu>
