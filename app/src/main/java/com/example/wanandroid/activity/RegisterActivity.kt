@@ -1,10 +1,10 @@
-package com.example.wanandroid
+package com.example.wanandroid.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.wanandroid.R
 import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient

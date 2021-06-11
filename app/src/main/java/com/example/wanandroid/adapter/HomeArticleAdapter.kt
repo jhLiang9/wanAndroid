@@ -1,10 +1,12 @@
-package com.example.wanandroid
+package com.example.wanandroid.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wanandroid.R
+import com.example.wanandroid.entity.Article
 
 class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -12,7 +14,6 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         val author: TextView = view.findViewById(R.id.author)
         val time:TextView = view.findViewById(R.id.time)
         val classify: TextView =view.findViewById(R.id.classify)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

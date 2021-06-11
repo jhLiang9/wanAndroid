@@ -1,4 +1,4 @@
-package com.example.wanandroid
+package com.example.wanandroid.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,15 +9,14 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.wanandroid.R
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.accountEdit
 import kotlinx.android.synthetic.main.activity_login.passwordEdit
-import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
-import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() , View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +38,7 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
                     " HELP", Toast.LENGTH_SHORT).show()
             R.id.register ->{
                 Toast.makeText(this, "You clicked register", Toast.LENGTH_SHORT).show()
-                val intent=Intent(this,RegisterActivity::class.java)
+                val intent=Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -59,7 +58,7 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
                     show()
                 }
             }
-            R.id.login->{
+            R.id.login ->{
 
                     val account = accountEdit.text.toString()
                     if (account==""){
