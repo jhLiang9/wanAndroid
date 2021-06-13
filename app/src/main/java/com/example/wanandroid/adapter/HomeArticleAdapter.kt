@@ -16,9 +16,9 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         val classify: TextView =view.findViewById(R.id.classify)
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.article_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         return ViewHolder(view)
 
     }

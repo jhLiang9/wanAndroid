@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.android.material:material:1.2.1'//底部导航栏
 
-
+    implementation 'com.google.android:flexbox:1.0.0' //展示表
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'//recyclerview
 
