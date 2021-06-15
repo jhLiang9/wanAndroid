@@ -44,11 +44,10 @@ class HomePageFragment : Fragment() {
     private  val articleList=ArrayList<Article>()
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initArticles()
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         //TODO: 处理加载数据的问题
         val layoutManager = LinearLayoutManager(activity)
         ArticleRecyclerView.layoutManager = layoutManager
@@ -88,7 +87,7 @@ class HomePageFragment : Fragment() {
 
 
     private fun initArticles() {//加载数据
-        articleList.add(Article("Banana", "a","sa","sd"))
+
         thread {
             val client= OkHttpClient()
             val request = Request.Builder()
