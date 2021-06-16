@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
+import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.adapter.ProjectNavAdapter
+import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.Project
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import okhttp3.OkHttpClient
@@ -20,7 +22,7 @@ import kotlin.concurrent.thread
 class ProjectListFragment:Fragment() {
 
     private  val navList=ArrayList<Project>()
-    private  val projectList=ArrayList<Project>()
+    private  val projectList=ArrayList<Article>()
 
 
     override fun onCreateView(
@@ -93,10 +95,11 @@ class ProjectListFragment:Fragment() {
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
-                    val content=jsonObject.getString("name")
-                    Log.d("content:",content)
-                    navList.add(Project(null,null,null,content,null,null,null
-                        ,null))
+                    val title= jsonObject.getString("title")
+                    val desc= jsonObject.getString("desc")
+                    val author = jsonObject.getString("author")
+                    val time= jsonObject.getString("niceDate")
+                    projectList.add(Article(title,author,time,title))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -106,7 +109,7 @@ class ProjectListFragment:Fragment() {
         //layout
         val layoutManager = LinearLayoutManager(activity)
         content.layoutManager = layoutManager
-        val adapter = ProjectNavAdapter(projectList)
+        val adapter = ProjectContentAdapter(projectList)
         content.adapter = adapter
     }
 
