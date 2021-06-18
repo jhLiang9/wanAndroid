@@ -12,21 +12,35 @@
 
 
 
-    <fragment
+    <FrameLayout
         android:id="@+id/home_fragment"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:name="com.example.wanandroid.fragment.HomePageFragment"
-        android:layout_weight="1" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:background="#ffffff" />
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="56dp">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/nav_view"
+        android:layout_gravity="start"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_height="56dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="0dp"
         android:layout_gravity="start"
         app:menu="@menu/my_navigation_items" />
+</RelativeLayout>
 </LinearLayout>

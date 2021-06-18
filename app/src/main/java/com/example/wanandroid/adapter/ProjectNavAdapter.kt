@@ -13,7 +13,7 @@ import com.example.wanandroid.entity.Project
 //                 val order:Int, val parentChapterID:Int, val userControlSetTop:Boolean, val visible:Int) {
 class ProjectNavAdapter (val navList:List<Project>) : RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>(){
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.item_nav)
+        val name: TextView = view.findViewById(R.id.item_project_nav)
 
     }
 

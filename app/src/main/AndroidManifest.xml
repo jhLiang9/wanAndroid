@@ -16,10 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid">
-        <activity
-            android:name=".activity.SystemListActivity"
-            android:label="@string/title_activity_system_list"
-            android:theme="@style/Theme.WanAndroid.NoActionBar"></activity>
+
         <activity android:name=".activity.TestActivity" /> <!-- dialog -->
         <activity
             android:name=".activity.RegisterActivity"

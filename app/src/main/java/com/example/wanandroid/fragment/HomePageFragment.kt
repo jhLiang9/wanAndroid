@@ -1,17 +1,13 @@
 package com.example.wanandroid.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
-import com.example.wanandroid.activity.MainActivity
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.entity.Article
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_home_page.ArticleRecyclerView
 import kotlinx.android.synthetic.main.fragment_project.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.internal.wait
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.concurrent.thread
@@ -63,6 +58,10 @@ class HomePageFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("HomeDestory?:", "onDestroyView")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,7 +133,7 @@ class HomePageFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             HomePageFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
