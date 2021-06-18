@@ -13,7 +13,7 @@ import com.example.wanandroid.entity.Article
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.fragment_home_page.ArticleRecyclerView
-import kotlinx.android.synthetic.main.fragment_project.*
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
