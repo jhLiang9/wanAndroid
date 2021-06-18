@@ -42,13 +42,17 @@ class MainActivity : AppCompatActivity() {
                        // return  @OnNavigationItemSelectedListener true
                     }
                     R.id.item_lib->{
-                        fragmentTransaction.replace(R.id.home_fragment, ProjectListFragment()).commit()
+                        fragmentTransaction.replace(R.id.home_fragment, SystemFragment()).commit()
                         return@OnNavigationItemSelectedListener true
 //                        viewpager.setCurrentItem(1)
                     }
                     R.id.item_find->{
 //                        viewpager.setCurrentItem(2)
 
+                    }
+                    R.id.item_project->{
+                        fragmentTransaction.replace(R.id.home_fragment, ProjectListFragment()).commit()
+                        return@OnNavigationItemSelectedListener true
                     }
 
                     R.id.item_more->{

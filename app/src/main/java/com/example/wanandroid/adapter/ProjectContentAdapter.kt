@@ -23,7 +23,7 @@ class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contentList[position]
-        holder.chapterName.text=content.classify
+        holder.description.text=content.classify
         holder.author.text=content.author
         holder.time.text=content.time
         holder.title.text=content.title
