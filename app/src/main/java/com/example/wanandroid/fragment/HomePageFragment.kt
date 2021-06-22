@@ -114,8 +114,9 @@ class HomePageFragment : Fragment() {
                         author=jsonObject.getString("shareUser")
                     }
                     val classify=jsonObject.getString("superChapterName")
-                    Log.d("title:",title)
-                    articleList.add(Article(title, author, time, classify))
+                    val url=jsonObject.getString("link")
+
+                    articleList.add(Article(title, author, time, classify,url))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

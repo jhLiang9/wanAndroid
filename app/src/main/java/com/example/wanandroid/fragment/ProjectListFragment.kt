@@ -70,7 +70,7 @@ class ProjectListFragment:Fragment() {
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
                     val name=jsonObject.getString("name")
-                    Log.d("name:",name)
+
                     navList.add(Project(null,null,null,name,null,null,null
                     ,null))
                 }
@@ -108,7 +108,8 @@ class ProjectListFragment:Fragment() {
                     val description= jsonObject.getString("desc")
                     val author = jsonObject.getString("author")
                     val time= jsonObject.getString("niceDate")
-                    projectList.add(Article(title,author,time,description))
+                    val link =jsonObject.getString("link")
+                    projectList.add(Article(title,author,time,description,link))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

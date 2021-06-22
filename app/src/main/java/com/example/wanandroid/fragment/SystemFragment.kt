@@ -141,8 +141,8 @@ class SystemFragment : Fragment() {
         system_list.adapter = adapter
 
 
-        val ContentlayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        system_detail.layoutManager = ContentlayoutManager
+        val contentLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        system_detail.layoutManager = contentLayoutManager
         val DetialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
         system_detail.adapter = DetialAdapter
 
