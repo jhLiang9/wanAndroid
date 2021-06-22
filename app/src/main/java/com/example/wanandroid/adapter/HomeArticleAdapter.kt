@@ -34,21 +34,10 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
             val position = viewHolder.adapterPosition //获取用户点击的postion
             val article =articleList[position]
             val url=article.url
-            Log.d("url",url)
             val intent = Intent(parent.context, WebViewActivity::class.java)
-//            val intent = Intent()
-//            intent.setAction(Intent.ACTION_VIEW);
-//            intent.setData(Uri.parse(url))
             intent.putExtra("data", url);
-//            intent.setAction(Intent.ACTION_VIEW);
-
             parent.context.startActivity(intent)
 
-
-//            mContext.startActivity(intent);
-
-//            val intent = Intent(parent.context, WebViewActivity::class.java)
-//            startActivity(intent)
         }
         return viewHolder
 

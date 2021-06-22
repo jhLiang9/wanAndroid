@@ -14,7 +14,7 @@ class WebViewActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled=true
         webView.webViewClient = WebViewClient()
         val intent = intent
-//        webView.loadUrl("https://www.baidu.com")
+
         val url: String? = intent.getStringExtra("data");
         if (url != null) {
             webView.loadUrl(url)
