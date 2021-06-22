@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.SystemAdapter
+import com.example.wanandroid.adapter.SystemContentAdapter
 
 import com.example.wanandroid.entity.System
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import kotlinx.android.synthetic.main.fragment_system.*
+import kotlinx.android.synthetic.main.fragment_system.system_list
+import kotlinx.android.synthetic.main.item_system.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -29,6 +32,7 @@ private const val ARG_PARAM2 = "param2"
 
 var datalist= ArrayList<ArrayList<System>>()
 var sublist =ArrayList<System>()
+var titleList =ArrayList<String>()
 /**
  * A simple [Fragment] subclass.
  * Use the [SystemFragment.newInstance] factory method to
@@ -60,8 +64,9 @@ class SystemFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initLayoutData()
-        initLayout()
         Thread.sleep(1000)
+        initLayout()
+
 
     }
 
@@ -107,12 +112,13 @@ class SystemFragment : Fragment() {
 
                     val children= JSONArray(jsonObject.getString("children"))
                     val parent_name=jsonObject.getString("name")
+                    titleList.add(parent_name)
                     for(j in 0 until children.length()){
                         val temp=children.getJSONObject(j)
                         val courseId=temp.getInt("courseId")
                         val id =temp.getInt("id")
                         val name =temp.getString("name")
-                        Log.d("name",name)
+
                         val order=temp.getInt("order")
                         val parentChapterId=temp.getInt("parentChapterId")
                         val userControlSetTop=temp.getBoolean("userControlSetTop")
@@ -129,10 +135,17 @@ class SystemFragment : Fragment() {
 
     private fun initLayout(){
         //瀑布布局
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = LinearLayoutManager(activity)
         system_list.layoutManager = layoutManager
-        val adapter = SystemAdapter(sublist) //TODO:maybe some problem
+        val adapter = SystemAdapter(titleList)
         system_list.adapter = adapter
+
+
+        val ContentlayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        system_detail.layoutManager = ContentlayoutManager
+        val DetialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
+        system_detail.adapter = DetialAdapter
+
     }
 
 

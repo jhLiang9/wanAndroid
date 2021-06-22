@@ -11,10 +11,10 @@ import com.example.wanandroid.R
 import com.example.wanandroid.entity.System
 import com.google.android.flexbox.FlexboxLayout
 
-class SystemAdapter( val systemList:List<System>) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
+class SystemAdapter( val systemList:List<String>) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val system_title:TextView =view.findViewById(R.id.system_item)
-        val system_list:TextView=view.findViewById(R.id.system_list)
+        val system_item:TextView =view.findViewById(R.id.system_item)
+//        val system_detail:RecyclerView=view.findViewById(R.id.system_detail)
     }
 
 
@@ -25,7 +25,7 @@ class SystemAdapter( val systemList:List<System>) : RecyclerView.Adapter<SystemA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = systemList[position]
-        holder.system_list.text=content.name
+        holder.system_item.text= content
 
     }
 

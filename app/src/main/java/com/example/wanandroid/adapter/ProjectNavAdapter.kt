@@ -25,9 +25,8 @@ class ProjectNavAdapter (val navList:List<Project>) : RecyclerView.Adapter<Proje
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val nav = navList[position]
-        holder.name.text= nav.name
+        holder.name.text = nav.name
 
-        //holder.fruitName.text = fruit.name
     }
 
     override fun getItemCount(): Int {
