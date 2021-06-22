@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
 //        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-
         nav_view.setOnNavigationItemSelectedListener (
             BottomNavigationView.OnNavigationItemSelectedListener {
                 var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()

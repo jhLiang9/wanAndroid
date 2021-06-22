@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
@@ -13,6 +14,7 @@ import com.example.wanandroid.entity.Article
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.fragment_home_page.ArticleRecyclerView
+import kotlinx.android.synthetic.main.fragment_project_list.*
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -42,7 +44,9 @@ class HomePageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initArticles()
-        Thread.sleep(2000)
+        ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+
+        Thread.sleep(1000)
         //TODO: 处理加载数据的问题
         val layoutManager = LinearLayoutManager(activity)
         ArticleRecyclerView.layoutManager = layoutManager
@@ -59,6 +63,7 @@ class HomePageFragment : Fragment() {
     }
 
     override fun onDestroy() {
+
         super.onDestroy()
         Log.d("HomeDestory?:", "onDestroyView")
     }
@@ -78,7 +83,7 @@ class HomePageFragment : Fragment() {
 //        test.setOnClickListener {
 //            Toast.makeText(activity,"Clicked",Toast.LENGTH_SHORT).show()
 //        }
-        //layoutManager.orientation = LinearLayoutManager.HORIZONTAL //默认垂直方向
+
 
 
         return inflater.inflate(R.layout.fragment_home_page,container,false)

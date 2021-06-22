@@ -6,23 +6,18 @@
     android:background="@color/white"
     android:padding="15dp">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="start"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/fbl"
+    <TextView
+        android:id="@+id/system_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        app:flexWrap="wrap" />
-
+        android:layout_above="@+id/system_detail"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/system_detail">
+    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

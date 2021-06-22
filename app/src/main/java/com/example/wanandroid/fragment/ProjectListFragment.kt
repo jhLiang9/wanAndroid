@@ -38,6 +38,8 @@ class ProjectListFragment:Fragment() {
 
         initNav()
         initContent()
+        content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题
 
@@ -46,12 +48,12 @@ class ProjectListFragment:Fragment() {
 
 
     private fun initNav() {
-//layout
-        //        TODO:加载分割线
+        //layout
+
+        //分割线
         nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
 
-//data
-
+        //layout data
         thread {
             val client= OkHttpClient()
             val request = Request.Builder()
@@ -113,7 +115,7 @@ class ProjectListFragment:Fragment() {
             }
         }
 
-        //layout
+        //layout load
         val layoutManager = LinearLayoutManager(activity)
         content.layoutManager = layoutManager
         val adapter = ProjectContentAdapter(projectList)
