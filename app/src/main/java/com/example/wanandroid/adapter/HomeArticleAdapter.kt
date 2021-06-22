@@ -37,7 +37,6 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
             val intent = Intent(parent.context, WebViewActivity::class.java)
             intent.putExtra("data", url);
             parent.context.startActivity(intent)
-
         }
         return viewHolder
 
