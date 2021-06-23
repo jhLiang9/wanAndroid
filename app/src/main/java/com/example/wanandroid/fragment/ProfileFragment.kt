@@ -45,6 +45,10 @@ class ProfileFragment : Fragment() {
                 val intent:Intent=Intent(activity,LoginActivity::class.java)
                 startActivityForResult(intent,1)//返回用户,用intent承载
                 username.setText(intent.getStringExtra("name"))
+
+                val collect =intent.getStringExtra("collectIds")
+                TODO("获得用户收藏")
+
             }
         }
 

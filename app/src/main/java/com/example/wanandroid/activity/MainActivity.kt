@@ -6,9 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.wanandroid.R
-import com.example.wanandroid.fragment.HomePageFragment
-import com.example.wanandroid.fragment.ProjectListFragment
-import com.example.wanandroid.fragment.SystemFragment
+import com.example.wanandroid.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,8 +53,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     //发现 、 关注
                     R.id.item_find->{
+                        fragmentTransaction.replace(R.id.home_fragment,QuestionAndAnswerFragment()).commit()
+                        return@OnNavigationItemSelectedListener true
 //                        viewpager.setCurrentItem(2)
-
                     }
                     //项目
                     R.id.item_project->{
@@ -65,6 +64,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     //个人主页
                     R.id.item_more->{
+                        fragmentTransaction.replace(R.id.home_fragment, ProfileFragment()).commit()
+                        return@OnNavigationItemSelectedListener true
 //                        viewpager.setCurrentItem(4)
 
                     }

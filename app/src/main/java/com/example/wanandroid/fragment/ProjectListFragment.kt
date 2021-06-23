@@ -178,7 +178,7 @@ class ProjectListFragment:Fragment() {
                     val author = jsonObject.getString("author")
                     val time= jsonObject.getString("niceDate")
                     val link =jsonObject.getString("link")
-                    res.add(Article(title,author,time,description,link))
+                    res.add(Article(title,author,time,description,link,""))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
