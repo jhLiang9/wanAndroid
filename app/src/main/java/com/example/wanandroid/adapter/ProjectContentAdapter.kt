@@ -26,6 +26,7 @@ class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapt
             val article =contentList[position]
             val url=article.url
             val intent = Intent(parent.context, WebViewActivity::class.java)
+
             intent.putExtra("data", url);
             parent.context.startActivity(intent)
         }

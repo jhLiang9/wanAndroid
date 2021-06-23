@@ -2,22 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/item_news"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/homepage"
         android:title="@string/home_page" />
     <item
         android:id="@+id/item_lib"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/system"
         android:title="@string/system" />
     <item
         android:id="@+id/item_find"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/find"
         android:title="@string/new_message" />
     <item
         android:id="@+id/item_project"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/projects"
+
         android:title="@string/project" />
     <item
         android:id="@+id/item_more"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/user"
         android:title="@string/profile" />
 </menu>

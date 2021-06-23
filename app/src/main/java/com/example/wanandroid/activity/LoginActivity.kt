@@ -34,10 +34,8 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.more -> Toast.makeText(this, "You clicked8" +
-                    " HELP", Toast.LENGTH_SHORT).show()
+            R.id.more -> Toast.makeText(this, " HELP", Toast.LENGTH_SHORT).show()
             R.id.register ->{
-                Toast.makeText(this, "You clicked register", Toast.LENGTH_SHORT).show()
                 val intent=Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
@@ -48,8 +46,8 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
         when (v?.id) {
             R.id.more -> {
                 AlertDialog.Builder(this).apply {
-                    setTitle("HELP")
-                    setMessage("Nothing here.")
+                    setTitle("帮助")
+                    setMessage("登录、注册")
                     setCancelable(false)
                     setPositiveButton("确定") { dialog, which ->
                     }
@@ -59,7 +57,6 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
                 }
             }
             R.id.login ->{
-
                     val account = accountEdit.text.toString()
                     if (account==""){
                         Toast.makeText(this,"请输入账号",Toast.LENGTH_SHORT).show()
@@ -91,12 +88,16 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener {
                             if(errorCode=="-1"){
                                 Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
                             }else if (errorCode=="0"){//登录成功
-                                TODO("登录")
+
+                                val intent=Intent()
+                                intent.putExtra("name",jsonObject.getString("nickname"))
+//存储收藏文章
+//                                val array=ArrayList<Int>()
+//                                jsonObject.getJSONArray()
+                                intent.putExtra("collectIds",jsonObject.getString("collectIds"))
+                                //TODO: Cookie
+                                finish()
                                 //直接登录
-                                //Cookie
-
-
-
 
 
 

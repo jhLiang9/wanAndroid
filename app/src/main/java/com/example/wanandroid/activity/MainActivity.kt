@@ -10,6 +10,7 @@ import com.example.wanandroid.fragment.HomePageFragment
 import com.example.wanandroid.fragment.ProjectListFragment
 import com.example.wanandroid.fragment.SystemFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -17,43 +18,52 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("Activity:","destory")
+        Log.d("MainActivity","destory")
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
+        //解决底部导航超过三次，无法显示文字的问题
+        nav_view.labelVisibilityMode= LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        //初始页面
         nav_view.setSelectedItemId(R.id.item_news)
-        //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
-//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        var start: FragmentTransaction = supportFragmentManager.beginTransaction()
+        start.replace(R.id.home_fragment,HomePageFragment()).commit()
+
+        supportFragmentManager.executePendingTransactions()
 
         nav_view.setOnNavigationItemSelectedListener (
             BottomNavigationView.OnNavigationItemSelectedListener {
                 var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                 when(it.itemId){
+                    //首页
                     R.id.item_news->{
                         fragmentTransaction.replace(R.id.home_fragment, HomePageFragment()).commit()
                         return@OnNavigationItemSelectedListener true
-                        //                        viewpager.setCurrentItem(0)
+                        //viewpager.setCurrentItem(0)
                        // return  @OnNavigationItemSelectedListener true
                     }
+                    //体系
                     R.id.item_lib->{
                         fragmentTransaction.replace(R.id.home_fragment, SystemFragment()).commit()
                         return@OnNavigationItemSelectedListener true
 //                        viewpager.setCurrentItem(1)
                     }
+                    //发现 、 关注
                     R.id.item_find->{
 //                        viewpager.setCurrentItem(2)
 
                     }
+                    //项目
                     R.id.item_project->{
                         fragmentTransaction.replace(R.id.home_fragment, ProjectListFragment()).commit()
                         return@OnNavigationItemSelectedListener true
                     }
-
+                    //个人主页
                     R.id.item_more->{
 //                        viewpager.setCurrentItem(4)
 
