@@ -76,15 +76,6 @@ class HomePageFragment : Fragment() {
 
         //https://blog.csdn.net/zhuchenglin830/article/details/82286109  Fragment中RecyclerView的使用解析
 
-//        initArticles() // 初始化文章数据
-//        val layoutManager = LinearLayoutManager(this.context)
-//        ArticleRecyclerView.layoutManager = layoutManager
-//        ArticleRecyclerView.adapter=HomeArticleAdapter(articleList)
-//        test.setOnClickListener {
-//            Toast.makeText(activity,"Clicked",Toast.LENGTH_SHORT).show()
-//        }
-
-
 
         return inflater.inflate(R.layout.fragment_home_page,container,false)
     }
@@ -123,9 +114,6 @@ class HomePageFragment : Fragment() {
             }
         }
 
-//        articleList.add(Article("How to learn Android","JH","2021-6-1","start"))
-//        articleList.add(Article("middle","JH","2021-6-1","start"))
-//        articleList.add(Article("hard ","JH","2021-6-1","start"))
     }
 
     companion object {

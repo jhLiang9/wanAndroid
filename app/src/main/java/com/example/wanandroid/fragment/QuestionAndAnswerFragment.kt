@@ -5,8 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
+import com.example.wanandroid.adapter.HomeArticleAdapter
+import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.entity.Article
+import kotlinx.android.synthetic.main.fragment_home_page.*
+import kotlinx.android.synthetic.main.fragment_question_and_answer.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -63,6 +69,20 @@ class QuestionAndAnswerFragment : Fragment() {
                 }
             }
     }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        init()
+
+        Thread.sleep(1000)
+        //TODO: 处理加载数据的问题
+        val layoutManager = LinearLayoutManager(activity)
+        QARecyclerView.layoutManager = layoutManager
+        val adapter = QAAdapter(QAList)
+        QARecyclerView.adapter = adapter
+    }
+
 
     private fun init(){
         var url :String="https://wanandroid.com/wenda/list/1/json"
