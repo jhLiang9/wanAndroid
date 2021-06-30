@@ -74,6 +74,8 @@ class QuestionAndAnswerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
+        //分割线
+        QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题

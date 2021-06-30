@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.utils.HtmlElementUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.fragment_home_page.ArticleRecyclerView
@@ -97,8 +98,10 @@ class HomePageFragment : Fragment() {
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
-
-                    val title = jsonObject.getString("title")
+                    var title = HtmlElementUtil.removeHTMLTag(jsonObject.getString("title"))
+                    if(title==""){
+                        title=jsonObject.getString("title")
+                    }
                     val time = jsonObject.getString("niceDate")
                     var author = jsonObject.getString("author")
                     if(author==""){

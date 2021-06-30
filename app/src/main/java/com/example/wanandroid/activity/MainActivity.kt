@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     //项目
                     R.id.item_project->{
-                        fragmentTransaction.replace(R.id.home_fragment, ProjectListFragment()).commit()
+                        fragmentTransaction.replace(R.id.home_fragment, ProjectFragment()).commit()
                         return@OnNavigationItemSelectedListener true
                     }
                     //个人主页

@@ -25,30 +25,29 @@ import org.json.JSONObject
 import kotlin.concurrent.thread
 
 class ProjectListFragment:Fragment() {
-    lateinit var cidChangeReceiver: CidBroadcastReceiver
+//    lateinit var cidChangeReceiver: CidBroadcastReceiver
     private  val navList=ArrayList<Project>()
-    private var projectList=ArrayList<Article>()
-    val startURL:String="https://www.wanandroid.com/project/list/1/json?cid="
-    var currentCid:String ="294"
+
+
 
     inner class CidBroadcastReceiver:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             //收到广播后处理：1.设置cid
             //2.list重置，获取新数据
             //3.数据加载
-            Log.d("Broadcast","received")
-            if (intent != null) {
-                Log.d("intent","not null")
-//                1.获得cid
-                currentCid= intent.getStringExtra("data").toString()
-//                2.获得内容，放入list
-                projectList=getContent(startURL+currentCid)
-//                3.数据加载 、展示
-                val layoutManager = LinearLayoutManager(activity)
-                content.layoutManager = layoutManager
-                val adapter = ProjectContentAdapter(projectList)
-                content.adapter = adapter
-            }
+//            Log.d("Broadcast","received")
+//            if (intent != null) {
+//                Log.d("intent","not null")
+////                1.获得cid
+//                currentCid= intent.getStringExtra("data").toString()
+////                2.获得内容，放入list
+//                projectList=getContent(startURL+currentCid)
+////                3.数据加载 、展示
+//                val layoutManager = LinearLayoutManager(activity)
+//                content.layoutManager = layoutManager
+//                val adapter = ProjectContentAdapter(projectList)
+//                content.adapter = adapter
+//            }
         }
     }
 
@@ -65,17 +64,14 @@ class ProjectListFragment:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("project_cid")
-        cidChangeReceiver = CidBroadcastReceiver()
-        activity?.registerReceiver(cidChangeReceiver, intentFilter)
+//        广播接收器
+//        val intentFilter = IntentFilter()
+//        intentFilter.addAction("project_cid")
+//        cidChangeReceiver = CidBroadcastReceiver()
+//        activity?.registerReceiver(cidChangeReceiver, intentFilter)
         //初始化导航内容
         initNav()
-        //初始化首个导航的文章
-        initContent(startURL+currentCid)
-        // 设置文章之间的分割线
-        content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题
 
@@ -95,15 +91,13 @@ class ProjectListFragment:Fragment() {
             val response = client.newCall(request).execute()
             val responseData = response.body?.string()
             val jsondata= JSONObject(responseData).getString("data")
-
-
             try {
                 val jsonArray = JSONArray(jsondata)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
+                    val id=jsonObject.getInt("id")
                     val name=jsonObject.getString("name")
-
-                    navList.add(Project(null,null,null,name,null,null,null
+                    navList.add(Project(null,null,id,name,null,null,null
                     ,null))
                 }
             } catch (e: Exception) {
@@ -121,71 +115,10 @@ class ProjectListFragment:Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         //注销 接收器
-        activity?.unregisterReceiver(cidChangeReceiver)
+//        activity?.unregisterReceiver(cidChangeReceiver)
     }
 
-    private fun initContent(url :String) {
-        //data
-        projectList=getContent("https://www.wanandroid.com/project/list/1/json?cid=294")
-        //layout load
-        val layoutManager = LinearLayoutManager(activity)
-        content.layoutManager = layoutManager
-        val adapter = ProjectContentAdapter(projectList)
-        content.adapter = adapter
-    }
-    private fun refreshProjects() { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
-        val intent = activity?.intent
-        val cid: String? = intent?.getStringExtra("data")
-        projectList.clear()
 
-
-    }
-
-//    }
-//    private fun refreshProjects(adapter: ProjectContentAdapter) { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
-//        val intent = activity?.intent
-//
-//        val url: String? = intent?.getStringExtra("data");
-//        thread {
-//            Thread.sleep(2000)
-//            activity?.runOnUiThread {
-////                initContent()
-//                adapter.notifyDataSetChanged()
-////                swipeRefresh.isRefreshing = false
-//            }
-//        }
-//    }
-
-    private fun getContent(url:String):ArrayList<Article>{
-
-        val res=ArrayList<Article>()
-        thread {
-            val client= OkHttpClient()
-            val request = Request.Builder()
-                .url(url)
-                //.url("https://www.wanandroid.com/article/list/0/json")
-                .build()
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            val jsondata= JSONObject(responseData).getString("data")
-            val datas= JSONObject(jsondata).getString("datas")
-            try {
-                val jsonArray = JSONArray(datas)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val title= jsonObject.getString("title")
-                    val description= jsonObject.getString("desc")
-                    val author = jsonObject.getString("author")
-                    val time= jsonObject.getString("niceDate")
-                    val link =jsonObject.getString("link")
-                    res.add(Article(title,author,time,description,link,""))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return res
-    }
 
 
 }

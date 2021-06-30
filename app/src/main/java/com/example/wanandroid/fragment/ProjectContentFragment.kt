@@ -1,6 +1,8 @@
 package com.example.wanandroid.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.entity.Project
-import kotlinx.android.synthetic.main.fragment_project_list.*
+
+import kotlinx.android.synthetic.main.fragment_project_content.*
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -19,21 +22,23 @@ import org.json.JSONObject
 import kotlin.concurrent.thread
 
 
-class ProjectContentFragment: Fragment() {
-    var projectList=ArrayList<Project>()
 
-    //有别的实现方法
+class ProjectContentFragment: Fragment() {
+    private var cid: Int? = null
+    companion object {
+        fun newInstance() = ProjectContentFragment()
+    }
+
+
+    var projectList=ArrayList<Article>()
+    val startURL:String="https://www.wanandroid.com/project/list/1/json?cid="
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        initNav()
-//        initContent(startURL)
-//        val adapter = ProjectContentAdapter(projectList)
-//        swipeRefresh.setColorSchemeResources(R.color.white)
-//        swipeRefresh.setOnRefreshListener {
-//            refreshProjects(adapter)
-//        }
 
+        //初始化首个导航的文章
 
+        initContent()
         content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题
@@ -45,11 +50,33 @@ class ProjectContentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_list, container, false)
+        return inflater.inflate(R.layout.fragment_project_content, container, false)
     }
 
-    private fun initContent(url :String) {
-//data
+
+
+
+    private fun initContent() {
+        //data
+        projectList=getContent("https://www.wanandroid.com/project/list/1/json?cid=294")
+
+        //layout load
+        content.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
+        val layoutManager = LinearLayoutManager(activity)
+        content.layoutManager = layoutManager
+        val adapter = ProjectContentAdapter(projectList)
+        content.adapter = adapter
+    }
+     fun refreshProjects(cid:Int) { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
+         projectList=getContent(startURL+cid.toString())
+         val layoutManager = LinearLayoutManager(activity)
+         content.layoutManager = layoutManager
+         content.adapter?.notifyDataSetChanged()
+    }
+
+
+    private fun getContent(url:String):ArrayList<Article>{
+        val res=ArrayList<Article>()
         thread {
             val client= OkHttpClient()
             val request = Request.Builder()
@@ -69,29 +96,13 @@ class ProjectContentFragment: Fragment() {
                     val author = jsonObject.getString("author")
                     val time= jsonObject.getString("niceDate")
                     val link =jsonObject.getString("link")
-//                    projectList.add(Article(title,author,time,description,link))
+                    res.add(Article(title,author,time,description,link,""))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-        //layout load
-        val layoutManager = LinearLayoutManager(activity)
-        content.layoutManager = layoutManager
-//        val adapter = ProjectContentAdapter(projectList)
-//        content.adapter = adapter
-    }
-
-    private fun refreshProjects(adapter: ProjectContentAdapter) { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
-        adapter.contentList
-        thread {
-            Thread.sleep(2000)
-            activity?.runOnUiThread {
-                adapter.notifyDataSetChanged()
-//                swipeRefresh.isRefreshing = false
-            }
-        }
+        return res
     }
 
 }
