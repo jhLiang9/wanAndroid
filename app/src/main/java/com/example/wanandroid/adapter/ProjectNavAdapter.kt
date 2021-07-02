@@ -1,5 +1,6 @@
 package com.example.wanandroid.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,28 +10,40 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.MainActivity
-import com.example.wanandroid.activity.WebViewActivity
+
 import com.example.wanandroid.entity.Project
 import com.example.wanandroid.fragment.ProjectContentFragment
+import com.example.wanandroid.viewmodel.SharedViewModel
+import kotlinx.android.synthetic.main.activity_main.view.*
+import java.nio.channels.Selector
 
 
-class ProjectNavAdapter (val navList:List<Project>) : RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>(){
+
+class ProjectNavAdapter (var navList:List<Project>) : RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>(){
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.item_project_nav)
     }
 
+    private lateinit var itemSelector: Selector
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_nav, parent, false)
+
         val viewHolder :ViewHolder=ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
+
             val position = viewHolder.adapterPosition //获取用户点击的postion
             val nav =navList[position]
+
+
             //获得用户点击的cid
             val cid :Int= nav.id
 

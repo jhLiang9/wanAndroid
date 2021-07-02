@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
@@ -17,6 +19,7 @@ import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.adapter.ProjectNavAdapter
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.Project
+import com.example.wanandroid.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -26,9 +29,9 @@ import kotlin.concurrent.thread
 
 class ProjectListFragment:Fragment() {
 //    lateinit var cidChangeReceiver: CidBroadcastReceiver
-    private  val navList=ArrayList<Project>()
-
-
+    private val navList=ArrayList<Project>()
+    private val model:SharedViewModel by activityViewModels()
+    var shareModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
     inner class CidBroadcastReceiver:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -57,6 +60,8 @@ class ProjectListFragment:Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+//        binding.nav.adapter= adapter
+
         return inflater.inflate(R.layout.fragment_project_list, container, false)
     }
 
@@ -109,6 +114,7 @@ class ProjectListFragment:Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         nav.layoutManager = layoutManager
         val adapter = ProjectNavAdapter(navList)
+
         nav.adapter = adapter
     }
 

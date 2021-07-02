@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.wanandroid.R
 import com.example.wanandroid.fragment.*
+import com.example.wanandroid.viewmodel.SharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        //解决底部导航超过三次，无法显示文字的问题
+//        var shareModel = ViewModelProviders.of(this).get(SharedViewModel::class.java)  // deprecated
+        var shareModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+
+        //解决底部导航超过三个，无法显示文字的问题
         nav_view.labelVisibilityMode= LabelVisibilityMode.LABEL_VISIBILITY_LABELED
         //初始页面
         nav_view.setSelectedItemId(R.id.item_news)

@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.viewmodel.SharedViewModel
 
 import kotlinx.android.synthetic.main.fragment_project_content.*
 
@@ -24,7 +26,9 @@ import kotlin.concurrent.thread
 
 
 class ProjectContentFragment: Fragment() {
+    private val model: SharedViewModel by activityViewModels()
     private var cid: Int? = null
+
     companion object {
         fun newInstance() = ProjectContentFragment()
     }
@@ -41,6 +45,7 @@ class ProjectContentFragment: Fragment() {
         initContent()
         content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         Thread.sleep(1000)
+
         //TODO: 处理加载数据的问题
 
     }

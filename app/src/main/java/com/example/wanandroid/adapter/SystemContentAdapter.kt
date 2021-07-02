@@ -20,7 +20,7 @@ class SystemContentAdapter ( val contentList:List<System>) : RecyclerView.Adapte
      }
 
 
-    override fun onBindViewHolder(holder: SystemContentAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contentList[position]
         holder.system_content.text= content.name
      }
