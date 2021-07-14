@@ -32,6 +32,16 @@ class ProjectListFragment:Fragment() {
     private val navList=ArrayList<Project>()
     private val model:SharedViewModel by activityViewModels()
     var shareModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+    companion object{
+        //注解是为了兼容Java调用时习惯
+        @JvmField
+        var cid :Int= 294
+        @JvmStatic
+        fun getInstance(){
+
+        }
+
+    }
 
     inner class CidBroadcastReceiver:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {

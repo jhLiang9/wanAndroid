@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.executePendingTransactions()
 
         nav_view.setOnNavigationItemSelectedListener (
+
             BottomNavigationView.OnNavigationItemSelectedListener {
                 var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                 when(it.itemId){

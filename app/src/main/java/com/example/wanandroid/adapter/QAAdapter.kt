@@ -23,10 +23,7 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
     }
 
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): QAAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QAAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_qa, parent, false)
         val viewHolder:ViewHolder =ViewHolder(view)
         viewHolder.itemView.setOnClickListener {

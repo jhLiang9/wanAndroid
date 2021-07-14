@@ -20,7 +20,6 @@ import org.json.JSONObject
 import kotlin.concurrent.thread
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -30,23 +29,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class QuestionAndAnswerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private var QAList =ArrayList<Article>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_question_and_answer, container, false)
     }
 
@@ -70,7 +59,6 @@ class QuestionAndAnswerFragment : Fragment() {
             }
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
@@ -87,14 +75,18 @@ class QuestionAndAnswerFragment : Fragment() {
 
 
     private fun init(){
-        var url :String="https://wanandroid.com/wenda/list/1/json"
+        val url :String="https://wanandroid.com/wenda/list/1/json"
         thread {
             val client= OkHttpClient()
             val request = Request.Builder()
                 .url(url)
                 .build()
             val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
+            response.let {
+
+            }
+            var responseData = response.body?.string()
+
             val jsondata= JSONObject(responseData).getString("data")
             val datas= JSONObject(jsondata).getString("datas")
 
@@ -110,10 +102,10 @@ class QuestionAndAnswerFragment : Fragment() {
                         author=jsonObject.getString("shareUser")
                     }
                     val classify=jsonObject.getString("superChapterName")
-                    val url=jsonObject.getString("link")
+                    val link=jsonObject.getString("link")
                     val description= jsonObject.getString("desc")
 
-                    QAList.add(Article(title, author, time, classify,url,description))
+                    QAList.add(Article(title, author, time, classify,link,description))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

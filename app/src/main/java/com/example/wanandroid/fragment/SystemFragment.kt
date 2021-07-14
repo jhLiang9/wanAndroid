@@ -39,16 +39,11 @@ var titleList =ArrayList<String>()
  * create an instance of this fragment.
  */
 class SystemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -66,31 +61,17 @@ class SystemFragment : Fragment() {
         initLayoutData()
         Thread.sleep(1000)
         initLayout()
-
-
     }
 
 
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SystemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+    companion object
+    {
+        //静态
         @JvmStatic
-        fun newInstance() =
-            SystemFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
+        fun newInstance(): SystemFragment {
+            return SystemFragment()
+        }
     }
 
     private fun initLayoutData(){
@@ -137,14 +118,16 @@ class SystemFragment : Fragment() {
         //瀑布布局
         val layoutManager = LinearLayoutManager(activity)
         system_list.layoutManager = layoutManager
-        val adapter = SystemAdapter(titleList)
-        system_list.adapter = adapter
+        val listAdapter = SystemAdapter(titleList)
+        system_list.adapter = listAdapter
 
 
-        val contentLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        system_detail.layoutManager = contentLayoutManager
-        val DetialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
-        system_detail.adapter = DetialAdapter
+
+//        val contentLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+
+        system_detail.layoutManager = LinearLayoutManager(activity)
+        val detialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
+        system_detail.adapter = detialAdapter
 
     }
 
