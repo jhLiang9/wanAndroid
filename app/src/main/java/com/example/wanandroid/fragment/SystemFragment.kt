@@ -20,41 +20,36 @@ import org.json.JSONObject
 import kotlin.concurrent.thread
 
 
-var datalist= ArrayList<ArrayList<System>>()
-var sublist =ArrayList<System>()
-var titleList =ArrayList<String>()
+
 
 class SystemFragment : Fragment() {
+    var datalist= ArrayList<ArrayList<System>>()
+    var sublist =ArrayList<System>()
+    var titleList =ArrayList<String>()
 
     private lateinit var binding:FragmentSystemBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initLayoutData()
         binding =DataBindingUtil.inflate(inflater,R.layout.fragment_system,container,false)
+        val layoutManager = LinearLayoutManager(activity)
+        binding.systemList.layoutManager = layoutManager
+        val listAdapter = SystemAdapter(titleList)
+        binding.systemList.adapter = listAdapter
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initLayoutData()
+
         Thread.sleep(500)
-        initLayout()
+
     }
 
-    companion object
-    {
-        //静态
-        @JvmStatic
-        fun newInstance(): SystemFragment {
-            return SystemFragment()
-        }
-    }
 
     private fun initLayoutData(){
         val url="https://www.wanandroid.com/tree/json"
@@ -96,19 +91,7 @@ class SystemFragment : Fragment() {
         }
     }
 
-    private fun initLayout(){
 
-        val layoutManager = LinearLayoutManager(activity)
-        binding.systemList.layoutManager = layoutManager
-        val listAdapter = SystemAdapter(titleList)
-        binding.systemList.adapter = listAdapter
-
-
-
-
-
-
-    }
 
 
 }

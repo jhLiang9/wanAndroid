@@ -6,20 +6,19 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         >
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            tools:srcCompat="@tools:sample/avatars" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            tools:srcCompat="@tools:sample/avatars" />-->
 
         <TextView
             android:id="@+id/systemTitle"
@@ -28,6 +27,12 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:text="TextView" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ff888888"
+            android:layout_below="@+id/systemTitle"
+            />
     </LinearLayout>
 
 </RelativeLayout>
