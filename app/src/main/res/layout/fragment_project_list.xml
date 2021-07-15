@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/nav"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <data>
+              <variable
+                  name="projectViewModel"
+                  type="com.example.wanandroid.viewmodel.ProjectViewModel" />
+        </data>
+        <FrameLayout 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                </androidx.recyclerview.widget.RecyclerView>
 
 
 
-</FrameLayout>
+        </FrameLayout>
+</layout>

@@ -1,21 +1,20 @@
 package com.example.wanandroid.fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
+import com.example.wanandroid.databinding.FragmentProjectContentBinding
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.viewmodel.SharedViewModel
+import com.example.wanandroid.viewmodel.ProjectViewModel
 
-import kotlinx.android.synthetic.main.fragment_project_content.*
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -26,10 +25,12 @@ import kotlin.concurrent.thread
 
 
 class ProjectContentFragment: Fragment() {
-    private val model: SharedViewModel by activityViewModels()
+    private val model: ProjectViewModel by activityViewModels()
     private var cid: Int? = null
+    private lateinit var binding:FragmentProjectContentBinding
 
     companion object {
+
         fun newInstance() = ProjectContentFragment()
     }
 
@@ -40,13 +41,7 @@ class ProjectContentFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //初始化首个导航的文章
 
-        initContent()
-        content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        Thread.sleep(1000)
-
-        //TODO: 处理加载数据的问题
 
     }
 
@@ -54,7 +49,15 @@ class ProjectContentFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
+        //初始化首个导航的文章
+
+        initContent()
+        //add layout
+        binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        Thread.sleep(1000)
+
+        //TODO: 处理加载数据的问题
         return inflater.inflate(R.layout.fragment_project_content, container, false)
     }
 
@@ -66,17 +69,17 @@ class ProjectContentFragment: Fragment() {
         projectList=getContent("https://www.wanandroid.com/project/list/1/json?cid=294")
 
         //layout load
-        content.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
+        binding.content.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
         val layoutManager = LinearLayoutManager(activity)
-        content.layoutManager = layoutManager
+        binding.content.layoutManager = layoutManager
         val adapter = ProjectContentAdapter(projectList)
-        content.adapter = adapter
+        binding.content.adapter = adapter
     }
      fun refreshProjects(cid:Int) { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
          projectList=getContent(startURL+cid.toString())
          val layoutManager = LinearLayoutManager(activity)
-         content.layoutManager = layoutManager
-         content.adapter?.notifyDataSetChanged()
+         binding.content.layoutManager = layoutManager
+         binding.content.adapter?.notifyDataSetChanged()
     }
 
 

@@ -3,24 +3,20 @@ package com.example.wanandroid.fragment
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
-import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.adapter.ProjectNavAdapter
-import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.Project
-import com.example.wanandroid.viewmodel.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_project_list.*
+import com.example.wanandroid.viewmodel.ProjectViewModel
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -30,8 +26,9 @@ import kotlin.concurrent.thread
 class ProjectListFragment:Fragment() {
 //    lateinit var cidChangeReceiver: CidBroadcastReceiver
     private val navList=ArrayList<Project>()
-    private val model:SharedViewModel by activityViewModels()
-    var shareModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+
+    private lateinit var viewModel :ProjectViewModel
+
     companion object{
         //注解是为了兼容Java调用时习惯
         @JvmField
@@ -69,9 +66,10 @@ class ProjectListFragment:Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-//        binding.nav.adapter= adapter
 
+        viewModel= ViewModelProvider(this).get(ProjectViewModel::class.java)
+//        binding.nav.adapter= adapter
+//        val binding:ProjectListFragmentBinding
         return inflater.inflate(R.layout.fragment_project_list, container, false)
     }
 
@@ -85,48 +83,48 @@ class ProjectListFragment:Fragment() {
 //        cidChangeReceiver = CidBroadcastReceiver()
 //        activity?.registerReceiver(cidChangeReceiver, intentFilter)
         //初始化导航内容
-        initNav()
+//        initNav()
 
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题
 
     }
 
-    private fun initNav() {
-        //layout
-        //分割线
-        nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
-        //layout data
-        thread {
-            val client= OkHttpClient()
-            val request = Request.Builder()
-                .url("https://www.wanandroid.com/project/tree/json")
-        //.url("https://www.wanandroid.com/article/list/0/json")
-                .build()
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            val jsondata= JSONObject(responseData).getString("data")
-            try {
-                val jsonArray = JSONArray(jsondata)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val id=jsonObject.getInt("id")
-                    val name=jsonObject.getString("name")
-                    navList.add(Project(null,null,id,name,null,null,null
-                    ,null))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        //layout
-        val layoutManager = LinearLayoutManager(activity)
-        nav.layoutManager = layoutManager
-        val adapter = ProjectNavAdapter(navList)
-
-        nav.adapter = adapter
-    }
+//    private fun initNav() {
+//        //layout
+//        //分割线
+//        nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
+//        //layout data
+//        thread {
+//            val client= OkHttpClient()
+//            val request = Request.Builder()
+//                .url("https://www.wanandroid.com/project/tree/json")
+//        //.url("https://www.wanandroid.com/article/list/0/json")
+//                .build()
+//            val response = client.newCall(request).execute()
+//            val responseData = response.body?.string()
+//            val jsondata= JSONObject(responseData).getString("data")
+//            try {
+//                val jsonArray = JSONArray(jsondata)
+//                for (i in 0 until jsonArray.length()) {
+//                    val jsonObject = jsonArray.getJSONObject(i)
+//                    val id=jsonObject.getInt("id")
+//                    val name=jsonObject.getString("name")
+//                    navList.add(Project(null,null,id,name,null,null,null
+//                    ,null))
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//
+//        //layout
+//        val layoutManager = LinearLayoutManager(activity)
+//        nav.layoutManager = layoutManager
+//        val adapter = ProjectNavAdapter(navList)
+//
+//        nav.adapter = adapter
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

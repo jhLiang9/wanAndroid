@@ -1,26 +1,14 @@
 package com.example.wanandroid.adapter
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.children
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
-import com.example.wanandroid.activity.MainActivity
 
 import com.example.wanandroid.entity.Project
 import com.example.wanandroid.fragment.ProjectContentFragment
-import com.example.wanandroid.viewmodel.SharedViewModel
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.nio.channels.Selector
 
 

@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid">
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.TestActivity" /> <!-- dialog -->
+
         <activity
             android:name=".activity.RegisterActivity"
             android:label="注册" />

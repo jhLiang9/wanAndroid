@@ -14,33 +14,21 @@ import com.example.wanandroid.adapter.SystemAdapter
 import com.example.wanandroid.adapter.SystemContentAdapter
 
 import com.example.wanandroid.entity.System
-import com.google.android.flexbox.FlexboxLayoutManager
-import kotlinx.android.synthetic.main.fragment_project_list.*
-import kotlinx.android.synthetic.main.fragment_system.*
-import kotlinx.android.synthetic.main.fragment_system.system_list
-import kotlinx.android.synthetic.main.item_system.*
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 var datalist= ArrayList<ArrayList<System>>()
 var sublist =ArrayList<System>()
 var titleList =ArrayList<String>()
-/**
- * A simple [Fragment] subclass.
- * Use the [SystemFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SystemFragment : Fragment() {
 
-
+//    private lateinit var binding:
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,6 +39,7 @@ class SystemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_system, container, false)
     }
 
@@ -116,18 +105,18 @@ class SystemFragment : Fragment() {
 
     private fun initLayout(){
         //瀑布布局
-        val layoutManager = LinearLayoutManager(activity)
-        system_list.layoutManager = layoutManager
-        val listAdapter = SystemAdapter(titleList)
-        system_list.adapter = listAdapter
+//        val layoutManager = LinearLayoutManager(activity)
+//        system_list.layoutManager = layoutManager
+//        val listAdapter = SystemAdapter(titleList)
+//        system_list.adapter = listAdapter
+//
+//
+//
 
-
-
-//        val contentLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-
-        system_detail.layoutManager = LinearLayoutManager(activity)
-        val detialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
-        system_detail.adapter = detialAdapter
+//
+//        system_detail.layoutManager = LinearLayoutManager(activity)
+//        val detialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
+//        system_detail.adapter = detialAdapter
 
     }
 

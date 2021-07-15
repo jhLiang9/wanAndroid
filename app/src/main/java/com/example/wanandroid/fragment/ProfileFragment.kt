@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.LoginActivity
-import kotlinx.android.synthetic.main.fragment_profile.*
+import com.example.wanandroid.databinding.FragmentHomePageBinding
+import com.example.wanandroid.databinding.FragmentProfileBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -21,18 +22,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private val user:String?=null
-
+    private lateinit var binding: FragmentProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
 
@@ -40,11 +35,12 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        username.setOnClickListener {
+
+        binding.username.setOnClickListener {
             if(user==null){//未登录状态,点击进行登录
                 val intent:Intent=Intent(activity,LoginActivity::class.java)
                 startActivityForResult(intent,1)//返回用户,用intent承载
-                username.setText(intent.getStringExtra("name"))
+                binding.username.setText(intent.getStringExtra("name"))
 
                 val collect =intent.getStringExtra("collectIds")
                 TODO("获得用户收藏")
@@ -70,8 +66,7 @@ class ProfileFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             ProfileFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }

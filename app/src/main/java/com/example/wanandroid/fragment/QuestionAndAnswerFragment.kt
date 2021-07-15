@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.adapter.QAAdapter
+import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
-import kotlinx.android.synthetic.main.fragment_home_page.*
-import kotlinx.android.synthetic.main.fragment_question_and_answer.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -31,11 +31,18 @@ private const val ARG_PARAM2 = "param2"
 class QuestionAndAnswerFragment : Fragment() {
 
     private var QAList =ArrayList<Article>()
+    private lateinit var binding:FragmentQuestionAndAnswerBinding
+
+    init {
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_question_and_answer, container, false)
     }
 
@@ -63,14 +70,14 @@ class QuestionAndAnswerFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         init()
         //分割线
-        QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-
-        Thread.sleep(1000)
-        //TODO: 处理加载数据的问题
-        val layoutManager = LinearLayoutManager(activity)
-        QARecyclerView.layoutManager = layoutManager
-        val adapter = QAAdapter(QAList)
-        QARecyclerView.adapter = adapter
+//        QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+//
+//        Thread.sleep(1000)
+//        //TODO: 处理加载数据的问题
+//        val layoutManager = LinearLayoutManager(activity)
+//        QARecyclerView.layoutManager = layoutManager
+//        val adapter = QAAdapter(QAList)
+//        QARecyclerView.adapter = adapter
     }
 
 

@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
-import kotlinx.android.synthetic.main.fragment_home_page.*
-import kotlinx.android.synthetic.main.fragment_project.*
+
 
 class ProjectFragment: Fragment() {
 

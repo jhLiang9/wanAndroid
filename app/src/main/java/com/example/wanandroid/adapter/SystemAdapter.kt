@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.entity.System
-import com.google.android.flexbox.FlexboxLayout
+
 
 class SystemAdapter( val systemList:List<String>) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
