@@ -15,7 +15,6 @@ import com.example.wanandroid.entity.Article
 
 
 class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
-    private val mContext: Context? = null
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -28,7 +27,6 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         val viewHolder=ViewHolder(view)
-
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition //获取用户点击的postion
@@ -48,7 +46,7 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         holder.author.text=article.author
         holder.superChapterName.text=article.superChapterName
         holder.time.text=article.time
-        //holder.fruitName.text = fruit.name
+
 
     }
 

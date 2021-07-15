@@ -1,18 +1,14 @@
 package com.example.wanandroid.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.SystemAdapter
-import com.example.wanandroid.adapter.SystemContentAdapter
 import com.example.wanandroid.databinding.FragmentSystemBinding
 
 import com.example.wanandroid.entity.System
@@ -79,20 +75,20 @@ class SystemFragment : Fragment() {
 
                     val children= JSONArray(jsonObject.getString("children"))
                     val parent_name=jsonObject.getString("name")
-                    titleList.add(parent_name)
-                    for(j in 0 until children.length()){
-                        val temp=children.getJSONObject(j)
-                        val courseId=temp.getInt("courseId")
-                        val id =temp.getInt("id")
-                        val name =temp.getString("name")
-
-                        val order=temp.getInt("order")
-                        val parentChapterId=temp.getInt("parentChapterId")
-                        val userControlSetTop=temp.getBoolean("userControlSetTop")
-                        val visible=temp.getInt("visible")
-                       sublist.add(System(null,courseId,id,name,order,parentChapterId,userControlSetTop,visible)) //内层 children为null
-                    }
-                    datalist.add(sublist)
+                    titleList.add(parent_name.toString())
+//                    for(j in 0 until children.length()){
+//                        val temp=children.getJSONObject(j)
+//                        val courseId=temp.getInt("courseId")
+//                        val id =temp.getInt("id")
+//                        val name =temp.getString("name")
+//
+//                        val order=temp.getInt("order")
+//                        val parentChapterId=temp.getInt("parentChapterId")
+//                        val userControlSetTop=temp.getBoolean("userControlSetTop")
+//                        val visible=temp.getInt("visible")
+//                       sublist.add(System(null,courseId,id,name,order,parentChapterId,userControlSetTop,visible)) //内层 children为null
+//                    }
+//                    datalist.add(sublist)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -101,19 +97,16 @@ class SystemFragment : Fragment() {
     }
 
     private fun initLayout(){
-        //瀑布布局
-//        val layoutManager = LinearLayoutManager(activity)
-//        system_list.layoutManager = layoutManager
-//        val listAdapter = SystemAdapter(titleList)
-//        system_list.adapter = listAdapter
-//
-//
-//
 
-//
-//        system_detail.layoutManager = LinearLayoutManager(activity)
-//        val detialAdapter = SystemContentAdapter(sublist) //TODO:maybe some problem
-//        system_detail.adapter = detialAdapter
+        val layoutManager = LinearLayoutManager(activity)
+        binding.systemList.layoutManager = layoutManager
+        val listAdapter = SystemAdapter(titleList)
+        binding.systemList.adapter = listAdapter
+
+
+
+
+
 
     }
 

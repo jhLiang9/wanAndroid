@@ -21,7 +21,7 @@ class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_content, parent, false)
-        val viewHolder:ViewHolder =ViewHolder(view)
+        val viewHolder =ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition //获取用户点击的postion
@@ -36,7 +36,7 @@ class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contentList[position]
-        holder.description.text=content.classify
+        holder.description.text=content.description
         holder.author.text=content.author
         holder.time.text=content.time
         holder.title.text=content.title

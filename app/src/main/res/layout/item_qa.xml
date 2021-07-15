@@ -20,14 +20,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:id="@+id/author" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/time"
-            android:gravity="right"
-            android:layout_toEndOf="@+id/author" />
+            android:layout_alignParentRight="true"
+            android:textSize="12dp"
+             />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/rl_middle"
@@ -35,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_top"
         android:gravity="center_vertical"
-        android:layout_marginTop="7sp"
+        android:layout_marginTop="4sp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
         <TextView
@@ -43,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="17dp"
             android:maxLines="1"
             />
     </LinearLayout>
@@ -54,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_middle"
         android:gravity="center_vertical"
-        android:layout_marginTop="7sp"
+        android:layout_marginTop="4sp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
         <TextView
@@ -62,26 +64,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:maxLines="2"
             />
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/rl_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_mid_low"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/rl_mid_low"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:layout_marginTop="5sp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp">-->
 
 
-        <TextView
-            android:id="@+id/classify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+<!--        <TextView-->
+<!--            android:id="@+id/superChapterName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content" />-->
 
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 </RelativeLayout>

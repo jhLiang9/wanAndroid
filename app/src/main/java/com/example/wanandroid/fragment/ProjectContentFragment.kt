@@ -1,5 +1,6 @@
 package com.example.wanandroid.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
+import com.example.wanandroid.database.ArticleDatabase
 import com.example.wanandroid.databinding.FragmentProjectContentBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.viewmodel.ProjectViewModel
@@ -29,11 +32,22 @@ class ProjectContentFragment: Fragment() {
     private var cid: Int? = null
     private lateinit var binding:FragmentProjectContentBinding
 
-    companion object {
 
-        fun newInstance() = ProjectContentFragment()
+    companion object{
+        @Volatile
+        private var INSTANCE: ProjectContentFragment? = null
     }
 
+    fun getInstance(context: Context):ProjectContentFragment{
+        synchronized(this){
+            var instance = INSTANCE
+            if(instance==null){
+                instance= ProjectContentFragment()
+                INSTANCE =instance
+            }
+            return instance
+        }
+    }
 
     var projectList=ArrayList<Article>()
     val startURL:String="https://www.wanandroid.com/project/list/1/json?cid="
@@ -41,6 +55,13 @@ class ProjectContentFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //初始化首个导航的文章
+//        initContent()
+        //add layout
+        binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        Thread.sleep(1000)
+
+        //TODO: 处理加载数据的问题
 
 
     }
@@ -50,15 +71,8 @@ class ProjectContentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
-        //初始化首个导航的文章
 
-        initContent()
-        //add layout
-        binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        Thread.sleep(1000)
-
-        //TODO: 处理加载数据的问题
-        return inflater.inflate(R.layout.fragment_project_content, container, false)
+        return binding.root
     }
 
 

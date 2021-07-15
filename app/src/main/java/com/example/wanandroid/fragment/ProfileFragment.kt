@@ -1,11 +1,13 @@
 package com.example.wanandroid.fragment
 
 import android.content.Intent
+import android.database.DatabaseUtils
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.LoginActivity
 import com.example.wanandroid.databinding.FragmentHomePageBinding
@@ -25,17 +27,14 @@ class ProfileFragment : Fragment() {
 
     private val user:String?=null
     private lateinit var binding: FragmentProfileBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile,container,false)
         binding.username.setOnClickListener {
             if(user==null){//未登录状态,点击进行登录
                 val intent:Intent=Intent(activity,LoginActivity::class.java)
@@ -53,15 +52,7 @@ class ProfileFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ProfileFragment().apply {

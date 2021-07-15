@@ -19,7 +19,7 @@ import org.json.JSONArray
 class LoginActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏？
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏？
         setContentView(R.layout.activity_login)
 //        setSupportActionBar(logintoolbar)
 

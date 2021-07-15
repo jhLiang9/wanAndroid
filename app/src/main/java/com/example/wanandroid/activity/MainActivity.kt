@@ -24,10 +24,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //hide the title bar
+        supportActionBar?.hide()
 
         Log.d("MainActivity","initialize")
-//        var shareModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
-            //init binding
+
+        //init binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view =binding.root
         Log.d("MainActivity","binding init")

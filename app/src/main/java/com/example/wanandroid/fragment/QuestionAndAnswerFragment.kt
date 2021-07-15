@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
@@ -15,31 +18,21 @@ import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-// TODO: Rename parameter arguments, choose names that match
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [QuestionAndAnswerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class QuestionAndAnswerFragment : Fragment() {
 
     private var QAList =ArrayList<Article>()
     private lateinit var binding:FragmentQuestionAndAnswerBinding
 
-    init {
-
-    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_question_and_answer, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_question_and_answer,container,false)
+        return binding.root
     }
 
 
@@ -47,14 +40,14 @@ class QuestionAndAnswerFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         init()
         //分割线
-//        QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-//
-//        Thread.sleep(1000)
-//        //TODO: 处理加载数据的问题
-//        val layoutManager = LinearLayoutManager(activity)
-//        QARecyclerView.layoutManager = layoutManager
-//        val adapter = QAAdapter(QAList)
-//        QARecyclerView.adapter = adapter
+        binding.QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+
+        Thread.sleep(1000)
+        //TODO: 处理加载数据的问题
+        val layoutManager = LinearLayoutManager(activity)
+        binding.QARecyclerView.layoutManager = layoutManager
+        val adapter = QAAdapter(QAList)
+        binding.QARecyclerView.adapter = adapter
     }
 
 
@@ -85,11 +78,11 @@ class QuestionAndAnswerFragment : Fragment() {
                     if(author==""){
                         author=jsonObject.getString("shareUser")
                     }
-                    val classify=jsonObject.getString("superChapterName")
+                    val superChapterName=jsonObject.getString("superChapterName")
                     val link=jsonObject.getString("link")
                     val description= jsonObject.getString("desc")
                     val id = jsonObject.getInt("id")
-                    QAList.add(Article(id,title, author, time, classify,link,description))
+                    QAList.add(Article(id,title, author, time, superChapterName,link,description))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

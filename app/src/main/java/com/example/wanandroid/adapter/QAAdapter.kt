@@ -18,7 +18,7 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val title: TextView = view.findViewById(R.id.title)
         val author: TextView = view.findViewById(R.id.author)
         val time:TextView = view.findViewById(R.id.time)
-        val classify: TextView =view.findViewById(R.id.classify)
+//        val superChapterName: TextView =view.findViewById(R.id.superChapterName)
         val description:TextView=view.findViewById(R.id.description)
     }
 
@@ -42,7 +42,7 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val article = QAList[position]
         holder.title.text= article.title
         holder.author.text=article.author
-        holder.classify.text=article.classify
+//        holder.superChapterName.text=article.superChapterName
         holder.time.text=article.time
         holder.description.text=article.description
     }
