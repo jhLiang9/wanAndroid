@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/home_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
-        android:layout_weight="1"
-        android:background="#ffffff" />
-
-    <View
-        android:layout_above="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ff888888"/>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="56dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <LinearLayout
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/nav_view"
-        android:layout_gravity="start"
-        />
+        android:background="#ffffff"
+        android:orientation="vertical">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
+        <FrameLayout
+            android:id="@+id/home_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:background="#ffffff" />
+
+        <View
+            android:layout_above="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ff888888"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="start"
-        app:menu="@menu/my_navigation_items" />
-</RelativeLayout>
-</LinearLayout>
+        android:layout_height="56dp">
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/navView"
+            android:layout_gravity="start"
+            />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navView"
+            android:layout_width="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="start"
+            app:menu="@menu/my_navigation_items" />
+    </RelativeLayout>
+    </LinearLayout>
+</layout>

@@ -5,11 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
-import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
@@ -46,25 +42,6 @@ class QuestionAndAnswerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_question_and_answer, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment QuestionAndAnswerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            QuestionAndAnswerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -111,8 +88,8 @@ class QuestionAndAnswerFragment : Fragment() {
                     val classify=jsonObject.getString("superChapterName")
                     val link=jsonObject.getString("link")
                     val description= jsonObject.getString("desc")
-
-                    QAList.add(Article(title, author, time, classify,link,description))
+                    val id = jsonObject.getInt("id")
+                    QAList.add(Article(id,title, author, time, classify,link,description))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

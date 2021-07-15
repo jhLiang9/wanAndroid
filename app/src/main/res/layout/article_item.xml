@@ -59,7 +59,7 @@
 
 
         <TextView
-            android:id="@+id/classify"
+            android:id="@+id/superChapterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

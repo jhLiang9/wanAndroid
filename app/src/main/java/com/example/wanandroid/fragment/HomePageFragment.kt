@@ -37,21 +37,13 @@ class HomePageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        Log.d("HomePage", "onActivityCreated")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-    }
 
     override fun onDestroy() {
-
         super.onDestroy()
-        Log.d("HomeDestory?:", "onDestroyView")
+        Log.d("HomePage:", "onDestroyView")
     }
 
     override fun onCreateView(
@@ -60,19 +52,18 @@ class HomePageFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_page,container,false)
+        Log.d("HomePageFragment","onCreateView")
         val articleRecyclerView = binding.ArticleRecyclerView
 
         initArticles()
         articleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-
         Thread.sleep(1000)
         //TODO: 处理加载数据的问题
         val layoutManager = LinearLayoutManager(activity)
         articleRecyclerView.layoutManager = layoutManager
         val adapter = HomeArticleAdapter(articleList)
         articleRecyclerView.adapter = adapter
-
-        return inflater.inflate(R.layout.fragment_home_page,container,false)
+        return binding.root
     }
 
 
@@ -82,11 +73,11 @@ class HomePageFragment : Fragment() {
             val request = Request.Builder()
                 .url("https://www.wanandroid.com/article/list/0/json")
                 .build()
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            val jsondata= JSONObject(responseData).getString("data")
-            val datas= JSONObject(jsondata).getString("datas")
             try {
+                val response = client.newCall(request).execute()
+                val responseData = response.body?.string()
+                val jsondata= JSONObject(responseData).getString("data")
+                val datas= JSONObject(jsondata).getString("datas")
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
@@ -99,11 +90,13 @@ class HomePageFragment : Fragment() {
                     if(author==""){
                         author=jsonObject.getString("shareUser")
                     }
-                    val classify=jsonObject.getString("superChapterName")
+                    val superChapterName=jsonObject.getString("superChapterName")
                     val url=jsonObject.getString("link")
-                    articleList.add(Article(title, author, time, classify,url,""))
+                    val id=jsonObject.getInt("id")
+                    articleList.add(Article(id,title, author, time, superChapterName,url,""))
                 }
             } catch (e: Exception) {
+                Log.d("HomePage","initArticles Exception")
                 e.printStackTrace()
             }
         }

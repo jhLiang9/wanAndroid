@@ -14,9 +14,7 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         binding = ActivityWebViewBinding.inflate(layoutInflater)
-
         //允许JavaScript运行
-
         val webView = binding.webView
         webView.settings.javaScriptEnabled=true
         webView.webViewClient = WebViewClient()
