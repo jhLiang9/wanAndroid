@@ -19,7 +19,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-
+/**
+ * ViewModel for ProjectFragment
+ */
 
 
 class SystemFragment : Fragment() {
@@ -70,6 +72,7 @@ class SystemFragment : Fragment() {
 
                     val children= JSONArray(jsonObject.getString("children"))
                     val parent_name=jsonObject.getString("name")
+                    //TODO: title list应该有id，章节名称，或者link
                     titleList.add(parent_name.toString())
 //                    for(j in 0 until children.length()){
 //                        val temp=children.getJSONObject(j)

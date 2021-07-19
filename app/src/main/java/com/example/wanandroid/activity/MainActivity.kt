@@ -2,6 +2,7 @@ package com.example.wanandroid.activity
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,9 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
+    private val viewModel :ProjectViewModel by viewModels()
+
+
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MainActivity","destory")
@@ -24,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         //hide the title bar
         supportActionBar?.hide()
 

@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <data>
+        <variable
+            name="projectViewModel"
+            type="com.example.wanandroid.viewmodel.ProjectViewModel" />
+    </data>
     <LinearLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"

@@ -4,11 +4,13 @@ package com.example.wanandroid.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -29,7 +31,7 @@ class ProjectListFragment:Fragment() {
 
     private val navList=ArrayList<Project>()
 
-    private lateinit var viewModel :ProjectViewModel
+    private val viewModel :ProjectViewModel by activityViewModels()
 
     private lateinit var binding:FragmentProjectListBinding
 
@@ -45,29 +47,29 @@ class ProjectListFragment:Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        viewModel= ViewModelProvider(this).get(ProjectViewModel::class.java)
+//        viewModel= ViewModelProvider(this).get(ProjectViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_list,container,false)
-//        binding.nav.adapter= adapter
-
-
-
-        return inflater.inflate(R.layout.fragment_project_list, container, false)
+        Log.i("ProjectList","onCreateView")
+        return binding.root
     }
 
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Thread.sleep(1000)
-        //TODO: 处理加载数据的问题
-//        初始化导航内容
-        initNav()
 
+        //TODO: 处理加载数据的问题
+        //初始化导航内容
+        initNav()
+        val layoutManager = LinearLayoutManager(activity)
+        binding.nav.layoutManager = layoutManager
+        val adapter = ProjectNavAdapter(this.viewModel,navList)
+        binding.nav.adapter= adapter
+        Log.i("ProjectList","activityCreated")
 
     }
 
@@ -100,12 +102,6 @@ class ProjectListFragment:Fragment() {
             }
         }
 
-        //layout
-//
-//        val layoutManager = LinearLayoutManager(activity)
-//        nav.layoutManager = layoutManager
-//        val adapter = ProjectNavAdapter(navList)
-//        nav.adapter = adapter
     }
 
 

@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ProjectViewModel() : ViewModel(){
-    private val _cid = MutableLiveData<Int>(294)
+    var _cid = MutableLiveData<Int>(294)
     val cid :LiveData<Int>
         get() = _cid
 
+    var _change = MutableLiveData<Boolean>()
+    val change :LiveData<Boolean> get()= _change
 }

@@ -1,6 +1,24 @@
 package com.example.wanandroid.entity
 
-class System(val children: List<System>?, val courseId:Int, val id:Int, val name:String,
-             val order:Int, val parentChapterID:Int, val userControlSetTop:Boolean, val visible:Int) {
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
+
+class System(
+    @ColumnInfo(name = "children")
+    val children: List<System>?,
+    @ColumnInfo(name = "courseId")
+    val courseId:Int,
+    @PrimaryKey(autoGenerate = false)
+    val id:Int,
+    @ColumnInfo(name = "name")
+    val name:String,
+    @ColumnInfo(name = "order")
+    val order:Int,
+    @ColumnInfo(name = "parentChapterID")
+    val parentChapterID:Int,
+    @ColumnInfo(name = "userControlSetTop")
+    val userControlSetTop:Boolean,
+    @ColumnInfo(name = "visible")
+    val visible:Int) {
 
 }

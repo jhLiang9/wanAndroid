@@ -2,12 +2,14 @@ package com.example.wanandroid.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -28,8 +30,8 @@ import kotlin.concurrent.thread
 
 
 class ProjectContentFragment: Fragment() {
-    private val model: ProjectViewModel by activityViewModels()
-    private var cid: Int? = null
+
+    private val viewModel :ProjectViewModel by activityViewModels()
     private lateinit var binding:FragmentProjectContentBinding
 
 
@@ -55,11 +57,13 @@ class ProjectContentFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         //初始化首个导航的文章
-//        initContent()
+         initContent()
         //add layout
         binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        Thread.sleep(1000)
+
+        Thread.sleep(500)
 
         //TODO: 处理加载数据的问题
 
@@ -71,6 +75,17 @@ class ProjectContentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
+
+        viewModel.change.observe(viewLifecycleOwner, Observer{
+
+                cidChanged-> if(cidChanged){
+            Log.i("ProjectContent","get Cid changed")
+            Log.i("ProjectContent",startURL+viewModel.cid.value.toString())
+            projectList=getContent(startURL+viewModel.cid.value.toString())
+            viewModel._change.value=false
+
+        }
+        })
 
         return binding.root
     }
@@ -89,12 +104,8 @@ class ProjectContentFragment: Fragment() {
         val adapter = ProjectContentAdapter(projectList)
         binding.content.adapter = adapter
     }
-     fun refreshProjects(cid:Int) { //修改adapter == 修改list的内容==  通过用户点击的cid 修改list内容
-         projectList=getContent(startURL+cid.toString())
-         val layoutManager = LinearLayoutManager(activity)
-         binding.content.layoutManager = layoutManager
-         binding.content.adapter?.notifyDataSetChanged()
-    }
+
+
 
 
     private fun getContent(url:String):ArrayList<Article>{

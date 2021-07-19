@@ -8,18 +8,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.databinding.ItemProjectContentBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.viewmodel.ProjectViewModel
 
 class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
+     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val description :TextView=view.findViewById(R.id.description)
         val author:TextView =view.findViewById(R.id.author)
         val time :TextView =view.findViewById(R.id.time)
         val title :TextView =view.findViewById(R.id.title)
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_content, parent, false)
         val viewHolder =ViewHolder(view)
 
