@@ -21,11 +21,17 @@ import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-
+//TODO:Not work
 class HomePageFragment : Fragment() {
 
     private  val articleList=ArrayList<Article>()
     private lateinit var binding:FragmentHomePageBinding
+
+    val layoutManager = LinearLayoutManager(activity)
+
+    private  var adapter = HomeArticleAdapter(articleList)
+
+
     companion object {
         @JvmStatic
         fun newInstance() = HomePageFragment().apply {
@@ -53,16 +59,17 @@ class HomePageFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_page,container,false)
         Log.d("HomePageFragment","onCreateView")
-        val articleRecyclerView = binding.ArticleRecyclerView
+
+        //TODO: 处理加载数据的问题
+
 
         initArticles()
-        articleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        Thread.sleep(1000)
-        //TODO: 处理加载数据的问题
-        val layoutManager = LinearLayoutManager(activity)
-        articleRecyclerView.layoutManager = layoutManager
-        val adapter = HomeArticleAdapter(articleList)
-        articleRecyclerView.adapter = adapter
+        binding.ArticleRecyclerView.layoutManager = layoutManager
+        adapter = HomeArticleAdapter(articleList)
+        binding.ArticleRecyclerView.adapter = adapter
+        binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+
         return binding.root
     }
 
@@ -100,7 +107,8 @@ class HomePageFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-
+        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+        Log.i("HomePage","Notify ")
     }
 
 

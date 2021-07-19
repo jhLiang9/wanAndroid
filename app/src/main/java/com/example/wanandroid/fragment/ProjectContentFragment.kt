@@ -33,6 +33,11 @@ class ProjectContentFragment: Fragment() {
 
     private val viewModel :ProjectViewModel by activityViewModels()
     private lateinit var binding:FragmentProjectContentBinding
+    private lateinit var adapter :ProjectContentAdapter
+    val layoutManager = LinearLayoutManager(activity)
+
+    var projectList=ArrayList<Article>()
+    val startURL:String="https://www.wanandroid.com/project/list/1/json?cid="
 
 
     companion object{
@@ -51,21 +56,18 @@ class ProjectContentFragment: Fragment() {
         }
     }
 
-    var projectList=ArrayList<Article>()
-    val startURL:String="https://www.wanandroid.com/project/list/1/json?cid="
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         //初始化首个导航的文章
-         initContent()
+
         //add layout
         binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         Thread.sleep(500)
 
-        //TODO: 处理加载数据的问题
+
 
 
     }
@@ -75,16 +77,23 @@ class ProjectContentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
-
+        initContent()
         viewModel.change.observe(viewLifecycleOwner, Observer{
 
                 cidChanged-> if(cidChanged){
             Log.i("ProjectContent","get Cid changed")
             Log.i("ProjectContent",startURL+viewModel.cid.value.toString())
-            projectList=getContent(startURL+viewModel.cid.value.toString())
+            projectList.removeAll(projectList)
+//            projectList=getContent(startURL+viewModel.cid.value.toString())
+            var fullUrl = startURL+viewModel.cid.value.toString()
+            var temp :ArrayList<Article> = getContent(fullUrl)
+            Thread.sleep(500)
+            Log.i("Project", temp.size.toString())
+            projectList.addAll(temp)
+            binding.content.adapter?.notifyDataSetChanged()
             viewModel._change.value=false
 
-        }
+         }
         })
 
         return binding.root
@@ -94,14 +103,15 @@ class ProjectContentFragment: Fragment() {
 
 
     private fun initContent() {
+        //TODO: 处理加载数据的问题
         //data
         projectList=getContent("https://www.wanandroid.com/project/list/1/json?cid=294")
 
         //layout load
         binding.content.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
-        val layoutManager = LinearLayoutManager(activity)
+
         binding.content.layoutManager = layoutManager
-        val adapter = ProjectContentAdapter(projectList)
+        adapter = ProjectContentAdapter(projectList)
         binding.content.adapter = adapter
     }
 
@@ -132,10 +142,15 @@ class ProjectContentFragment: Fragment() {
                     val id =jsonObject.getInt("id")
                     res.add(Article(id,title,author,time,description,link,""))
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+
         }
+//        projectList.removeAll(projectList)
+//        projectList.addAll(res)
+//        this.adapter.notifyDataSetChanged()
         return res
     }
 

@@ -15,7 +15,6 @@ import com.example.wanandroid.viewmodel.ProjectViewModel
 class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
 
 
-
      class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val description :TextView=view.findViewById(R.id.description)
         val author:TextView =view.findViewById(R.id.author)
@@ -24,14 +23,13 @@ class ProjectContentAdapter (val contentList:List<Article>) : RecyclerView.Adapt
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_content, parent, false)
         val viewHolder =ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition //获取用户点击的postion
+            val position = viewHolder.adapterPosition //获取用户点击的position
             val article =contentList[position]
             val url=article.url
             val intent = Intent(parent.context, WebViewActivity::class.java)
