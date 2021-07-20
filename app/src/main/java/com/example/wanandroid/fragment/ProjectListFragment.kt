@@ -19,12 +19,18 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectNavAdapter
 import com.example.wanandroid.databinding.FragmentProjectListBinding
 import com.example.wanandroid.entity.Project
+import com.example.wanandroid.service.ProjectApiService
 import com.example.wanandroid.viewmodel.ProjectViewModel
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.Callable
 import kotlin.concurrent.thread
 
 class ProjectListFragment:Fragment() {
@@ -54,9 +60,11 @@ class ProjectListFragment:Fragment() {
 //        viewModel= ViewModelProvider(this).get(ProjectViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_list,container,false)
         Log.i("ProjectList","onCreateView")
+
+
+
         return binding.root
     }
-
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -73,34 +81,42 @@ class ProjectListFragment:Fragment() {
 
     }
 
-    private fun initNav() {
+     private fun initNav() {
         //layout
         //分割线
         val nav =binding.nav
         nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
         //layout data
-        thread {
-            val client= OkHttpClient()
-            val request = Request.Builder()
-                .url("https://www.wanandroid.com/project/tree/json")
-        //.url("https://www.wanandroid.com/article/list/0/json")
-                .build()
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            val jsondata= JSONObject(responseData).getString("data")
-            try {
-                val jsonArray = JSONArray(jsondata)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val id=jsonObject.getInt("id")
-                    val name=jsonObject.getString("name")
-                    navList.add(Project(null,null,id,name,null,null,null
-                    ,null))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+        val retrofit =Retrofit.Builder()
+            .baseUrl("https://www.wanandroid.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val articleService = retrofit.create(ProjectApiService::class.java)
+
+
+
+//        thread {
+//            val client= OkHttpClient()
+//            val request = Request.Builder()
+//                .url("https://www.wanandroid.com/project/tree/json")
+//        //.url("https://www.wanandroid.com/article/list/0/json")
+//                .build()
+//            val response = client.newCall(request).execute()
+//            val responseData = response.body?.string()
+//            val jsondata= JSONObject(responseData).getString("data")
+//            try {
+//                val jsonArray = JSONArray(jsondata)
+//                for (i in 0 until jsonArray.length()) {
+//                    val jsonObject = jsonArray.getJSONObject(i)
+//                    val id=jsonObject.getInt("id")
+//                    val name=jsonObject.getString("name")
+//                    navList.add(Project(null,null,id,name,null,null,null
+//                    ,null))
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
 
     }
 
