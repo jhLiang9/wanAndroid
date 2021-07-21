@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.databinding.ArticleItemBinding
 import com.example.wanandroid.entity.Article
 
 
@@ -25,6 +26,8 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+//        val binding = ArticleItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         val viewHolder=ViewHolder(view)
 

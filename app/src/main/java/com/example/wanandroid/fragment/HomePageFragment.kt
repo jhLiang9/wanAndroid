@@ -13,33 +13,25 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.service.ArticleApi
 import com.example.wanandroid.utils.HtmlElementUtil
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.internal.wait
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
-//TODO:Not work
+
 class HomePageFragment : Fragment() {
 
     private  val articleList=ArrayList<Article>()
     private lateinit var binding:FragmentHomePageBinding
 
-    val layoutManager = LinearLayoutManager(activity)
-
-    private  var adapter = HomeArticleAdapter(articleList)
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = HomePageFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -52,35 +44,38 @@ class HomePageFragment : Fragment() {
         Log.d("HomePage:", "onDestroyView")
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_page,container,false)
-        Log.d("HomePageFragment","onCreateView")
-
-        //TODO: 处理加载数据的问题
 
 
-        initArticles()
-        binding.ArticleRecyclerView.layoutManager = layoutManager
-        adapter = HomeArticleAdapter(articleList)
-        binding.ArticleRecyclerView.adapter = adapter
         binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+        initArticles()
+//        Thread.sleep(1000)
+        //TODO: 处理加载数据的问题
+        val layoutManager = LinearLayoutManager(activity)
+        binding.ArticleRecyclerView.layoutManager = layoutManager
+        //有数据
+        val adapter = HomeArticleAdapter(articleList)
+        binding.ArticleRecyclerView.adapter = adapter
+
 
         return binding.root
     }
 
 
-    private fun initArticles() {//加载数据
+
+//    加载数据
+    private fun initArticles() {
         thread {
-            val client= OkHttpClient()
-            val request = Request.Builder()
-                .url("https://www.wanandroid.com/article/list/0/json")
-                .build()
-            try {
+                val client= OkHttpClient()
+                val request = Request.Builder()
+                    .url("https://www.wanandroid.com/article/list/0/json")
+                    .build()
                 val response = client.newCall(request).execute()
                 val responseData = response.body?.string()
                 val jsondata= JSONObject(responseData).getString("data")
@@ -100,17 +95,26 @@ class HomePageFragment : Fragment() {
                     val superChapterName=jsonObject.getString("superChapterName")
                     val url=jsonObject.getString("link")
                     val id=jsonObject.getInt("id")
+
                     articleList.add(Article(id,title, author, time, superChapterName,url,""))
                 }
-            } catch (e: Exception) {
-                Log.d("HomePage","initArticles Exception")
-                e.printStackTrace()
+
             }
         }
-        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
-        Log.i("HomePage","Notify ")
+
     }
 
+//    private fun initArticles(){
+//        ArticleApi.retrofitService.getArticle().enqueue(
+//            object: Callback<String> {
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                        Log.i("HPF",response.body().toString())
+//                    response.body()
+//                }
+//
+//                override fun onFailure(call: Call<String>, t: Throwable) {
+//
+//                }
+//            })
+//    }
 
-
-}

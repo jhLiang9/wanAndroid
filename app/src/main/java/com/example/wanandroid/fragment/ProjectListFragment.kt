@@ -61,8 +61,6 @@ class ProjectListFragment:Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_list,container,false)
         Log.i("ProjectList","onCreateView")
 
-
-
         return binding.root
     }
 

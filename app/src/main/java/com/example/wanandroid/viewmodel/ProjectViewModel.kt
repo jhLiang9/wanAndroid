@@ -12,4 +12,7 @@ class ProjectViewModel() : ViewModel(){
 
     var _change = MutableLiveData<Boolean>()
     val change :LiveData<Boolean> get()= _change
+    fun change123(){
+
+    }
 }

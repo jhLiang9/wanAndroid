@@ -1,71 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--首页展示文章的格式-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="article"
+            type="com.example.wanandroid.entity.Article" />
+    </data>
 
     <RelativeLayout
-        android:id="@+id/rl_top"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="2sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:textSize="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/author" />
+            android:gravity="center_vertical"
+            android:layout_marginTop="2sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/author" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time"
+                android:textSize="12dp"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_middle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/time"
-            android:textSize="12dp"
-            android:layout_alignParentRight="true"
-             />
+            android:layout_below="@id/rl_top"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_middle"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+
+            <TextView
+                android:id="@+id/superChapterName"
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/rl_middle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_top"
-        android:gravity="center_vertical"
-        android:layout_marginTop="3sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textSize="18dp"
-        android:maxLines="1"
-        />
-    </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/rl_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_middle"
-        android:gravity="center_vertical"
-        android:layout_marginTop="3sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
-
-
-        <TextView
-            android:id="@+id/superChapterName"
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-    </RelativeLayout>
-</RelativeLayout>
+</layout>
