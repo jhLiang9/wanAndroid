@@ -32,6 +32,7 @@ class QuestionAndAnswerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_question_and_answer,container,false)
+        binding.QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         return binding.root
     }
 
@@ -40,10 +41,9 @@ class QuestionAndAnswerFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         init()
         //分割线
-        binding.QARecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
-        Thread.sleep(1000)
-        //TODO: 处理加载数据的问题
+
+
         val layoutManager = LinearLayoutManager(activity)
         binding.QARecyclerView.layoutManager = layoutManager
         val adapter = QAAdapter(QAList)
@@ -87,7 +87,7 @@ class QuestionAndAnswerFragment : Fragment() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+        }.join()
     }
 
 

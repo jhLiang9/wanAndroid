@@ -21,9 +21,9 @@ import okhttp3.Request
 import okhttp3.internal.wait
 import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+//import retrofit2.Call
+//import retrofit2.Callback
+//import retrofit2.Response
 import kotlin.concurrent.thread
 
 
@@ -55,8 +55,7 @@ class HomePageFragment : Fragment() {
 
         binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         initArticles()
-//        Thread.sleep(1000)
-        //TODO: 处理加载数据的问题
+
         val layoutManager = LinearLayoutManager(activity)
         binding.ArticleRecyclerView.layoutManager = layoutManager
         //有数据
@@ -69,7 +68,7 @@ class HomePageFragment : Fragment() {
 
 
 
-//    加载数据
+//    加载数据 Solution:join
     private fun initArticles() {
         thread {
                 val client= OkHttpClient()
@@ -95,11 +94,10 @@ class HomePageFragment : Fragment() {
                     val superChapterName=jsonObject.getString("superChapterName")
                     val url=jsonObject.getString("link")
                     val id=jsonObject.getInt("id")
-
                     articleList.add(Article(id,title, author, time, superChapterName,url,""))
                 }
 
-            }
+            }.join()
         }
 
     }

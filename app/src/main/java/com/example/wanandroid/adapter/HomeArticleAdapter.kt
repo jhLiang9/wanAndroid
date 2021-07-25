@@ -50,7 +50,6 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         holder.superChapterName.text=article.superChapterName
         holder.time.text=article.time
 
-
     }
 
     override fun getItemCount(): Int {
