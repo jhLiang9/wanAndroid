@@ -5,6 +5,7 @@
 ##### 2.The rest of the user module
 ##### 3.implement the cache for better user experience
 ##### 4.Better UI ?
+###### 5.Strucutor?  
 
 ### About the project:
 This is a project for learning Kotlin and Android. It may contains lots of problem, so any share and discussion and share will be great welcomed. Thanks.
