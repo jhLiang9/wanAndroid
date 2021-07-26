@@ -96,7 +96,7 @@ class ProjectContentFragment: Fragment() {
             Log.i("Project", temp.size.toString())
             projectList.addAll(temp)
             binding.content.adapter?.notifyDataSetChanged()
-            viewModel._change.value=false
+            viewModel.setChange(false)
 
          }
         })

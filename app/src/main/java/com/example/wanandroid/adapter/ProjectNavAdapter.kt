@@ -37,7 +37,7 @@ class ProjectNavAdapter (var viewModel:ProjectViewModel,var navList:List<Project
             //获得用户点击的cid
             val cid :Int= nav.id
             viewModel._cid.value=cid //Solution
-            viewModel._change.value = true
+            viewModel.setChange(true)
             Log.i("ProjectNavAdapter","cid passed ${viewModel._cid.value}")
         }
         return viewHolder
