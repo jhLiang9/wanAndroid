@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("MainActivity","destory")
+        Log.d("MainActivity","destroy")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
