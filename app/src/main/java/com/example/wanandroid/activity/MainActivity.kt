@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityMainBinding
 import com.example.wanandroid.fragment.*
@@ -44,49 +46,66 @@ class MainActivity : AppCompatActivity() {
 
         //初始页面
         binding.navView.setSelectedItemId(R.id.item_news)
-        val start: FragmentTransaction = supportFragmentManager.beginTransaction()
-        start.replace(R.id.home_fragment,HomePageFragment()).commit()
-        supportFragmentManager.executePendingTransactions()
-        binding.navView.setOnNavigationItemSelectedListener (
+        binding.viewPager.adapter = object : FragmentStateAdapter(this){
+            override fun getItemCount(): Int =5
 
-            BottomNavigationView.OnNavigationItemSelectedListener {
-                val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                when(it.itemId){
-                    //首页
-                    R.id.item_news->{
-                        fragmentTransaction.replace(R.id.home_fragment, HomePageFragment()).commit()
-                        return@OnNavigationItemSelectedListener true
-                        //viewpager.setCurrentItem(0)
-                       // return  @OnNavigationItemSelectedListener true
-                    }
-                    //体系
-                    R.id.item_lib->{
-                        fragmentTransaction.replace(R.id.home_fragment, SystemFragment()).commit()
-                        return@OnNavigationItemSelectedListener true
-//                        viewpager.setCurrentItem(1)
-                    }
-                    //问答
-                    R.id.item_find->{
-                        fragmentTransaction.replace(R.id.home_fragment,QuestionAndAnswerFragment()).commit()
-                        return@OnNavigationItemSelectedListener true
-//                        viewpager.setCurrentItem(2)
-                    }
-                    //项目
-                    R.id.item_project->{
-                        fragmentTransaction.replace(R.id.home_fragment, ProjectFragment()).commit()
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    //个人主页
-                    R.id.item_more->{
-                        fragmentTransaction.replace(R.id.home_fragment, ProfileFragment()).commit()
-                        return@OnNavigationItemSelectedListener true
-//                        viewpager.setCurrentItem(4)
-
-                    }
+            override fun createFragment(position: Int): Fragment {
+                return when (position) {
+                    1 ->  HomePageFragment()
+                    2 ->  SystemFragment()
+                    3 ->  QuestionAndAnswerFragment()
+                    4 ->  ProjectFragment()
+                    else -> ProfileFragment()
                 }
-                true
             }
-        )
+
+        }
+
+
+
+//        val start: FragmentTransaction = supportFragmentManager.beginTransaction()
+//        start.replace(R.id.home_fragment,HomePageFragment()).commit()
+//        supportFragmentManager.executePendingTransactions()
+//        binding.navView.setOnNavigationItemSelectedListener (
+//
+//            BottomNavigationView.OnNavigationItemSelectedListener {
+//                val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+//                when(it.itemId){
+//                    //首页
+//                    R.id.item_news->{
+//                        fragmentTransaction.replace(R.id.home_fragment, HomePageFragment()).commit()
+//                        return@OnNavigationItemSelectedListener true
+//                        //viewpager.setCurrentItem(0)
+//                       // return  @OnNavigationItemSelectedListener true
+//                    }
+//                    //体系
+//                    R.id.item_lib->{
+//                        fragmentTransaction.replace(R.id.home_fragment, SystemFragment()).commit()
+//                        return@OnNavigationItemSelectedListener true
+////                        viewpager.setCurrentItem(1)
+//                    }
+//                    //问答
+//                    R.id.item_find->{
+//                        fragmentTransaction.replace(R.id.home_fragment,QuestionAndAnswerFragment()).commit()
+//                        return@OnNavigationItemSelectedListener true
+////                        viewpager.setCurrentItem(2)
+//                    }
+//                    //项目
+//                    R.id.item_project->{
+//                        fragmentTransaction.replace(R.id.home_fragment, ProjectFragment()).commit()
+//                        return@OnNavigationItemSelectedListener true
+//                    }
+//                    //个人主页
+//                    R.id.item_more->{
+//                        fragmentTransaction.replace(R.id.home_fragment, ProfileFragment()).commit()
+//                        return@OnNavigationItemSelectedListener true
+////                        viewpager.setCurrentItem(4)
+//
+//                    }
+//                }
+//                true
+//            }
+//        )
 
         setContentView(view)
 
