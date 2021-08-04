@@ -2,6 +2,7 @@ package com.example.wanandroid.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseArray
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     private val viewModel :ProjectViewModel by viewModels()
 
+    val sparseArray:SparseArray<Fragment> = SparseArray(5)
 
     override fun onDestroy() {
         super.onDestroy()
@@ -46,17 +48,27 @@ class MainActivity : AppCompatActivity() {
 
         //初始页面
         binding.navView.setSelectedItemId(R.id.item_news)
+
+        sparseArray.put(0,HomePageFragment.getInstance())
+        sparseArray.put(1 ,  SystemFragment())
+        sparseArray.put(2 ,  QuestionAndAnswerFragment())
+        sparseArray.put(3 , ProjectFragment())
+        sparseArray.put(4 , ProfileFragment())
+
+
         binding.viewPager.adapter = object : FragmentStateAdapter(this){
             override fun getItemCount(): Int =5
 
             override fun createFragment(position: Int): Fragment {
-                return when (position) {
-                    1 ->  HomePageFragment()
-                    2 ->  SystemFragment()
-                    3 ->  QuestionAndAnswerFragment()
-                    4 ->  ProjectFragment()
-                    else -> ProfileFragment()
-                }
+                return sparseArray.get(position)
+//                return when (position) {
+//                    0 ->  HomePageFragment.getInstance()
+//                    1 ->  SystemFragment()
+//                    2 ->  QuestionAndAnswerFragment()
+//                    3 ->  ProjectFragment()
+//                    4 -> ProfileFragment()
+//                    else -> Fragment()
+//                }
             }
 
         }

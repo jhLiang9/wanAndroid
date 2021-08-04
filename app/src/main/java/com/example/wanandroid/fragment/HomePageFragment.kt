@@ -28,10 +28,21 @@ import kotlin.concurrent.thread
 
 
 class HomePageFragment : Fragment() {
+    companion object {
+        private var instance :HomePageFragment ?=null
+        fun getInstance() :HomePageFragment{
+                if(instance== null){
+                    synchronized(this){
+                        instance = HomePageFragment()
+                    }
+                }
+            return instance as HomePageFragment
+        }
+    }
+
 
     private  val articleList=ArrayList<Article>()
     private lateinit var binding:FragmentHomePageBinding
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
