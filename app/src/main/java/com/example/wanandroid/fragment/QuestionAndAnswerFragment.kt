@@ -24,7 +24,7 @@ class QuestionAndAnswerFragment : Fragment() {
 
     private var QAList =ArrayList<Article>()
     private lateinit var binding:FragmentQuestionAndAnswerBinding
-
+    private val client= OkHttpClient()
 
 
     override fun onCreateView(
@@ -54,7 +54,7 @@ class QuestionAndAnswerFragment : Fragment() {
     private fun init(){
         val url :String="https://wanandroid.com/wenda/list/1/json"
         thread {
-            val client= OkHttpClient()
+
             val request = Request.Builder()
                 .url(url)
                 .build()

@@ -49,11 +49,11 @@ class MainActivity : AppCompatActivity() {
         //初始页面
         binding.navView.setSelectedItemId(R.id.item_news)
 
-        sparseArray.put(0,HomePageFragment.getInstance())
-        sparseArray.put(1 ,  SystemFragment())
-        sparseArray.put(2 ,  QuestionAndAnswerFragment())
-        sparseArray.put(3 , ProjectFragment())
-        sparseArray.put(4 , ProfileFragment())
+        sparseArray.put(0, HomePageFragment.getInstance())
+        sparseArray.put(1, SystemFragment())
+        sparseArray.put(2, QuestionAndAnswerFragment())
+        sparseArray.put(3, ProjectFragment())
+        sparseArray.put(4, ProfileFragment())
 
 
         binding.viewPager.adapter = object : FragmentStateAdapter(this){

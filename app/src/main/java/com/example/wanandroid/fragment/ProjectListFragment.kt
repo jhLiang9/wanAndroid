@@ -19,33 +19,31 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectNavAdapter
 import com.example.wanandroid.databinding.FragmentProjectListBinding
 import com.example.wanandroid.entity.Project
-import com.example.wanandroid.service.ProjectApiService
-import com.example.wanandroid.viewmodel.ProjectViewModel
 
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import com.example.wanandroid.viewmodel.ProjectViewModel
+import okhttp3.*
+
 import org.json.JSONArray
 import org.json.JSONObject
-//import retrofit2.Call
-//import retrofit2.Response
-//import retrofit2.Retrofit
-//import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.Callable
+import java.io.IOException
+
 import kotlin.concurrent.thread
 
 class ProjectListFragment:Fragment() {
 
     private val navList=ArrayList<Project>()
 
+    //委托
     private val viewModel :ProjectViewModel by activityViewModels()
 
     private lateinit var binding:FragmentProjectListBinding
 
+    private val client= OkHttpClient()
+
     companion object{
-        //注解是为了兼容Java调用时习惯
-        @JvmField
+
         var cid :Int= 294
-        @JvmStatic
+
         fun getInstance(){
 
         }
@@ -57,65 +55,54 @@ class ProjectListFragment:Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-//        viewModel= ViewModelProvider(this).get(ProjectViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_list,container,false)
-        Log.i("ProjectList","onCreateView")
+        //线
+        binding.nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
 
+        initProjectNavigation()
+        val layoutManager = LinearLayoutManager(activity)
+        //初始化导航内容
+        binding.nav.layoutManager = layoutManager
+
+        val adapter = ProjectNavAdapter(viewModel,navList)
+        binding.nav.adapter= adapter
         return binding.root
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    /*
+        请求并添加到list中
+     */
+    private fun initProjectNavigation(){
+        val url  = "https://www.wanandroid.com/project/tree/json"
+        val request = Request.Builder()
+            .url(url)
+            .build()
+        val call: Call = client.newCall(request)
+        call.enqueue(  object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
 
-        //初始化导航内容
-        initNav()
-        val layoutManager = LinearLayoutManager(activity)
-        binding.nav.layoutManager = layoutManager
-        val adapter = ProjectNavAdapter(this.viewModel,navList)
-        binding.nav.adapter= adapter
-        Log.i("ProjectList","activityCreated")
-
-    }
-
-     private fun initNav() {
-        //layout
-        //分割线
-        val nav =binding.nav
-        nav.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
-        //layout data
-//        val retrofit =Retrofit.Builder()
-//            .baseUrl("https://www.wanandroid.com/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//        val articleService = retrofit.create(ProjectApiService::class.java)
-
-
-
-        thread {
-            val client= OkHttpClient()
-            val request = Request.Builder()
-                .url("https://www.wanandroid.com/project/tree/json")
-        //.url("https://www.wanandroid.com/article/list/0/json")
-                .build()
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            val jsondata= JSONObject(responseData).getString("data")
-            try {
-                val jsonArray = JSONArray(jsondata)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val id=jsonObject.getInt("id")
-                    val name=jsonObject.getString("name")
-                    navList.add(Project(null,null,id,name,null,null,null
-                    ,null))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
-        }.join()
 
+            override fun onResponse(call: Call, response: Response) {
+                val responseData = response.body?.string()
+                val jsonData= JSONObject(responseData).getString("data")
+                try {
+                    val jsonArray = JSONArray(jsonData)
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val id=jsonObject.getInt("id")
+                        val name=jsonObject.getString("name")
+                        navList.add(Project(null,null,id,name,null,null,null,null))
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
     }
+
+
 
 
 
