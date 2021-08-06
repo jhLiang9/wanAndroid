@@ -70,9 +70,6 @@ class ProjectListFragment:Fragment() {
     }
 
 
-    /*
-        请求并添加到list中
-     */
     private fun initProjectNavigation(){
         val url  = "https://www.wanandroid.com/project/tree/json"
         val request = Request.Builder()
@@ -94,6 +91,7 @@ class ProjectListFragment:Fragment() {
                         val id=jsonObject.getInt("id")
                         val name=jsonObject.getString("name")
                         navList.add(Project(null,null,id,name,null,null,null,null))
+
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -101,10 +99,4 @@ class ProjectListFragment:Fragment() {
             }
         })
     }
-
-
-
-
-
-
 }

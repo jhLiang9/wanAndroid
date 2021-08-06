@@ -25,7 +25,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#ff888888"/>
+            android:background="#808080"/>
         <fragment
             android:id="@+id/project_content"
             android:name="com.example.wanandroid.fragment.ProjectContentFragment"
