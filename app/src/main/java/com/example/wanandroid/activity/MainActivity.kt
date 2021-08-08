@@ -25,14 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     val sparseArray:SparseArray<Fragment> = SparseArray(5)
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("MainActivity","destroy")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         //hide the title bar
         supportActionBar?.hide()
@@ -46,12 +41,12 @@ class MainActivity : AppCompatActivity() {
         //解决底部导航超过三个，无法显示文字的问题
         binding.navView.labelVisibilityMode= LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 
-        //初始页面
-        binding.navView.setSelectedItemId(R.id.item_news)
+//        //初始页面
+//        binding.navView.selectedItemId = R.id.item_news
 
         sparseArray.put(0, HomePageFragment.getInstance())
         sparseArray.put(1, SystemFragment())
-        sparseArray.put(2, QuestionAndAnswerFragment())
+        sparseArray.put(2, QuestionAndAnswerFragment.getInstance())
         sparseArray.put(3, ProjectFragment())
         sparseArray.put(4, ProfileFragment())
 
@@ -61,14 +56,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun createFragment(position: Int): Fragment {
                 return sparseArray.get(position)
-//                return when (position) {
-//                    0 ->  HomePageFragment.getInstance()
-//                    1 ->  SystemFragment()
-//                    2 ->  QuestionAndAnswerFragment()
-//                    3 ->  ProjectFragment()
-//                    4 -> ProfileFragment()
-//                    else -> Fragment()
-//                }
+
             }
 
         }

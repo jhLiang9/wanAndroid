@@ -49,18 +49,6 @@ class HomePageFragment : Fragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d("HomePage", "onActivityCreated")
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("HomePage:", "onDestroyView")
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,7 +78,7 @@ class HomePageFragment : Fragment() {
 
     @WorkerThread
     private fun getArticlesByPage(page: Int) {
-        val url: String = "https://www.wanandroid.com/article/list/$page/json"
+        val url = "https://www.wanandroid.com/article/list/$page/json"
         val request = Request.Builder()
             .url(url)
             .build()

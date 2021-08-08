@@ -12,7 +12,7 @@ import com.example.wanandroid.activity.MainActivity
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.entity.Article
 
-class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
+class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -28,7 +28,7 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val viewHolder:ViewHolder =ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition //获取用户点击的postion
-            val article =QAList[position]
+            val article =qaList[position]
             val url=article.url
             val intent = Intent(parent.context, WebViewActivity::class.java)
             //打开WebView
@@ -39,7 +39,7 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: QAAdapter.ViewHolder, position: Int) {
-        val article = QAList[position]
+        val article = qaList[position]
         holder.title.text= article.title
         holder.author.text=article.author
 //        holder.superChapterName.text=article.superChapterName
@@ -48,6 +48,6 @@ class QAAdapter(val QAList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
     }
 
     override fun getItemCount(): Int {
-        return QAList.size
+        return qaList.size
     }
 }

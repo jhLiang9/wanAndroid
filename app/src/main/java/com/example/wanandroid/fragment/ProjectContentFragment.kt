@@ -97,7 +97,7 @@ class ProjectContentFragment : Fragment() {
         )
 
         //data
-        getContent("https://www.wanandroid.com/project/list/1/json?cid=294")
+        getContent(1,294)
 
         //layout load
         binding.content.addItemDecoration(
@@ -113,8 +113,8 @@ class ProjectContentFragment : Fragment() {
 
 
     }
-    private fun getContent(cid: String,page:String){
-        getContent("https://www.wanandroid.com/project/list/$page/json?cid=$cid")
+    private fun getContent(cid: Int,page:Int){
+        getContent("https://www.wanandroid.com/project/list/${page.toString()}/json?cid=${cid.toString()}")
     }
 
     private fun getContent(url: String){

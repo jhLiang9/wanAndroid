@@ -9,36 +9,33 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
-import com.example.wanandroid.activity.WebViewActivity
-
 import com.example.wanandroid.entity.Project
 import com.example.wanandroid.fragment.ProjectContentFragment
 import com.example.wanandroid.viewmodel.ProjectViewModel
-import java.nio.channels.Selector
 
 
-
-class ProjectNavAdapter (var viewModel:ProjectViewModel,var navList:List<Project>) : RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>(){
+class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Project>) :
+    RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.item_project_nav)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_nav, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_project_nav, parent, false)
 
-        val viewHolder :ViewHolder=ViewHolder(view)
+        val viewHolder: ViewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
 
             val position = viewHolder.adapterPosition //获取用户点击的postion
-            val nav =navList[position]
+            val nav = navList[position]
             //获得用户点击的cid
-            val cid :Int= nav.id
-            viewModel._cid.value=cid //Solution
+            val cid: Int = nav.id
+            viewModel._cid.value = cid //Solution
             viewModel.setChange(true)
-            Log.i("ProjectNavAdapter","cid passed ${viewModel._cid.value}")
+            Log.i("ProjectNavAdapter", "cid passed ${viewModel._cid.value}")
         }
         return viewHolder
     }
