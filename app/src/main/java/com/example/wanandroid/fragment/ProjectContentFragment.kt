@@ -156,6 +156,7 @@ class ProjectContentFragment : Fragment() {
                         Article(id, title, author, time, superChapterName = "", description = description, url = link)
                     )
                 }
+                EventBus.getDefault().post(ProjectContentEvent())
             }
         })
     }

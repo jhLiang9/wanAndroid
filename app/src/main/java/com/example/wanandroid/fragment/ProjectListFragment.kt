@@ -90,6 +90,7 @@ class ProjectListFragment : Fragment() {
                     val name = jsonObject.getString("name")
                     navList.add(Project(null, null, id, name, null, null, null, null))
                 }
+                EventBus.getDefault().post(ProjectListEvent())
             }
         })
     }
