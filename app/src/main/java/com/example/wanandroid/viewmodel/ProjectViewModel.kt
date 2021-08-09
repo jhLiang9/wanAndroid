@@ -15,8 +15,8 @@ class ProjectViewModel() : ViewModel(){
 
      fun getchange(): Boolean? {
         return _change.value
-
     }
+
 
     fun setChange(bool :Boolean){
         _change.value=bool

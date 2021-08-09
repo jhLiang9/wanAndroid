@@ -1,5 +1,6 @@
 package com.example.wanandroid.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,31 +11,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.HomePageDataReadyEvent
-import com.example.wanandroid.service.ArticleApi
+
 import com.example.wanandroid.utils.HtmlElementUtil
 import okhttp3.*
 
-import okhttp3.internal.wait
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-//import retrofit2.Call
-//import retrofit2.Callback
-//import retrofit2.Response
+
 import kotlin.concurrent.thread
 
 
 class HomePageFragment : Fragment() {
 
-    //OkHttpClient
     private val client = OkHttpClient()
 
     private val articleList = ArrayList<Article>()
@@ -52,7 +51,6 @@ class HomePageFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,9 +63,11 @@ class HomePageFragment : Fragment() {
         initFirstPage()
 
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
-//        while(articleList.isEmpty()){}
         binding.ArticleRecyclerView.adapter = HomeArticleAdapter(articleList)
-
+        binding.refreshLayout.setOnRefreshListener {
+            refresh()
+            binding.refreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 
@@ -76,10 +76,18 @@ class HomePageFragment : Fragment() {
         EventBus.getDefault().unregister(this)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event : HomePageDataReadyEvent){
         binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
         Log.d("EventBus","Notify")
+    }
+
+    private fun refresh(){
+        //清除数据集，重新加载
+        articleList.clear()
+        getArticlesByPage(0)
+        getArticlesByPage(1)
     }
 
     private fun initFirstPage() = getArticlesByPage(0)
@@ -98,7 +106,7 @@ class HomePageFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body?.string()
+                val responseData = response.body!!.string()
                 val jsondata = JSONObject(responseData).getString("data")
                 val datas = JSONObject(jsondata).getString("datas")
                 val jsonArray = JSONArray(datas)
@@ -114,9 +122,9 @@ class HomePageFragment : Fragment() {
                         author = jsonObject.getString("shareUser")
                     }
                     val superChapterName = jsonObject.getString("superChapterName")
-                    val url = jsonObject.getString("link")
+                    val link = jsonObject.getString("link")
                     val id = jsonObject.getInt("id")
-                    articleList.add(Article(id, title, author, time, superChapterName, url, ""))
+                    articleList.add(Article(id, title, author, time, superChapterName, link, ""))
                     Log.i("HomePage","data added")
                 }
                 EventBus.getDefault().post(HomePageDataReadyEvent())

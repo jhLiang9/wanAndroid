@@ -47,9 +47,6 @@ class SystemFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        Thread.sleep(500)
-
     }
 
 

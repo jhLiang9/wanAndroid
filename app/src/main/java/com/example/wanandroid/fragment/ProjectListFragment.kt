@@ -21,10 +21,11 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
+
+
 class ProjectListFragment : Fragment() {
 
     private val navList = ArrayList<Project>()
-
     //委托
     private val viewModel: ProjectViewModel by activityViewModels()
 
@@ -41,19 +42,12 @@ class ProjectListFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_project_list, container, false)
         //线
-        binding.nav.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.nav.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         initProjectNavigation()
-        val layoutManager = LinearLayoutManager(activity)
         //初始化导航内容
-        binding.nav.layoutManager = layoutManager
-        val adapter = ProjectNavAdapter(viewModel, navList)
-        binding.nav.adapter = adapter
+        binding.nav.layoutManager = LinearLayoutManager(activity)
+        binding.nav.adapter = ProjectNavAdapter(viewModel, navList)
         return binding.root
     }
 
@@ -71,7 +65,7 @@ class ProjectListFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body?.string()
+                val responseData = response.body!!.string()
                 val jsonData = JSONObject(responseData).getString("data")
                 val jsonArray = JSONArray(jsonData)
                 for (i in 0 until jsonArray.length()) {
@@ -80,7 +74,9 @@ class ProjectListFragment : Fragment() {
                     val name = jsonObject.getString("name")
                     navList.add(Project(null, null, id, name, null, null, null, null))
                 }
+
             }
         })
     }
+
 }

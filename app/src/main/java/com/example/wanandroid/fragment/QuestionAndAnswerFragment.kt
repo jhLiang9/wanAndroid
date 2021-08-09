@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.WorkerThread
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,9 +13,12 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.event.HomePageDataReadyEvent
+import com.example.wanandroid.event.QAEvent
+import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -43,7 +45,7 @@ class QuestionAndAnswerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        EventBus.getDefault().register(this)
+        EventBus.getDefault().register(this)
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_question_and_answer,
@@ -71,16 +73,23 @@ class QuestionAndAnswerFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        EventBus.getDefault().unregister(this)
+        EventBus.getDefault().unregister(this)
     }
 
     
-    
-    fun onEvent(event:HomePageDataReadyEvent){
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: QAEvent){
 
     }
 
     private fun init() {
+        runBlocking {  }
+    }
+
+    private fun test(){
+
+
+
         val url = "https://wanandroid.com/wenda/list/1/json"
 
         val request = Request.Builder()
@@ -115,17 +124,7 @@ class QuestionAndAnswerFragment : Fragment() {
                     val description = jsonObject.getString("desc")
                     val id = jsonObject.getInt("id")
 
-                    qaList.add(
-                        Article(
-                            id,
-                            title,
-                            author,
-                            time,
-                            superChapterName,
-                            link,
-                            description
-                        )
-                    )
+                    qaList.add(Article(id,title, author,time, superChapterName,link,description))
 
                 }
             }
@@ -133,4 +132,5 @@ class QuestionAndAnswerFragment : Fragment() {
         })
 
     }
+
 }
