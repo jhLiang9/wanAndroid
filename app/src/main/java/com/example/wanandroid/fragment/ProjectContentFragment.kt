@@ -100,12 +100,7 @@ class ProjectContentFragment : Fragment() {
         getContent(1,294)
 
         //layout load
-        binding.content.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         binding.content.layoutManager = layoutManager
         adapter = ProjectContentAdapter(projectList)
@@ -114,11 +109,10 @@ class ProjectContentFragment : Fragment() {
 
     }
     private fun getContent(cid: Int,page:Int){
-        getContent("https://www.wanandroid.com/project/list/${page.toString()}/json?cid=${cid.toString()}")
+        getContent("https://www.wanandroid.com/project/list/$page/json?cid=$cid")
     }
 
     private fun getContent(url: String){
-
         val request = Request.Builder()
             .url(url)
             .build()
@@ -129,7 +123,6 @@ class ProjectContentFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val response = client.newCall(request).execute()
                 val responseData = response.body?.string()
                 val jsondata = JSONObject(responseData).getString("data")
                 val datas = JSONObject(jsondata).getString("datas")

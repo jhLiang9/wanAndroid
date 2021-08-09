@@ -38,7 +38,7 @@ class ProjectListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //DataBindingUtil
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_project_list, container, false)
         //线
@@ -74,7 +74,6 @@ class ProjectListFragment : Fragment() {
                     val name = jsonObject.getString("name")
                     navList.add(Project(null, null, id, name, null, null, null, null))
                 }
-
             }
         })
     }

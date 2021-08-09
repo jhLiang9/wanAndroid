@@ -1,5 +1,6 @@
 package com.example.wanandroid.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -77,17 +78,13 @@ class QuestionAndAnswerFragment : Fragment() {
     }
 
     
+    @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: QAEvent){
-
+        binding.QARecyclerView.adapter?.notifyDataSetChanged()
     }
 
     private fun init() {
-        runBlocking {  }
-    }
-
-    private fun test(){
-
 
 
         val url = "https://wanandroid.com/wenda/list/1/json"
@@ -127,10 +124,12 @@ class QuestionAndAnswerFragment : Fragment() {
                     qaList.add(Article(id,title, author,time, superChapterName,link,description))
 
                 }
+                EventBus.getDefault().post(QAEvent())
             }
 
         })
 
     }
+
 
 }
