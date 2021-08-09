@@ -24,10 +24,8 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         val superChapterName: TextView =view.findViewById(R.id.superChapterName)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-//        val binding = ArticleItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         val viewHolder=ViewHolder(view)
 

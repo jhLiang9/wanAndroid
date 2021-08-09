@@ -1,6 +1,7 @@
 package com.example.wanandroid.fragment
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +16,12 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectNavAdapter
 import com.example.wanandroid.databinding.FragmentProjectListBinding
 import com.example.wanandroid.entity.Project
+import com.example.wanandroid.event.ProjectListEvent
 import com.example.wanandroid.viewmodel.ProjectViewModel
 import okhttp3.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -38,7 +43,7 @@ class ProjectListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        EventBus.getDefault().register(this)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_project_list, container, false)
         //线
@@ -49,6 +54,17 @@ class ProjectListFragment : Fragment() {
         binding.nav.layoutManager = LinearLayoutManager(activity)
         binding.nav.adapter = ProjectNavAdapter(viewModel, navList)
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    private fun onEvent(projectListEvent: ProjectListEvent){
+        binding.nav.adapter?.notifyDataSetChanged()
     }
 
 

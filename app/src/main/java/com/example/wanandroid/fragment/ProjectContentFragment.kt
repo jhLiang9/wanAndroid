@@ -19,8 +19,13 @@ import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.database.ArticleDatabase
 import com.example.wanandroid.databinding.FragmentProjectContentBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.event.ProjectContentEvent
+import com.example.wanandroid.event.ProjectListEvent
 import com.example.wanandroid.viewmodel.ProjectViewModel
 import okhttp3.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 import org.json.JSONArray
@@ -64,6 +69,7 @@ class ProjectContentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        EventBus.getDefault().register(this)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
 
@@ -75,14 +81,24 @@ class ProjectContentFragment : Fragment() {
                 var fullUrl = startURL + viewModel.cid.value.toString()
 
                 getContent(fullUrl)
-//                projectList.removeAll(projectList)
-//                projectList.addAll(temp)
+
                 binding.content.adapter?.notifyDataSetChanged()
                 viewModel.setChange(false)
             }
         })
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().register(this)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    private fun onEvent(projectContentEvent: ProjectContentEvent){
+        binding.content.adapter?.notifyDataSetChanged()
     }
 
     private fun initView() {
