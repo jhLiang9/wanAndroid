@@ -14,7 +14,9 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.event.HomePageDataReadyEvent
 import okhttp3.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -41,6 +43,7 @@ class QuestionAndAnswerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+//        EventBus.getDefault().register(this)
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_question_and_answer,
@@ -66,7 +69,17 @@ class QuestionAndAnswerFragment : Fragment() {
         return binding.root
     }
 
-    @WorkerThread
+    override fun onDestroy() {
+        super.onDestroy()
+//        EventBus.getDefault().unregister(this)
+    }
+
+    
+    
+    fun onEvent(event:HomePageDataReadyEvent){
+
+    }
+
     private fun init() {
         val url = "https://wanandroid.com/wenda/list/1/json"
 

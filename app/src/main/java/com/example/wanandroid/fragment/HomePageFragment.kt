@@ -14,11 +14,15 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.event.HomePageDataReadyEvent
 import com.example.wanandroid.service.ArticleApi
 import com.example.wanandroid.utils.HtmlElementUtil
 import okhttp3.*
 
 import okhttp3.internal.wait
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -53,30 +57,34 @@ class HomePageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        EventBus.getDefault().register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
 
-        binding.ArticleRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        //加载首页数据
         initFirstPage()
 
-        val layoutManager = LinearLayoutManager(activity)
-        binding.ArticleRecyclerView.layoutManager = layoutManager
-        //有数据
-        val adapter = HomeArticleAdapter(articleList)
-        binding.ArticleRecyclerView.adapter = adapter
+        binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
+//        while(articleList.isEmpty()){}
+        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(articleList)
 
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event : HomePageDataReadyEvent){
+        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+        Log.d("EventBus","Notify")
+    }
 
     private fun initFirstPage() = getArticlesByPage(0)
 
-    @WorkerThread
+
     private fun getArticlesByPage(page: Int) {
         val url = "https://www.wanandroid.com/article/list/$page/json"
         val request = Request.Builder()
@@ -109,7 +117,9 @@ class HomePageFragment : Fragment() {
                     val url = jsonObject.getString("link")
                     val id = jsonObject.getInt("id")
                     articleList.add(Article(id, title, author, time, superChapterName, url, ""))
+                    Log.i("HomePage","data added")
                 }
+                EventBus.getDefault().post(HomePageDataReadyEvent())
             }
         })
     }
