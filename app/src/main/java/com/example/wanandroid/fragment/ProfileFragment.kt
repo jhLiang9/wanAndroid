@@ -22,8 +22,6 @@ class ProfileFragment : Fragment() {
     private val user:String?=null
     private lateinit var binding: FragmentProfileBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

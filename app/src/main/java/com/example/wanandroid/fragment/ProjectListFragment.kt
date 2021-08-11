@@ -63,7 +63,7 @@ class ProjectListFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private fun onEvent(projectListEvent: ProjectListEvent){
+    fun onEvent(projectListEvent: ProjectListEvent){
         binding.nav.adapter?.notifyDataSetChanged()
     }
 

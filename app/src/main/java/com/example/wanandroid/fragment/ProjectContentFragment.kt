@@ -21,6 +21,7 @@ import com.example.wanandroid.databinding.FragmentProjectContentBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.ProjectContentEvent
 import com.example.wanandroid.event.ProjectListEvent
+import com.example.wanandroid.event.refresh.ProjectRefreshEvent
 import com.example.wanandroid.viewmodel.ProjectViewModel
 import okhttp3.*
 import org.greenrobot.eventbus.EventBus
@@ -68,21 +69,14 @@ class ProjectContentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         EventBus.getDefault().register(this)
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
         initView()
-
         viewModel.change.observe(viewLifecycleOwner, Observer { cidChanged ->
             if (cidChanged) {
-                Log.i("ProjectContent", startURL + viewModel.cid.value.toString())
-                var fullUrl = startURL + viewModel.cid.value.toString()
-
+                val fullUrl = startURL + viewModel.cid.value.toString()
                 getContent(fullUrl)
-
-                binding.content.adapter?.notifyDataSetChanged()
                 viewModel.setChange(false)
             }
         })
@@ -92,36 +86,40 @@ class ProjectContentFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().register(this)
+        EventBus.getDefault().unregister(this)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private fun onEvent(projectContentEvent: ProjectContentEvent){
+    fun onEvent(projectContentEvent: ProjectContentEvent){
         binding.content.adapter?.notifyDataSetChanged()
     }
 
-    private fun initView() {
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: ProjectRefreshEvent){
+        refresh()
+    }
 
-        //初始化首个导航的文章
+    private fun refresh(){
+        getContent(294,1)
+    }
+
+    /**
+     * 初始化首个导航的文章
+     */
+    private fun initView() {
         //add layout
-        binding.content.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         //data
-        getContent(1,294)
+        getContent(294,1)
 
         //layout load
         binding.content.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-
         binding.content.layoutManager = layoutManager
         adapter = ProjectContentAdapter(projectList)
         binding.content.adapter = adapter
-
 
     }
     private fun getContent(cid: Int,page:Int){
@@ -135,14 +133,13 @@ class ProjectContentFragment : Fragment() {
         val call: Call = client.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-
             }
 
             override fun onResponse(call: Call, response: Response) {
+                projectList.clear()
                 val responseData = response.body?.string()
                 val jsondata = JSONObject(responseData).getString("data")
                 val datas = JSONObject(jsondata).getString("datas")
-
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)

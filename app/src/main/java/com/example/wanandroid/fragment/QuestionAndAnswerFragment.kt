@@ -15,6 +15,7 @@ import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.QAEvent
+import com.example.wanandroid.event.refresh.QARefreshEvent
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import org.greenrobot.eventbus.EventBus
@@ -47,12 +48,7 @@ class QuestionAndAnswerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         EventBus.getDefault().register(this)
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_question_and_answer,
-            container,
-            false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question_and_answer, container, false)
         Log.d("binder",binding.QARecyclerView.toString())
         binding.QARecyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -82,30 +78,33 @@ class QuestionAndAnswerFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: QAEvent){
         binding.QARecyclerView.adapter?.notifyDataSetChanged()
+        binding.loadingPanel.visibility=View.GONE
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: QARefreshEvent){
+        binding.loadingPanel.visibility=View.VISIBLE
+        init()
+    }
+
+
     private fun init() {
-
-
         val url = "https://wanandroid.com/wenda/list/1/json"
-
         val request = Request.Builder()
             .url(url)
             .build()
-
         val call: Call = client.newCall(request)
 
-//            var responseData = response.body?.string()
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.d("QA","onResoinse")
-                val jsondata = JSONObject(response.body?.string()).getString("data")
-                val datas = JSONObject(jsondata).getString("datas")
-
+                val jsonData = JSONObject(response.body?.string()).getString("data")
+                val datas = JSONObject(jsonData).getString("datas")
 
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {

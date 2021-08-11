@@ -52,12 +52,6 @@ class RegisterActivity : AppCompatActivity() {
 //                        Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
 //                    }else if (errorCode=="0"){//注册成功
 //                        //直接登录 TODO
-//
-//
-//
-//
-//
-//
 //                    }
 //                }catch (e:Exception){
 //                    e.printStackTrace()

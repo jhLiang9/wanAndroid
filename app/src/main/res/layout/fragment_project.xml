@@ -13,7 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragment.ProjectFragment"
-        >
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
 
         <fragment
             android:id="@+id/project_nav"
@@ -23,8 +34,10 @@
             android:layout_height="match_parent">
         </fragment>
         <View
+            android:id="@+id/divide"
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:visibility="invisible"
             android:background="#808080"/>
         <fragment
             android:id="@+id/project_content"
