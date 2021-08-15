@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -67,22 +68,23 @@ class HomePageFragment : Fragment() {
         initFirstPage()
 
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
+
         binding.ArticleRecyclerView.adapter = HomeArticleAdapter(articleList)
         binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
 
 
-        viewModel.list.observe(viewLifecycleOwner, Observer {
-
-            binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
-
+        viewModel.articleList.observe(viewLifecycleOwner, Observer {
+            if(it.errorCode==0){
+                articleList.addAll(it.data.datas)
+                binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+                binding.loadingPanel.visibility=View.GONE
+            }
+            else{
+                Toast.makeText(context,it.errorMessage,Toast.LENGTH_SHORT).show()
+            }
         })
-
-
-
-
-
         return binding.root
     }
 
@@ -91,12 +93,6 @@ class HomePageFragment : Fragment() {
         EventBusUtil.unregister(this)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event : HomePageDataReadyEvent){
-        binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
-        binding.loadingPanel.visibility= View.GONE
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: HomepageRefreshEvent){
@@ -107,51 +103,13 @@ class HomePageFragment : Fragment() {
     private fun refresh(){
         //清除数据集，重新加载
         articleList.clear()
-        getArticlesByPage(0)
-        getArticlesByPage(1)
-        binding.refreshLayout.isRefreshing =  false
+        viewModel.refresh()
+        binding.refreshLayout.isRefreshing=false
     }
+
 
     private fun initFirstPage() = getArticlesByPage(0)
 
+    private fun getArticlesByPage(page: Int) = viewModel.getArticlesByPage(page)
 
-    private fun getArticlesByPage(page: Int) {
-        val url = "https://www.wanandroid.com/article/list/$page/json"
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        val call: Call = client.newCall(request)
-        call.enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("OkHttp on fail", "getArticleByPage()")
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body!!.string()
-                val jsondata = JSONObject(responseData).getString("data")
-                val datas = JSONObject(jsondata).getString("datas")
-                val jsonArray = JSONArray(datas)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    var title = HtmlElementUtil.removeHTMLTag(jsonObject.getString("title"))
-                    if (title == "") {
-                        title = jsonObject.getString("title")
-                    }
-                    val time = jsonObject.getString("niceDate")
-                    var author = jsonObject.getString("author")
-                    if (author == "") {
-                        author = jsonObject.getString("shareUser")
-                    }
-                    val superChapterName = jsonObject.getString("superChapterName")
-                    val link = jsonObject.getString("link")
-                    val id = jsonObject.getInt("id")
-                    articleList.add(Article(id, title, author, time, superChapterName, link, ""))
-                    Log.i("HomePage","data added")
-                }
-                EventBus.getDefault().post(HomePageDataReadyEvent())
-            }
-        })
-    }
 }
-

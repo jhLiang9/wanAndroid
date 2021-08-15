@@ -8,14 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.databinding.ArticleItemBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.fragment.HomePageFragment
+import com.example.wanandroid.viewmodel.HomePageViewModel
 
 
 class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
+    private lateinit var viewModel :HomePageViewModel
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -25,12 +29,12 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
+        viewModel=ViewModelProvider(HomePageFragment.getInstance()).get(HomePageViewModel::class.java)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         val viewHolder=ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition //获取用户点击的postion
+            val position = viewHolder.bindingAdapterPosition //获取用户点击的postion
             val article =articleList[position]
             val url=article.url
             val intent = Intent(parent.context, WebViewActivity::class.java)
@@ -47,10 +51,12 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         holder.author.text=article.author
         holder.superChapterName.text=article.superChapterName
         holder.time.text=article.time
-
+        //加载下一页
+        if(position == itemCount-5){
+            viewModel.getArticlesByPage(viewModel.nextPage++)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return articleList.size
-    }
+    override fun getItemCount(): Int = articleList.size
+
 }
