@@ -18,7 +18,6 @@ class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val title: TextView = view.findViewById(R.id.title)
         val author: TextView = view.findViewById(R.id.author)
         val time:TextView = view.findViewById(R.id.time)
-//        val superChapterName: TextView =view.findViewById(R.id.superChapterName)
         val description:TextView=view.findViewById(R.id.description)
     }
 

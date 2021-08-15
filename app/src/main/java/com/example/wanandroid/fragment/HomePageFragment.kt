@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
@@ -19,6 +21,7 @@ import com.example.wanandroid.event.refresh.HomepageRefreshEvent
 import com.example.wanandroid.utils.EventBusUtil
 
 import com.example.wanandroid.utils.HtmlElementUtil
+import com.example.wanandroid.viewmodel.HomePageViewModel
 import okhttp3.*
 
 import org.greenrobot.eventbus.EventBus
@@ -30,11 +33,12 @@ import java.io.IOException
 
 
 class HomePageFragment : Fragment() {
-    //TODO：刷新对比数据集 ，确定更新数据
+
     private val client = OkHttpClient()
 
     private val articleList = ArrayList<Article>()
     private lateinit var binding: FragmentHomePageBinding
+    private lateinit  var viewModel :HomePageViewModel
 
     companion object {
         private var instance: HomePageFragment? = null
@@ -48,11 +52,14 @@ class HomePageFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         EventBusUtil.register(this)
+        viewModel=  ViewModelProvider(this).get(HomePageViewModel::class.java)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
 
         binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
@@ -64,6 +71,18 @@ class HomePageFragment : Fragment() {
         binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
+
+
+        viewModel.list.observe(viewLifecycleOwner, Observer {
+
+            binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
+
+        })
+
+
+
+
+
         return binding.root
     }
 
