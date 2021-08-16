@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--首页展示文章的格式-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.cardview.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="#FFFFFF"
+    card_view:cardCornerRadius="18dp"
+    card_view:cardElevation="8dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    >
+<!--首页展示文章的格式-->
     <RelativeLayout
-        android:id="@+id/rl_top"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5sp"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="12dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13dp"
-            android:id="@+id/author" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/time"
-            android:layout_alignParentRight="true"
-            android:textSize="12dp"
-             />
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_top"
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="4sp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="1"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/rl_mid_low"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_middle"
+            android:layout_marginTop="4sp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="3"
+                android:textSize="13sp" />
+        </LinearLayout>
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/rl_middle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_top"
-        android:gravity="center_vertical"
-        android:layout_marginTop="4sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="12dp">
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="17dp"
-            android:maxLines="1"
-            />
-    </LinearLayout>
-    <LinearLayout
-
-        android:id="@+id/rl_mid_low"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_middle"
-        android:gravity="center_vertical"
-        android:layout_marginTop="4sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="16dp">
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="13dp"
-            android:maxLines="2"
-            />
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

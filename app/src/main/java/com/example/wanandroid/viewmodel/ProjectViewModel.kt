@@ -10,15 +10,13 @@ class ProjectViewModel() : ViewModel(){
     val cid :LiveData<Int>
         get() = _cid
 
-    private var _change = MutableLiveData<Boolean>()
-    val change :LiveData<Boolean> get()= _change
+    var change = MutableLiveData<Boolean>()
 
-     fun getchange(): Boolean? {
-        return _change.value
+     fun getChange(): Boolean? {
+        return change.value
     }
 
-
     fun setChange(bool :Boolean){
-        _change.value=bool
+        change.postValue(bool)
     }
 }

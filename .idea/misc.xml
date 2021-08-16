@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.20364741641337386" />
         <entry key="app/src/main/res/layout/fragment_question_and_answer.xml" value="0.39266304347826086" />
+        <entry key="app/src/main/res/layout/item_qa.xml" value="0.29347826086956524" />
       </map>
     </option>
   </component>

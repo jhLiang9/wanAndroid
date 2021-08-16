@@ -18,7 +18,7 @@ import com.example.wanandroid.adapter.HomeArticleAdapter
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.HomePageDataReadyEvent
-import com.example.wanandroid.event.refresh.HomepageRefreshEvent
+import com.example.wanandroid.event.refresh.HomepageGoUpEvent
 import com.example.wanandroid.utils.EventBusUtil
 
 import com.example.wanandroid.utils.HtmlElementUtil
@@ -28,20 +28,15 @@ import okhttp3.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.IOException
 
 
 class HomePageFragment : Fragment() {
 
-    private val client = OkHttpClient()
-
-    private val articleList = ArrayList<Article>()
     private lateinit var binding: FragmentHomePageBinding
-    private lateinit  var viewModel :HomePageViewModel
+    private lateinit var viewModel :HomePageViewModel
 
     companion object {
+        private val articleList = ArrayList<Article>()
         private var instance: HomePageFragment? = null
         fun getInstance(): HomePageFragment {
             if (instance == null) {
@@ -68,12 +63,10 @@ class HomePageFragment : Fragment() {
         initFirstPage()
 
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
-
         binding.ArticleRecyclerView.adapter = HomeArticleAdapter(articleList)
         binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
-
 
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             if(it.errorCode==0){
@@ -93,11 +86,12 @@ class HomePageFragment : Fragment() {
         EventBusUtil.unregister(this)
     }
 
-
+    //点击下方导航栏回到顶部
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: HomepageRefreshEvent){
-        binding.loadingPanel.visibility= View.VISIBLE
-        refresh()
+    fun onEvent(event: HomepageGoUpEvent){
+        binding.ArticleRecyclerView.scrollY = 0
+        binding.ArticleRecyclerView.smoothScrollToPosition(0)
+        //TODO 在首页时，进行刷新
     }
 
     private fun refresh(){

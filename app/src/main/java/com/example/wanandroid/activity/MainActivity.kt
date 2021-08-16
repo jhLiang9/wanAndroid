@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityMainBinding
-import com.example.wanandroid.event.refresh.HomepageRefreshEvent
+import com.example.wanandroid.event.refresh.HomepageGoUpEvent
 import com.example.wanandroid.event.refresh.ProjectRefreshEvent
 import com.example.wanandroid.event.refresh.QARefreshEvent
 import com.example.wanandroid.event.refresh.SystemRefreshEvent
@@ -19,6 +19,12 @@ import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.ProjectViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.greenrobot.eventbus.EventBus
+import com.github.moduth.blockcanary.BlockCanaryContext
+
+import com.github.moduth.blockcanary.BlockCanary
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //BlockCanary
+//        BlockCanary.install(this, BlockCanaryContext()).start()
         //hide the title bar
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,14 +56,13 @@ class MainActivity : AppCompatActivity() {
             override fun createFragment(position: Int): Fragment = sparseArray.get(position)
         }
 
-
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
             tab.icon = ResourcesCompat.getDrawable(resources,icons[position],null)
             tab.view.setOnClickListener {
                 if(tab.isSelected){
                     when(position){
-                        0->EventBusUtil.post(HomepageRefreshEvent)
+                        0->EventBusUtil.post(HomepageGoUpEvent)
                         1->EventBusUtil.post(SystemRefreshEvent)
                         2->EventBusUtil.post(QARefreshEvent)
                         3->EventBusUtil.post(ProjectRefreshEvent)
@@ -65,10 +71,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }.attach()
-
-
         setContentView(view)
-
     }
-
 }

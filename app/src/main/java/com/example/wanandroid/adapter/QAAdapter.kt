@@ -26,7 +26,7 @@ class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_qa, parent, false)
         val viewHolder:ViewHolder =ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition //获取用户点击的postion
+            val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val article =qaList[position]
             val url=article.url
             val intent = Intent(parent.context, WebViewActivity::class.java)
@@ -41,7 +41,6 @@ class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val article = qaList[position]
         holder.title.text= article.title
         holder.author.text=article.author
-//        holder.superChapterName.text=article.superChapterName
         holder.time.text=article.time
         holder.description.text=article.description
     }

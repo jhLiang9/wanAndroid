@@ -1,22 +1,20 @@
 package com.example.wanandroid.viewmodel
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.data.ArticleData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.utils.HtmlElementUtil
+import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-open class HomePageViewModel : ViewModel() {
-    private val client = OkHttpClient()
+open class HomePageViewModel : BaseViewModel() {
+
     private lateinit var set : HashSet<Int>
     val articleList = MutableLiveData<ArticleList>()
     //下一页
@@ -26,13 +24,13 @@ open class HomePageViewModel : ViewModel() {
         nextPage =1
         getArticlesByPage(0)
     }
+
     fun getArticlesByPage(page: Int) {
         val url = "https://www.wanandroid.com/article/list/$page/json"
         val request = Request.Builder()
             .url(url)
             .build()
         val call: Call = client.newCall(request)
-//        val response=call.execute()
 
         viewModelScope.launch {
             call.enqueue(object : Callback {
@@ -73,8 +71,5 @@ open class HomePageViewModel : ViewModel() {
                 }
             })
         }
-
     }
-
-
 }

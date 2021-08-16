@@ -56,6 +56,9 @@ dependencies {
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
+
+    //CardView
+    implementation "androidx.cardview:cardview:1.0.0"
     
     //okhttp4
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
@@ -98,4 +101,8 @@ dependencies {
 
     //GSON
 
+    //BlockCanary
+    implementation "com.github.markzhai:blockcanary-android:1.5.0"
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }
