@@ -21,9 +21,10 @@ class QAViewModel: BaseViewModel() {
     val list = MutableLiveData<QAList>()
     var nextPage :Int = 1
 
-    fun init(){
+    fun init(){getPage(1)}
 
-        val url = "https://wanandroid.com/wenda/list/1/json"
+    fun getPage(page :Int){
+        val url = "https://wanandroid.com/wenda/list/$page/json"
         val request = Request.Builder()
             .url(url)
             .build()

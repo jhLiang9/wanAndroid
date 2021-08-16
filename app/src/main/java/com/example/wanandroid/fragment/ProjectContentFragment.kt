@@ -138,8 +138,13 @@ class ProjectContentFragment : Fragment() {
             override fun onResponse(call: Call, response: Response) {
                 projectList.clear()
                 val responseData = response.body?.string()
+
+                val errorCode = JSONObject(responseData).getString("errorCode")
+                val errorMessage = JSONObject(responseData).getString("errorMsg")
                 val jsondata = JSONObject(responseData).getString("data")
+                val curPage= JSONObject(jsondata).getInt("curPage")
                 val datas = JSONObject(jsondata).getString("datas")
+
                 val jsonArray = JSONArray(datas)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
@@ -153,6 +158,10 @@ class ProjectContentFragment : Fragment() {
                         Article(id, title, author, time, superChapterName = "", description = description, url = link)
                     )
                 }
+                val over =  JSONObject(jsondata).getBoolean("over")
+                val pageCount = JSONObject(jsondata).getInt("pageCount")
+                val size =JSONObject(jsondata).getInt("size")
+                val total =JSONObject(jsondata).getInt("total")
                 EventBus.getDefault().post(ProjectContentEvent())
             }
         })
