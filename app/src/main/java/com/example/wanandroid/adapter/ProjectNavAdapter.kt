@@ -1,19 +1,16 @@
 package com.example.wanandroid.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
-import com.example.wanandroid.entity.Project
-import com.example.wanandroid.fragment.ProjectContentFragment
+import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.viewmodel.ProjectViewModel
 
 
-class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Project>) :
+class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Tree>) :
     RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

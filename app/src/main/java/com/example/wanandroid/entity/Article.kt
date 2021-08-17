@@ -5,8 +5,11 @@ import androidx.room.PrimaryKey
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * 首页文章
+ */
 @Entity(tableName = "home_page_article_table")
-data class Article(
+data class Article<T>(
     val apkLink:String ="",
     val audit :Int,
     @ColumnInfo(name="author")
@@ -40,7 +43,7 @@ data class Article(
     val superChapterId :Int,
     @ColumnInfo(name = "superChapterName")
     val superChapterName:String="",
-    val tags:ArrayList<Any>,
+    val tags:ArrayList<T>,
     @ColumnInfo(name = "title")
     val title:String,
     val type:Int = 0,

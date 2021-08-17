@@ -3,9 +3,9 @@ package com.example.wanandroid.entity
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 
-class Project(
+data class Tree(
     @ColumnInfo(name = "children")
-    val children: Project?,
+    val children: ArrayList<Tree>,
 
     @ColumnInfo(name = "courseId")
     val courseId: Int?,
