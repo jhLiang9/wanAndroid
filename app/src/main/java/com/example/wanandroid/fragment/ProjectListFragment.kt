@@ -17,6 +17,7 @@ import com.example.wanandroid.databinding.FragmentProjectListBinding
 import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.event.ProjectListEvent
 import com.example.wanandroid.viewmodel.ProjectViewModel
+import com.google.gson.Gson
 import okhttp3.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -80,14 +81,16 @@ class ProjectListFragment : Fragment() {
 
             override fun onResponse(call: Call, response: Response) {
                 val responseData = response.body!!.string()
-                val jsonData = JSONObject(responseData).getString("data")
-                val jsonArray = JSONArray(jsonData)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val id = jsonObject.getInt("id")
-                    val name = jsonObject.getString("name")
-                    navList.add(Tree(ArrayList(), null, id, name, null, null, null, null))
-                }
+                val gson =Gson()
+                val data = gson.fromJson(responseData,Tree::class.java)
+//                val jsonData = JSONObject(responseData).getString("data")
+//                val jsonArray = JSONArray(jsonData)
+//                for (i in 0 until jsonArray.length()) {
+//                    val jsonObject = jsonArray.getJSONObject(i)
+//                    val id = jsonObject.getInt("id")
+//                    val name = jsonObject.getString("name")
+//                    navList.add(Tree(ArrayList(), null, id, name, null, null, null, null))
+//                }
                 EventBus.getDefault().post(ProjectListEvent())
             }
         })

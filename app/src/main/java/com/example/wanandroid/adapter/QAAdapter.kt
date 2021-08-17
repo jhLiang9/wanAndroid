@@ -15,7 +15,7 @@ import com.example.wanandroid.entity.Article
 import com.example.wanandroid.fragment.QuestionAndAnswerFragment
 import com.example.wanandroid.viewmodel.QAViewModel
 
-class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
+class QAAdapter(val qaList:List<Article<Any>>) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
     private lateinit var viewModel:QAViewModel
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

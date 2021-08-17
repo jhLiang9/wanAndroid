@@ -33,7 +33,7 @@ class HomePageFragment : Fragment() {
     private lateinit var viewModel :HomePageViewModel
 
     companion object {
-        private val articleList = ArrayList<Article>()
+        private val articleList = ArrayList<Article<Any>>()
         private var instance: HomePageFragment? = null
         fun getInstance(): HomePageFragment {
             if (instance == null) {

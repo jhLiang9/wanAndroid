@@ -9,7 +9,7 @@ import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 class ProjectViewModel() : BaseViewModel(){
     var cid = MutableLiveData<Int>(294)
     val navList = MutableLiveData<List<Tree>>()
-    val projectList = MutableLiveData<List<Article>>()
+    val projectList = MutableLiveData<List<Article<Any>>>()
 
 
 }

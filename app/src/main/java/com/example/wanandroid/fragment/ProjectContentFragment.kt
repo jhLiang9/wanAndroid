@@ -38,7 +38,7 @@ class ProjectContentFragment : Fragment() {
 
     private val layoutManager = LinearLayoutManager(activity)
 
-    var projectList = ArrayList<Article>()
+    var projectList = ArrayList<Article<Any>>()
     private val startURL: String = "https://www.wanandroid.com/project/list/1/json?cid="
 
 

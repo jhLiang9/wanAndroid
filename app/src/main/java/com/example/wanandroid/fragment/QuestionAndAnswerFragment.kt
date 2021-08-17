@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 class QuestionAndAnswerFragment : Fragment() {
 
-    private var qaList = ArrayList<Article>()
+    private var qaList = ArrayList<Article<Any>>()
     private lateinit var binding: FragmentQuestionAndAnswerBinding
     private lateinit var viewModel:QAViewModel
 
