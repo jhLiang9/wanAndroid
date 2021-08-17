@@ -23,9 +23,6 @@ import com.example.wanandroid.utils.EventBusUtil
 
 import com.example.wanandroid.utils.HtmlElementUtil
 import com.example.wanandroid.viewmodel.HomePageViewModel
-import okhttp3.*
-
-import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -42,9 +39,10 @@ class HomePageFragment : Fragment() {
             if (instance == null) {
                 synchronized(this) {
                     instance = HomePageFragment()
+                    return instance!!
                 }
             }
-            return instance as HomePageFragment
+            return instance!!
         }
     }
 

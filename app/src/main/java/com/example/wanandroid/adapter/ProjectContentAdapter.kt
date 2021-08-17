@@ -31,9 +31,9 @@ class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerVi
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val article =contentList[position]
-            val url=article.url
+            val link=article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
-            intent.putExtra("data", url);
+            intent.putExtra("data", link);
             parent.context.startActivity(intent)
         }
         return viewHolder
@@ -41,9 +41,9 @@ class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contentList[position]
-        holder.description.text=content.description
+        holder.description.text=content.desc
         holder.author.text=content.author
-        holder.time.text=content.time
+        holder.time.text=content.niceDate
         holder.title.text=content.title
     }
 

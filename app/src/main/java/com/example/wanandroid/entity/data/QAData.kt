@@ -2,7 +2,7 @@ package com.example.wanandroid.entity.data
 
 import com.example.wanandroid.entity.Article
 
-class QAData(
+data class QAData(
     val curPage: Int,
     val datas: ArrayList<Article>,
     val over: Boolean = false,

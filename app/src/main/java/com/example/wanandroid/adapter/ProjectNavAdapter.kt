@@ -1,6 +1,5 @@
 package com.example.wanandroid.adapter
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,14 +27,11 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Proje
         val viewHolder: ViewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
-
-            val position = viewHolder.adapterPosition //获取用户点击的postion
+            val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val nav = navList[position]
             //获得用户点击的cid
             val cid: Int = nav.id
-            viewModel._cid.value = cid //Solution
-            viewModel.setChange(true)
-            Log.i("ProjectNavAdapter", "cid passed ${viewModel._cid.value}")
+            viewModel.cid.value = cid
         }
         return viewHolder
     }
@@ -45,8 +41,6 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Proje
         holder.name.text = nav.name
     }
 
-    override fun getItemCount(): Int {
-        return navList.size
-    }
+    override fun getItemCount(): Int = navList.size
 
 }

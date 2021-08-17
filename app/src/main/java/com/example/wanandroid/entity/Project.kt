@@ -27,6 +27,4 @@ class Project(
 
     @ColumnInfo(name ="visible")
     val visible: Int?
-) {
-
-}
+)

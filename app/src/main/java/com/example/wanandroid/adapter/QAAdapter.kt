@@ -32,7 +32,7 @@ class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val article =qaList[position]
-            val url=article.url
+            val url=article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
             //打开WebView
             intent.putExtra("data", url);
@@ -45,13 +45,12 @@ class QAAdapter(val qaList:List<Article>) : RecyclerView.Adapter<QAAdapter.ViewH
         val article = qaList[position]
         holder.title.text= article.title
         holder.author.text=article.author
-        holder.time.text=article.time
-        holder.description.text=article.description
+        holder.time.text=article.niceDate
+        holder.description.text=article.desc
         //TODO 判断CurPage是否在CountPage内
         if(position>=itemCount-5){
             viewModel.getPage(viewModel.nextPage++)
         }
-
     }
 
     override fun getItemCount(): Int  = qaList.size

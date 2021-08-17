@@ -1,5 +1,6 @@
 package com.example.wanandroid.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,27 @@ class ProjectFragment: Fragment() {
 
     private val viewModel : ProjectViewModel by viewModels()
     private lateinit var binding : FragmentProjectBinding
+
+
+    companion object {
+        @Volatile
+        private var INSTANCE: ProjectFragment? = null
+        fun getInstance(context: Context): ProjectFragment {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = ProjectFragment()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +55,8 @@ class ProjectFragment: Fragment() {
         EventBusUtil.register(this)
         return binding.root
     }
+
+
 
     override fun onDestroy() {
         EventBusUtil.unregister(this)

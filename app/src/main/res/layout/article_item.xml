@@ -3,12 +3,6 @@
 <!--首页展示文章的格式-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="article"
-            type="com.example.wanandroid.entity.Article" />
-    </data>
-
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -21,23 +15,23 @@
             android:id="@+id/rl_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="2sp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginTop="2sp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/author"
                 android:layout_width="wrap_content"
-                android:textSize="15dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/author" />
+                android:textSize="15dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/time"
-                android:textSize="12dp"
-                android:layout_alignParentRight="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize="12dp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -45,18 +39,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_top"
-            android:gravity="center_vertical"
-            android:layout_marginTop="3sp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginTop="6sp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="18dp"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textSize="18dp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -64,17 +58,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_middle"
-            android:gravity="center_vertical"
-            android:layout_marginTop="3sp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginTop="6sp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical">
 
 
             <TextView
                 android:id="@+id/superChapterName"
-                android:textSize="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="12dp" />
 
 
         </RelativeLayout>

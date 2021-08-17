@@ -76,7 +76,6 @@ class ProjectListFragment : Fragment() {
         val call: Call = client.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("OkHttp on fail", "ProjectListFragment")
                 e.printStackTrace()
             }
 

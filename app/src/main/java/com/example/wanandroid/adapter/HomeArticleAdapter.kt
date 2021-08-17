@@ -34,9 +34,9 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val article =articleList[position]
-            val url=article.url
+            val link=article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
-            intent.putExtra("data", url);
+            intent.putExtra("data", link);
             parent.context.startActivity(intent)
         }
         return viewHolder
@@ -48,7 +48,7 @@ class HomeArticleAdapter(val articleList:List<Article>) :RecyclerView.Adapter<Ho
         holder.title.text= article.title
         holder.author.text=article.author
         holder.superChapterName.text=article.superChapterName
-        holder.time.text=article.time
+        holder.time.text=article.niceDate
         //加载下一页
         if(position == itemCount-5){
             viewModel.getArticlesByPage(viewModel.nextPage++)

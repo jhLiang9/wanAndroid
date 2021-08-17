@@ -1,9 +1,7 @@
 package com.example.wanandroid.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
-import com.example.wanandroid.database.ArticleDatabase
 import com.example.wanandroid.databinding.FragmentProjectContentBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.ProjectContentEvent
-import com.example.wanandroid.event.ProjectListEvent
 import com.example.wanandroid.event.refresh.ProjectRefreshEvent
 import com.example.wanandroid.viewmodel.ProjectViewModel
 import okhttp3.*
@@ -32,7 +27,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import kotlin.concurrent.thread
 
 
 class ProjectContentFragment : Fragment() {
@@ -51,16 +45,15 @@ class ProjectContentFragment : Fragment() {
     companion object {
         @Volatile
         private var INSTANCE: ProjectContentFragment? = null
-    }
-
-    fun getInstance(context: Context): ProjectContentFragment {
-        synchronized(this) {
-            var instance = INSTANCE
-            if (instance == null) {
-                instance = ProjectContentFragment()
-                INSTANCE = instance
+        fun getInstance(): ProjectContentFragment {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = ProjectContentFragment()
+                    INSTANCE = instance
+                }
+                return instance
             }
-            return instance
         }
     }
 
@@ -73,12 +66,9 @@ class ProjectContentFragment : Fragment() {
         EventBus.getDefault().register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
         initView()
-        viewModel.change.observe(viewLifecycleOwner, Observer { cidChanged ->
-            if (cidChanged) {
-                val fullUrl = startURL + viewModel.cid.value.toString()
+        viewModel.cid.observe(viewLifecycleOwner, Observer { cid ->
+                val fullUrl = startURL + cid.toString()
                 getContent(fullUrl)
-                viewModel.setChange(false)
-            }
         })
 
         return binding.root
@@ -154,9 +144,9 @@ class ProjectContentFragment : Fragment() {
                     val time = jsonObject.getString("niceDate")
                     val link = jsonObject.getString("link")
                     val id = jsonObject.getInt("id")
-                    projectList.add(
-                        Article(id, title, author, time, superChapterName = "", description = description, url = link)
-                    )
+//                    projectList.add(
+//                        Article(id, title, author, time, superChapterName = "", description = description, url = link)
+//                    )
                 }
                 val over =  JSONObject(jsondata).getBoolean("over")
                 val pageCount = JSONObject(jsondata).getInt("pageCount")
