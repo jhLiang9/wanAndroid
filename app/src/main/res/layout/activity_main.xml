@@ -13,7 +13,13 @@
         android:layout_height="match_parent"
         android:background="#F5F5F5"
         android:orientation="vertical">
-
+        <FrameLayout
+            android:id="@+id/activity_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:background="#F5F5F5" />
         <RelativeLayout
             android:id="@+id/loadingPanel"
             android:layout_width="match_parent"
@@ -26,25 +32,31 @@
                 android:indeterminate="true" />
         </RelativeLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="13" >
-            </androidx.viewpager2.widget.ViewPager2>
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/viewPager"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="13" >-->
+<!--            </androidx.viewpager2.widget.ViewPager2>-->
 
-        <RelativeLayout
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1">-->
+
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tabs"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                app:tabMode="fixed" />-->
+
+<!--        </RelativeLayout>-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                app:tabMode="fixed" />
-
-        </RelativeLayout>
+            android:layout_height="56dp"
+            android:layout_gravity="start"
+            app:menu="@menu/my_navigation_items" />
     </LinearLayout>
 </layout>

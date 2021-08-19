@@ -26,15 +26,7 @@ class QuestionAndAnswerFragment : Fragment() {
     private lateinit var viewModel:QAViewModel
 
     companion object {
-        private var instance: QuestionAndAnswerFragment? = null
-        fun getInstance(): QuestionAndAnswerFragment {
-            if (instance == null) {
-                synchronized(this) {
-                    instance = QuestionAndAnswerFragment()
-                }
-            }
-            return instance as QuestionAndAnswerFragment
-        }
+
     }
 
 
@@ -50,7 +42,7 @@ class QuestionAndAnswerFragment : Fragment() {
         //分割线
         val layoutManager = LinearLayoutManager(activity)
         binding.QARecyclerView.layoutManager = layoutManager
-        binding.QARecyclerView.adapter = QAAdapter(qaList)
+        binding.QARecyclerView.adapter = QAAdapter(qaList,viewModel)
 
         viewModel.list.observe(viewLifecycleOwner,{
             qaList.addAll(it.data.datas)

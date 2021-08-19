@@ -9,7 +9,7 @@
         android:icon="@drawable/system"
         android:title="@string/system" />
     <item
-        android:id="@+id/item_find"
+        android:id="@+id/item_qa"
         android:icon="@drawable/find"
         android:title="@string/wenda" />
     <item
@@ -18,7 +18,7 @@
 
         android:title="@string/project" />
     <item
-        android:id="@+id/item_more"
+        android:id="@+id/item_profile"
         android:icon="@drawable/user"
         android:title="@string/profile" />
 </menu>

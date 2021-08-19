@@ -16,8 +16,7 @@ import com.example.wanandroid.fragment.HomePageFragment
 import com.example.wanandroid.viewmodel.HomePageViewModel
 
 
-class HomeArticleAdapter(val articleList:List<Article<Any>>) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
-    private lateinit var viewModel :HomePageViewModel
+class HomeArticleAdapter(private val articleList:List<Article<Any>>, val viewModel :HomePageViewModel) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -27,7 +26,6 @@ class HomeArticleAdapter(val articleList:List<Article<Any>>) :RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        viewModel=ViewModelProvider(HomePageFragment.getInstance()).get(HomePageViewModel::class.java)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         val viewHolder=ViewHolder(view)
 
@@ -51,7 +49,10 @@ class HomeArticleAdapter(val articleList:List<Article<Any>>) :RecyclerView.Adapt
         holder.time.text=article.niceDate
         //加载下一页
         if(position == itemCount-5){
-            viewModel.getArticlesByPage(viewModel.nextPage++)
+            if (viewModel.pageCount != -1 && viewModel.nextPage < viewModel.pageCount) {
+                viewModel.getArticlesByPage(viewModel.nextPage++)
+            }
+
         }
     }
 

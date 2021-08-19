@@ -1,8 +1,9 @@
 package com.example.wanandroid.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.event.QAEvent
+import com.example.wanandroid.entity.Tree
+import com.example.wanandroid.entity.list.TreeList
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import com.google.gson.Gson
 import okhttp3.Call
@@ -11,30 +12,26 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class QAViewModel: BaseViewModel() {
-    val list = MutableLiveData<ArticleList>()
-    var nextPage :Int = 1
-    var pageCount = -1
-    fun init(){getPage(1)}
-
-    fun getPage(page :Int){
-        val url = "https://wanandroid.com/wenda/list/$page/json"
+open class SystemViewModel : BaseViewModel() {
+    val overview = MutableLiveData<TreeList>()
+    var presentList = ArrayList<Tree>()
+    fun getData(){
+        val url = "https://www.wanandroid.com/tree/json"
         val request = Request.Builder()
             .url(url)
             .build()
         val call: Call = client.newCall(request)
-
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
-
             override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body!!.string()
                 val gson = Gson()
-                val data = gson.fromJson(responseData, ArticleList::class.java)
-                pageCount = data.data.pageCount
-                list.postValue(data)
+                val responseData = response.body?.string()
+                val data = gson.fromJson(responseData, TreeList::class.java)
+                overview.postValue(data)
+                presentList.addAll(data.data)
+                //需要时间处理
             }
         })
     }

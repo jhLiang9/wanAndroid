@@ -1,12 +1,13 @@
 package com.example.wanandroid.adapter
 
-import android.view.LayoutInflater
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
+import android.view.LayoutInflater
 import com.example.wanandroid.entity.Tree
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.viewmodel.ProjectViewModel
 
 
@@ -21,7 +22,7 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Tree>
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_project_nav, parent, false)
 
-        val viewHolder: ViewHolder = ViewHolder(view)
+        val viewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position

@@ -8,9 +8,15 @@
         <entry key="app/src/main/res/layout/article_item.xml" value="0.2921195652173913" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20364741641337386" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/layout/fragment_project_content.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.20364741641337386" />
         <entry key="app/src/main/res/layout/fragment_question_and_answer.xml" value="0.39266304347826086" />
+        <entry key="app/src/main/res/layout/fragment_system.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/item_qa.xml" value="0.29347826086956524" />
+        <entry key="app/src/main/res/layout/item_system.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/item_system_detail.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/item_system_module.xml" value="0.4791666666666667" />
+        <entry key="app/src/main/res/menu/my_navigation_items.xml" value="0.2828125" />
       </map>
     </option>
   </component>

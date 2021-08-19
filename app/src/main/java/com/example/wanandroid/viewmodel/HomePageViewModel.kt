@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.MutableLiveData
+import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,10 +18,10 @@ open class HomePageViewModel : BaseViewModel() {
 
     private lateinit var set: HashSet<Int>
     val articleList = MutableLiveData<ArticleList>()
-
+    val presentList = ArrayList<Article<Any>>()
     //下一页
     var nextPage: Int = 1
-
+    var pageCount :Int = -1
     fun refresh() {
         nextPage = 1
         getArticlesByPage(0)
@@ -50,6 +51,7 @@ open class HomePageViewModel : BaseViewModel() {
                     val gson = Gson()
                     val responseData = response.body?.string()
                     val data = gson.fromJson(responseData, ArticleList::class.java)
+                    pageCount = data.data.pageCount
                     articleList.postValue(data)
                 }
             })

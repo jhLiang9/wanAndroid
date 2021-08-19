@@ -19,6 +19,4 @@ class System(
     @ColumnInfo(name = "userControlSetTop")
     val userControlSetTop:Boolean,
     @ColumnInfo(name = "visible")
-    val visible:Int) {
-
-}
+    val visible:Int)

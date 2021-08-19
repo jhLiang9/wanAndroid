@@ -15,24 +15,22 @@ import com.example.wanandroid.entity.Article
 import com.example.wanandroid.fragment.QuestionAndAnswerFragment
 import com.example.wanandroid.viewmodel.QAViewModel
 
-class QAAdapter(val qaList:List<Article<Any>>) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
-    private lateinit var viewModel:QAViewModel
+class QAAdapter(val qaList: List<Article<Any>>,val viewModel :QAViewModel) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
         val author: TextView = view.findViewById(R.id.author)
-        val time:TextView = view.findViewById(R.id.time)
-        val description:TextView=view.findViewById(R.id.description)
+        val time: TextView = view.findViewById(R.id.time)
+        val description: TextView = view.findViewById(R.id.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QAAdapter.ViewHolder {
-        viewModel = ViewModelProvider(QuestionAndAnswerFragment.getInstance()).get(QAViewModel::class.java)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_qa, parent, false)
-        val viewHolder:ViewHolder =ViewHolder(view)
+        val viewHolder: ViewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val article =qaList[position]
-            val url=article.link
+            val article = qaList[position]
+            val url = article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
             //打开WebView
             intent.putExtra("data", url);
@@ -43,16 +41,17 @@ class QAAdapter(val qaList:List<Article<Any>>) : RecyclerView.Adapter<QAAdapter.
 
     override fun onBindViewHolder(holder: QAAdapter.ViewHolder, position: Int) {
         val article = qaList[position]
-        holder.title.text= article.title
-        holder.author.text=article.author
-        holder.time.text=article.niceDate
-        holder.description.text=article.desc
-        //TODO 判断CurPage是否在CountPage内
-        if(position>=itemCount-5){
-            viewModel.getPage(viewModel.nextPage++)
+        holder.title.text = article.title
+        holder.author.text = article.author
+        holder.time.text = article.niceDate
+        holder.description.text = article.desc
+        if (position >= itemCount - 5) {
+            if (viewModel.pageCount != -1 && viewModel.nextPage < viewModel.pageCount) {
+                viewModel.getPage(viewModel.nextPage++)
+            }
         }
     }
 
-    override fun getItemCount(): Int  = qaList.size
+    override fun getItemCount(): Int = qaList.size
 
 }

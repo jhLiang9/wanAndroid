@@ -1,7 +1,10 @@
 package com.example.wanandroid.entity
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -9,7 +12,7 @@ import kotlin.collections.ArrayList
  * 首页文章
  */
 @Entity(tableName = "home_page_article_table")
-data class Article<T>(
+data class Article (
     val apkLink:String ="",
     val audit :Int,
     @ColumnInfo(name="author")
@@ -43,7 +46,7 @@ data class Article<T>(
     val superChapterId :Int,
     @ColumnInfo(name = "superChapterName")
     val superChapterName:String="",
-    val tags:ArrayList<T>,
+    val tags:ArrayList<Any>,
     @ColumnInfo(name = "title")
     val title:String,
     val type:Int = 0,

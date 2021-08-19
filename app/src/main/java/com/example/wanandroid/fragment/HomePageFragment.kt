@@ -32,19 +32,6 @@ class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var viewModel :HomePageViewModel
 
-    companion object {
-        private val articleList = ArrayList<Article<Any>>()
-        private var instance: HomePageFragment? = null
-        fun getInstance(): HomePageFragment {
-            if (instance == null) {
-                synchronized(this) {
-                    instance = HomePageFragment()
-                    return instance!!
-                }
-            }
-            return instance!!
-        }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -61,14 +48,14 @@ class HomePageFragment : Fragment() {
         initFirstPage()
 
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(articleList)
+        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel.presentList,viewModel)
         binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
 
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             if(it.errorCode==0){
-                articleList.addAll(it.data.datas)
+                viewModel.presentList.addAll(it.data.datas)
                 binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
                 binding.loadingPanel.visibility=View.GONE
             }
@@ -94,13 +81,13 @@ class HomePageFragment : Fragment() {
 
     private fun refresh(){
         //清除数据集，重新加载
-        articleList.clear()
+        viewModel.presentList.clear()
         viewModel.refresh()
         binding.refreshLayout.isRefreshing=false
     }
 
 
-    private fun initFirstPage() = getArticlesByPage(0)
+    private fun initFirstPage() = viewModel.getArticlesByPage(0)
 
     private fun getArticlesByPage(page: Int) = viewModel.getArticlesByPage(page)
 
