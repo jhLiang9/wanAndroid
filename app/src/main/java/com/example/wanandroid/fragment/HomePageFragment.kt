@@ -19,6 +19,7 @@ import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.HomePageDataReadyEvent
 import com.example.wanandroid.event.refresh.HomepageGoUpEvent
+import com.example.wanandroid.fragment.vm.HomePageFragmentVM
 import com.example.wanandroid.utils.EventBusUtil
 
 import com.example.wanandroid.utils.HtmlElementUtil
@@ -27,11 +28,17 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class HomePageFragment : Fragment() {
+class HomePageFragment : HomePageFragmentVM() {
 
     private lateinit var binding: FragmentHomePageBinding
-    private lateinit var viewModel :HomePageViewModel
+    companion object{
+        fun newInstance(bundle:Bundle):HomePageFragment{
+            val fragment = HomePageFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
 
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -39,19 +46,39 @@ class HomePageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         EventBusUtil.register(this)
-        viewModel=  ViewModelProvider(this).get(HomePageViewModel::class.java)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
-
-        binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        //加载首页数据
         initFirstPage()
+        initView()
+        initData()
+        return binding.root
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBusUtil.unregister(this)
+    }
+
+    /**
+     * 点击下方导航栏回到顶部
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: HomepageGoUpEvent){
+        binding.ArticleRecyclerView.scrollY = 0
+        binding.ArticleRecyclerView.smoothScrollToPosition(0)
+        //TODO 在首页时，进行刷新
+    }
+
+    private fun initView(){
+        binding.ArticleRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel.presentList,viewModel)
         binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
+
+    }
+
+    private fun initData(){
+        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel.presentList,viewModel)
 
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             if(it.errorCode==0){
@@ -63,21 +90,10 @@ class HomePageFragment : Fragment() {
                 Toast.makeText(context,it.errorMessage,Toast.LENGTH_SHORT).show()
             }
         })
-        return binding.root
+
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBusUtil.unregister(this)
-    }
 
-    //点击下方导航栏回到顶部
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: HomepageGoUpEvent){
-        binding.ArticleRecyclerView.scrollY = 0
-        binding.ArticleRecyclerView.smoothScrollToPosition(0)
-        //TODO 在首页时，进行刷新
-    }
 
     private fun refresh(){
         //清除数据集，重新加载
@@ -86,7 +102,9 @@ class HomePageFragment : Fragment() {
         binding.refreshLayout.isRefreshing=false
     }
 
-
+    /**
+     * 加载首页数据
+     */
     private fun initFirstPage() = viewModel.getArticlesByPage(0)
 
     private fun getArticlesByPage(page: Int) = viewModel.getArticlesByPage(page)

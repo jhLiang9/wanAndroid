@@ -37,7 +37,7 @@ class ProjectContentFragment : Fragment() {
     private val viewModel: ProjectViewModel by viewModels()
     private lateinit var binding: FragmentProjectContentBinding
 
-    var projectList = ArrayList<Article<Any>>()
+    var projectList = ArrayList<Article>()
     private val startURL: String = "https://www.wanandroid.com/project/list/1/json?cid="
 
     companion object {

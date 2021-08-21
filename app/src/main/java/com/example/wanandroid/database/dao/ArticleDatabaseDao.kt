@@ -22,5 +22,5 @@ interface ArticleDatabaseDao {
     suspend fun clear()
 
     @Query("select * from home_page_article_table")
-    fun getAllArticles():LiveData<List<Article>>
+    suspend fun getAllArticles():LiveData<List<Article>>
 }

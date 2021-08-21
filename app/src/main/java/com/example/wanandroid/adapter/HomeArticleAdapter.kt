@@ -16,7 +16,7 @@ import com.example.wanandroid.fragment.HomePageFragment
 import com.example.wanandroid.viewmodel.HomePageViewModel
 
 
-class HomeArticleAdapter(private val articleList:List<Article<Any>>, val viewModel :HomePageViewModel) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
+class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :HomePageViewModel) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)

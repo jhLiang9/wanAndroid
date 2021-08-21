@@ -12,7 +12,7 @@ import com.example.wanandroid.databinding.ItemProjectContentBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.viewmodel.ProjectViewModel
 
-class ProjectContentAdapter (private val contentList:List<Article<Any>>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
+class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
 
 
      class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

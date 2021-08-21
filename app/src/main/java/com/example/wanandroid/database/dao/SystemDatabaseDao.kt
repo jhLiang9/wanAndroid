@@ -1,4 +1,4 @@
-package com.example.wanandroid.database
+package com.example.wanandroid.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,8 +11,10 @@ interface SystemDatabaseDao {
     @Insert
     fun insert(tree:Tree)
     @Update
-    fun update(tree:Tree)
-    @Query("select * from tree where ")
-    fun getAllSystemTree()
+    suspend fun update(tree:Tree)
+    @Query("select * from tree_table ")
+     fun getAllSystemTree(): List<Tree>
+    @Query("delete from tree_table")
+    suspend fun delete()
 
 }

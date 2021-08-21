@@ -18,7 +18,7 @@ open class HomePageViewModel : BaseViewModel() {
 
     private lateinit var set: HashSet<Int>
     val articleList = MutableLiveData<ArticleList>()
-    val presentList = ArrayList<Article<Any>>()
+    val presentList = ArrayList<Article>()
     //下一页
     var nextPage: Int = 1
     var pageCount :Int = -1

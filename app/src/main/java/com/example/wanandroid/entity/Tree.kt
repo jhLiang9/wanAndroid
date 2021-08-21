@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tree")
+@Entity(tableName = "tree_table")
 data class Tree(
     @ColumnInfo(name = "children")
     val children: ArrayList<Tree>,
@@ -31,6 +31,7 @@ data class Tree(
     val visible: Int,
     //Tree的类型，体系、或者其他
     @ColumnInfo(name ="type")
-    val type:Transient
+    @Transient
+    val type:String=""
 
 )

@@ -4,7 +4,7 @@ import com.example.wanandroid.entity.Article
 
 data class ArticleData(
     val curPage: Int,
-    val datas: ArrayList<Article<Any>>,
+    val datas: ArrayList<Article>,
     val over: Boolean = false,
     val pageCount: Int,
     val size: Int,

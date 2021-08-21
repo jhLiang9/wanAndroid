@@ -1,8 +1,10 @@
 package com.example.wanandroid.entity
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "system_table")
 class System(
     @ColumnInfo(name = "children")
     val children: List<System>?,

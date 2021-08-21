@@ -21,12 +21,15 @@ import org.greenrobot.eventbus.ThreadMode
 
 class QuestionAndAnswerFragment : Fragment() {
 
-    private var qaList = ArrayList<Article<Any>>()
+    private var qaList = ArrayList<Article>()
     private lateinit var binding: FragmentQuestionAndAnswerBinding
     private lateinit var viewModel:QAViewModel
 
     companion object {
-
+        fun newInstance():QuestionAndAnswerFragment{
+            val fragment = QuestionAndAnswerFragment()
+            return fragment
+        }
     }
 
 
