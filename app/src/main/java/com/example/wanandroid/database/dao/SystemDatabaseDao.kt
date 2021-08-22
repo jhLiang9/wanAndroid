@@ -11,10 +11,10 @@ interface SystemDatabaseDao {
     @Insert
     fun insert(tree:Tree)
     @Update
-    suspend fun update(tree:Tree)
+    fun update(tree:Tree)
     @Query("select * from tree_table ")
-     fun getAllSystemTree(): List<Tree>
+    fun getAllSystemTree(): List<Tree>
     @Query("delete from tree_table")
-    suspend fun delete()
+    fun delete()
 
 }

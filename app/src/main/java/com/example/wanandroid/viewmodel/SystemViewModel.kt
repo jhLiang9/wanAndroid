@@ -20,7 +20,7 @@ open class SystemViewModel : BaseViewModel() {
     val overview = MutableLiveData<TreeList>()
     var presentList = ArrayList<Tree>()
     @SuppressLint("UseRequireInsteadOfGet")
-    val database :SystemDatabaseDao = SystemDatabase.getInstance(SystemFragment().context!!).systemDatabaseDao
+//    val database :SystemDatabaseDao = SystemDatabase.getInstance(SystemFragment().context!!).systemDatabaseDao
 
 
     fun getData(){
@@ -39,14 +39,14 @@ open class SystemViewModel : BaseViewModel() {
                 val data = gson.fromJson(responseData, TreeList::class.java)
                 overview.postValue(data)
                 presentList.addAll(data.data)
-                for(i in 0 .. data.data.size ){
-                    database.insert(data.data[i])
-                    Log.i("database write",data.data[i].toString())
-                }
-                for(i in 0 .. data.data.size ){
-                    val test=database.getAllSystemTree()
-                    Log.i("database read",test[i].toString())
-                }
+//                for(i in 0 .. data.data.size ){
+//                    database.insert(data.data[i])
+//                    Log.i("database write",data.data[i].toString())
+//                }
+//                for(i in 0 .. data.data.size ){
+//                    val test=database.getAllSystemTree()
+//                    Log.i("database read",test[i].toString())
+//                }
             }
         })
     }

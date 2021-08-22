@@ -19,7 +19,7 @@ abstract class SystemDatabase :RoomDatabase(){
                 var instance = INSTANCE
                 if(instance==null){
                     instance= Room.databaseBuilder(context.applicationContext,SystemDatabase::class.java,"system_table")
-                        .fallbackToDestructiveMigration()
+//                        .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE=instance
                 }

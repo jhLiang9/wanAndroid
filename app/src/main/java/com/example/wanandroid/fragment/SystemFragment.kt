@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.SystemAdapter
+import com.example.wanandroid.database.SystemDatabase
+import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.databinding.FragmentSystemBinding
 import com.example.wanandroid.viewmodel.SystemViewModel
 
@@ -19,12 +21,15 @@ class SystemFragment : Fragment() {
 
     private lateinit var binding:FragmentSystemBinding
     private lateinit var viewModel :SystemViewModel
+    private lateinit var  database : SystemDatabaseDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(SystemViewModel::class.java)
+        database =   SystemDatabase.getInstance(requireContext()).systemDatabaseDao
+
         binding =DataBindingUtil.inflate(inflater,R.layout.fragment_system,container,false)
 
         initData()
