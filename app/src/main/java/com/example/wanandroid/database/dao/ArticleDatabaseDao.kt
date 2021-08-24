@@ -9,18 +9,30 @@ import com.example.wanandroid.entity.Article
 
 @Dao
 interface ArticleDatabaseDao {
+
     @Insert
-    suspend fun insert(article:Article)
+    fun insert(article:Article)
 
     @Update
-    suspend fun update(article: Article)
+     fun update(article: Article)
 
     @Query("select * from home_page_article_table where id=:key")
-    suspend fun get(key:Int):Article
+    fun get(key:Int):Article?
 
     @Query("DELETE FROM home_page_article_table")
-    suspend fun clear()
+     fun clear()
 
+    /**
+     *  获取全部文章数据
+     */
     @Query("select * from home_page_article_table")
-    suspend fun getAllArticles():LiveData<List<Article>>
+    fun getAllArticles():LiveData<List<Article>>
+
+    /**
+     *  根据页数返回数据
+     *  一页20条数据，每次返回20条
+     *  @param page 页数
+     */
+    @Query("select * from home_page_article_table limit :page *20 ,20")
+    fun getArticlesByPage(page:Int) :LiveData<List<Article>>
 }

@@ -1,10 +1,12 @@
 package com.example.wanandroid.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.example.wanandroid.entity.converter.TreeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 @Entity(tableName = "tree_table")
+
 data class Tree(
     @ColumnInfo(name = "children")
     val children: ArrayList<Tree>,
@@ -30,8 +32,8 @@ data class Tree(
     @ColumnInfo(name ="visible")
     val visible: Int,
     //Tree的类型，体系、或者其他
-    @ColumnInfo(name ="type")
-    @Transient
-    val type:String=""
+//    @ColumnInfo(name ="type")
+//    @Transient
+//    val type:String=""
 
 )

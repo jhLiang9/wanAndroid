@@ -18,12 +18,9 @@ import java.io.IOException
 
 open class SystemViewModel : BaseViewModel() {
     val overview = MutableLiveData<TreeList>()
-    var presentList = ArrayList<Tree>()
     @SuppressLint("UseRequireInsteadOfGet")
-//    val database :SystemDatabaseDao = SystemDatabase.getInstance(SystemFragment().context!!).systemDatabaseDao
 
-
-    fun getData(){
+     fun getData(){
         val url = "https://www.wanandroid.com/tree/json"
         val request = Request.Builder()
             .url(url)
@@ -38,15 +35,6 @@ open class SystemViewModel : BaseViewModel() {
                 val responseData = response.body?.string()
                 val data = gson.fromJson(responseData, TreeList::class.java)
                 overview.postValue(data)
-                presentList.addAll(data.data)
-//                for(i in 0 .. data.data.size ){
-//                    database.insert(data.data[i])
-//                    Log.i("database write",data.data[i].toString())
-//                }
-//                for(i in 0 .. data.data.size ){
-//                    val test=database.getAllSystemTree()
-//                    Log.i("database read",test[i].toString())
-//                }
             }
         })
     }

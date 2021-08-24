@@ -66,6 +66,11 @@ dependencies {
     //okhttp4
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
 
     //ViewPager2
@@ -82,11 +87,11 @@ dependencies {
     //Room 数据库
     implementation 'androidx.room:room-runtime:2.3.0'
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
+    implementation "androidx.room:room-ktx:2.3.0"
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:2.3.0")
     // To use Kotlin Symbolic Processing (KSP)
 //    ksp("androidx.room:room-compiler:2.3.0")
-
 
     //异步
     implementation "io.reactivex.rxjava3:rxjava:3.0.13"

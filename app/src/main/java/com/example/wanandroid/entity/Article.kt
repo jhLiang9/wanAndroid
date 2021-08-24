@@ -4,7 +4,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
+import androidx.room.TypeConverters
+import com.example.wanandroid.entity.converter.ArticleConverter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,6 +13,7 @@ import kotlin.collections.ArrayList
  * 首页文章
  */
 @Entity(tableName = "home_page_article_table")
+@TypeConverters(ArticleConverter::class)
 data class Article (
     val apkLink:String ="",
     val audit :Int,
@@ -24,7 +26,7 @@ data class Article (
     val courseId :Int ,
     @ColumnInfo(name = "description")
     val desc:String = "",
-    val descMD:String ="",
+    val descMD:String ?="",
     val envelopePic:String ="",
     val fresh :Boolean ,
     val host:String = "",

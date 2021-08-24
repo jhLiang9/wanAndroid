@@ -39,7 +39,7 @@ class SystemAdapter( private val overviewList:ArrayList<Tree>, val viewModel:Sys
 
         override fun getItemCount(): Int = size
 
-
+}
 
     class ModuleAdapter(val tree: ArrayList<Tree>, val viewModel: SystemViewModel) :
         RecyclerView.Adapter<ModuleAdapter.ViewHolder>() {
@@ -64,5 +64,4 @@ class SystemAdapter( private val overviewList:ArrayList<Tree>, val viewModel:Sys
 
     }
 
-}
 

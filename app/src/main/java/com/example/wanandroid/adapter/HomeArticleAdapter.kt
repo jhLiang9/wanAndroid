@@ -49,12 +49,11 @@ class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :H
         holder.time.text=article.niceDate
         //加载下一页
         if(position == itemCount-5){
-            if (viewModel.pageCount != -1 && viewModel.nextPage < viewModel.pageCount) {
-                viewModel.getArticlesByPage(viewModel.nextPage++)
-            }
+            getNextPage()
 
         }
     }
+    private fun getNextPage() = viewModel.getArticlesByPage(viewModel.nextPage++)
 
     override fun getItemCount(): Int = articleList.size
 
