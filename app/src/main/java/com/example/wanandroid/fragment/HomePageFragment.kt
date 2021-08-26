@@ -30,6 +30,7 @@ import com.example.wanandroid.viewmodel.HomePageViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -97,46 +98,25 @@ class HomePageFragment : HomePageFragmentVM() {
     }
 
     private fun initData() {
-//        val articles =database.getAllArticles()
-//        if(articles.value!=null){
-//            Log.i("home","cache")
-//            viewModel.presentList = ArrayList(articles.value)
-//        }
-        //TODO 同时进行 有新数据就写入数据库中，下次刷新出现新数据？
         binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel.presentList, viewModel)
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
+            //TODO observe 发生变化时 只需要notify就行
             viewModel.presentList.addAll(it.data.datas)
             viewModel.pageCount = it.data.pageCount
 
-            Observable.create(object : ObservableOnSubscribe<Article> {
-                override fun subscribe(emitter: ObservableEmitter<Article>?) {
-                    for (item in it.data.datas) {
-                        emitter?.onNext(item)
-                    }
-                    emitter?.onComplete()
+            Observable.create(ObservableOnSubscribe<Article> { emitter ->
+                for (item in it.data.datas) {
+                    emitter?.onNext(item)
                 }
+                emitter?.onComplete()
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(object : io.reactivex.rxjava3.core.Observer<Article> {
-                    override fun onNext(t: Article?) {
-                        if (t != null && database.get(t.id) != null) {
-                            database.insert(t)
-                        }
+                .subscribe { t ->
+                    if (t != null && database.get(t.id) != null) {
+                        database.insert(t)
                     }
-
-                    override fun onError(t: Throwable?) {
-                        t?.printStackTrace()
-                    }
-
-                    override fun onComplete() {
-                        //It works
-                        Log.i("Rx", "complete")
-                    }
-
-                    override fun onSubscribe(d: Disposable?) {
-                    }
-                })
+                }
             binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
 
             binding.loadingPanel.visibility = View.GONE
@@ -144,10 +124,10 @@ class HomePageFragment : HomePageFragmentVM() {
 
     }
 
-
+    /**
+     * 刷新，重新加载加载数据
+     */
     private fun refresh() {
-        //清除数据集，重新加载
-        viewModel.presentList.clear()
         viewModel.refresh()
         binding.refreshLayout.isRefreshing = false
     }
@@ -156,12 +136,7 @@ class HomePageFragment : HomePageFragmentVM() {
      * 加载首页数据
      */
     private fun initFirstPage() {
-//       val articles =database.getArticlesByPage(0)
-//        articles.let {
-//            viewModel.presentList.addAll(it.value as ArrayList<Article>)
-//        }
         viewModel.getArticlesByPage(0)
-
     }
 
 

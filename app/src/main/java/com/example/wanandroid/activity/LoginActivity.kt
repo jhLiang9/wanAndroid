@@ -9,22 +9,38 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import com.example.wanandroid.R
+import com.example.wanandroid.databinding.ActivityLoginBinding
+import com.example.wanandroid.entity.list.ArticleList
+import com.example.wanandroid.service.AppService
+import com.example.wanandroid.service.ServiceCreator
 
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity()  {
+    private lateinit var binding :ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏？
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_login)
-//        setSupportActionBar(logintoolbar)
+        setSupportActionBar(binding.logintoolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
+        supportActionBar?.setHomeButtonEnabled(true); //设置返回键可用
+
+
 
 
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.logintoolbar,menu)
@@ -40,76 +56,23 @@ class LoginActivity : AppCompatActivity()  {
         }
         return true
     }
-//    override fun onClick(v:View?){
-//        when (v?.id) {
-//            R.id.more -> {
-//                AlertDialog.Builder(this).apply {
-//                    setTitle("帮助")
-//                    setMessage("登录、注册")
-//                    setCancelable(false)
-//                    setPositiveButton("确定") { dialog, which ->
-//                    }
-//                    setNegativeButton("返回") { dialog, which ->
-//                    }
-//                    show()
-//                }
-//            }
-//            R.id.login ->{
-//                    val account = accountEdit.text.toString()
-//                    if (account==""){
-//                        Toast.makeText(this,"请输入账号",Toast.LENGTH_SHORT).show()
-//                    }
-//                    val password =passwordEdit.text.toString()
-//                    if(password==""){
-//                        Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    val client= OkHttpClient()
-//                    val requestBody = FormBody.Builder()
-//                        .add("username", account)
-//                        .add("password", password)
-//                        .build()
-//                    val request = Request.Builder()
-//                        .url("https://www.wanandroid.com/user/login")
-//                        .post(requestBody)
-//                        .build()
-//                    val response = client.newCall(request).execute()
-//
-//                    val responseData = response.body?.string()
-//                    if (responseData != null) {
-//                        try{
-//                            //val json =JSONObject(responseData)
-//                            val jsonArray = JSONArray(responseData)
-//                            val jsonObject= jsonArray.getJSONObject(0)
-//                            val errorCode = jsonObject.getString("errorCode")
-//                            val errorMessage =jsonObject.getString("errorMessage")
-//                            if(errorCode=="-1"){
-//                                Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
-//                            }else if (errorCode=="0"){//登录成功
-//
-//                                val intent=Intent()
-//                                intent.putExtra("name",jsonObject.getString("nickname"))
-////存储收藏文章
-////                                val array=ArrayList<Int>()
-////                                jsonObject.getJSONArray()
-//                                intent.putExtra("collectIds",jsonObject.getString("collectIds"))
-//                                //TODO: Cookie
-//                                finish()
-//                                //直接登录
-//
-//
-//
-//                            }
-//                        }catch (e:Exception){
-//                            e.printStackTrace()
-//                        }
-//                    }
-//
-//
-//            }
-//        }
-//
-//    }
 
+    private fun login(username:String,password:String){
+        val appService = ServiceCreator.create(AppService::class.java)
+
+//        appService.longin(username,password).enqueue(object : Callback<ArticleList> {
+//            override fun onResponse(
+//                call: Call<ArticleList>,
+//                response: Response<ArticleList>
+//            ) {
+//                val body = response.body()
+//                .postValue(body)
+//            }
+//
+//            override fun onFailure(call: Call<ArticleList>, t: Throwable) {
+//                t.printStackTrace()
+//            }
+//        })
+    }
 
 }

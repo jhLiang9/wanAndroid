@@ -15,7 +15,8 @@ import com.example.wanandroid.entity.Article
 import com.example.wanandroid.fragment.QuestionAndAnswerFragment
 import com.example.wanandroid.viewmodel.QAViewModel
 
-class QAAdapter(val qaList: List<Article>,val viewModel :QAViewModel) : RecyclerView.Adapter<QAAdapter.ViewHolder>() {
+class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
+    RecyclerView.Adapter<QAAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -46,9 +47,8 @@ class QAAdapter(val qaList: List<Article>,val viewModel :QAViewModel) : Recycler
         holder.time.text = article.niceDate
         holder.description.text = article.desc
         if (position >= itemCount - 5) {
-            if (viewModel.pageCount != -1 && viewModel.nextPage < viewModel.pageCount) {
-                viewModel.getPage(viewModel.nextPage++)
-            }
+            viewModel.getPageByRetrofit(viewModel.nextPage++)
+
         }
     }
 

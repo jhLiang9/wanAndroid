@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/loadingPanel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:gravity="center" >
+            android:gravity="center"
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -20,8 +23,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent" />
     </FrameLayout>
 </layout>

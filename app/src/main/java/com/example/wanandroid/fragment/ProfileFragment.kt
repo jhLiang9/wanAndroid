@@ -12,12 +12,10 @@ import com.example.wanandroid.R
 import com.example.wanandroid.activity.LoginActivity
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.databinding.FragmentProfileBinding
+import com.example.wanandroid.fragment.basefragment.BaseFragment
 
 
-
-
-
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     private val user:String?=null
     private lateinit var binding: FragmentProfileBinding

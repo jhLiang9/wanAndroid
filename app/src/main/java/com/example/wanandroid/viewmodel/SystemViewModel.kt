@@ -1,40 +1,36 @@
 package com.example.wanandroid.viewmodel
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.wanandroid.database.SystemDatabase
-import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.entity.Tree
+import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
-import com.example.wanandroid.fragment.SystemFragment
+import com.example.wanandroid.service.AppService
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Request
-import okhttp3.Response
-import java.io.IOException
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 open class SystemViewModel : BaseViewModel() {
+    val list = ArrayList<Tree>()
     val overview = MutableLiveData<TreeList>()
-    @SuppressLint("UseRequireInsteadOfGet")
-
-     fun getData(){
-        val url = "https://www.wanandroid.com/tree/json"
-        val request = Request.Builder()
-            .url(url)
+    fun getData() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://www.wanandroid.com/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val call: Call = client.newCall(request)
-        call.enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
+        val appService = retrofit.create(AppService::class.java)
+        appService.getSystemTree().enqueue(object : retrofit2.Callback<TreeList> {
+            override fun onResponse(
+                call: retrofit2.Call<TreeList>,
+                response: retrofit2.Response<TreeList>
+            ) {
+                val body = response.body()
+                overview.postValue(body)
             }
-            override fun onResponse(call: Call, response: Response) {
-                val gson = Gson()
-                val responseData = response.body?.string()
-                val data = gson.fromJson(responseData, TreeList::class.java)
-                overview.postValue(data)
+
+            override fun onFailure(call: retrofit2.Call<TreeList>, t: Throwable) {
+                t.printStackTrace()
             }
         })
     }

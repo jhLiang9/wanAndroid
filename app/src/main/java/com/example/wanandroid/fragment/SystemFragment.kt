@@ -18,8 +18,9 @@ import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.entity.list.TreeList
 import com.example.wanandroid.viewmodel.SystemViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.*
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.Executors
 import kotlin.concurrent.thread
@@ -37,39 +38,67 @@ class SystemFragment : Fragment() {
     ): View {
         viewModel = ViewModelProvider(this).get(SystemViewModel::class.java)
         database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
-
-        initData()
+//        val t0 = Tree(ArrayList<Tree>(),1,1,"21415",1,1,false,2)
+//        val t1 = Tree(arrayListOf(t0),1,1,"123",1,1,false,2)
+//        val tl = ArrayList<Tree>()
+//        tl.add(t1)
+        binding.systemModule.adapter = SystemAdapter(viewModel.list, viewModel)
         binding.systemModule.layoutManager = LinearLayoutManager(context)
+        initData()
         return binding.root
     }
 
     private fun initData() {
-        var list = ArrayList<Tree>()
-        thread {
-            list = ArrayList(database.getAllSystemTree())
-        }.join()
-        if (list.isEmpty()) {
-            Log.i("system", "not cache")
-            viewModel.getData()
-        }
 
-        binding.systemModule.adapter = SystemAdapter(viewModel.overview.value!!.data, viewModel)
+        viewModel.getData()
         viewModel.overview.observe(viewLifecycleOwner, {
-            list = viewModel.overview.value!!.data
-            thread {
-                for (i in 0..list.size - 1) {
-                    database.insert(list[i])
-                    Log.i("system", list[i].toString())
+            lateinit var disposable: Disposable
+            Observable.create(ObservableOnSubscribe<Tree> { emitter ->
+                for(item in it.data){
+                    emitter.onNext(item)
                 }
-            }
+                emitter.onComplete()
+            })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(object :Observer<Tree>{
+                    override fun onSubscribe(d: Disposable?) {
+                        if (d != null) {
+                            disposable = d
+                        }
+                    }
+
+                    override fun onNext(t: Tree?) {
+                        if (t != null) {
+                            if(database.getTree(t.id)==null){
+                                Log.i("system","insert")
+                                database.insert(t)
+                            }
+
+                        }
+                        Log.i("system","OnNext")
+                    }
+
+                    override fun onError(e: Throwable?) {
+                    }
+
+                    override fun onComplete() {
+
+                        viewModel.list.addAll(database.getAllSystemTree())
+                        Log.i("system",viewModel.list[0].toString())
+                    }
+
+                })
+            //TODO 处理好先后关系
+
+            while(!disposable.isDisposed){}
+            Thread.sleep(2000L)
             binding.systemModule.adapter?.notifyDataSetChanged()
+            Log.i("system","notify")
+            binding.loadingPanel.visibility = View.GONE
         })
     }
 
-    private fun initView() {
-
-    }
 
 }

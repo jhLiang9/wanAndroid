@@ -17,5 +17,7 @@ interface SystemDatabaseDao {
     fun getAllSystemTree():List<Tree>
     @Query("delete from tree_table")
     fun delete()
+    @Query("select * from tree_table where id =:id ")
+    fun getTree(id :Int):Tree?
 
 }
