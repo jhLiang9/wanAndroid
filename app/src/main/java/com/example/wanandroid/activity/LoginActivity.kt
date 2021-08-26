@@ -37,8 +37,36 @@ class LoginActivity : AppCompatActivity()  {
         supportActionBar?.setHomeButtonEnabled(true); //设置返回键可用
 
 
+        /**
+         * {
+        "data": {
+        "admin": false,
+        "chapterTops": [],
+        "coinCount": 21,
+        "collectIds": [],
+        "email": "",
+        "icon": "",
+        "id": 108609,
+        "nickname": "Hometest",
+        "password": "",
+        "publicName": "Hometest",
+        "token": "",
+        "type": 0,
+        "username": "Hometest"
+        },
+        "errorCode": 0,
+        "errorMsg": ""
+        }
+         */
 
-
+        /**
+         * logout
+         * {
+        "data": null,
+        "errorCode": 0,
+        "errorMsg": ""
+        }
+         */
     }
 
 

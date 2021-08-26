@@ -19,6 +19,27 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
     }
 
+    /**
+     * {
+    "data": {
+    "admin": false,
+    "chapterTops": [],
+    "coinCount": 0,
+    "collectIds": [],
+    "email": "",
+    "icon": "",
+    "id": 109037,
+    "nickname": "Hometest0",
+    "password": "",
+    "publicName": "Hometest0",
+    "token": "",
+    "type": 0,
+    "username": "Hometest0"
+    },
+    "errorCode": 0,
+    "errorMsg": ""
+    }
+     */
 
     private fun register(username:String,password:String,repassword:String){
         val retrofit = Retrofit.Builder()
