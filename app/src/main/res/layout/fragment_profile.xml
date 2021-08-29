@@ -5,62 +5,97 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray"
         tools:context=".fragment.ProfileFragment">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="20sp" />
-
-        <TextView
-            android:id="@+id/username"
+        <Button
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_toEndOf="@id/image"
-            android:text="未登录"
-            android:textSize="24sp" />
+            android:text="test11111111111111111">
 
+        </Button>
 
         <RelativeLayout
             android:id="@+id/rl0"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image">
+            android:layout_below="@id/name"
+            android:layout_margin="10dp"
+            android:background="#FFFFFF">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="20sp" />
 
             <TextView
-                android:id="@+id/tv_rank"
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_margin="20dp"
-                android:layout_marginStart="20dp"
-                android:text="积分"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_toEndOf="@+id/tv_rank"
-                android:text="111111"
-                android:textSize="18dp"
-
-                />
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/image"
+                android:text="未登录"
+                android:textSize="24sp" />
         </RelativeLayout>
 
+
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl0">
+            android:layout_below="@id/rl0"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#FFFFFF">
+
+            <RelativeLayout
+                android:id="@+id/rl2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="积分"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@+id/tv_rank"
+                    android:text="1234567"
+                    android:textSize="18dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_below="@id/rl2"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="我的收藏"
                 android:textSize="18dp" />
 
@@ -88,7 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/share_project"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="退出登陆" />
         </RelativeLayout>
 

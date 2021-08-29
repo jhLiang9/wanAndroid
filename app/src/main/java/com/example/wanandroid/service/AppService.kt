@@ -1,5 +1,6 @@
 package com.example.wanandroid.service
 
+import com.example.wanandroid.entity.UserData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
 import retrofit2.Call
@@ -46,7 +47,7 @@ interface AppService {
      * @param password 用户密码
      */
     @POST("user/login/")
-    fun longin(@Query("username") username: String, @Query("password") password: String) :Call<Any>
+    fun longin(@Query("username") username: String, @Query("password") password: String) :Call<UserData>
 
     @POST("user/register/")
     fun register(
