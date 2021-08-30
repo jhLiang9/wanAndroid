@@ -12,7 +12,13 @@ class UserViewModel : BaseViewModel() {
     fun setUser(u: User) = user.postValue(u)
 
 
-    fun getUser(): MutableLiveData<User> {return user}
+    fun getUser(): MutableLiveData<User> {
+        return if(this::user.isInitialized){
+            user
+        }else{
+            MutableLiveData(User(coinCount = -1,id=-1,chapterTops = ArrayList(),nickname="None",type=-1,collectIds = ArrayList()))
+        }
+    }
 
 }
 

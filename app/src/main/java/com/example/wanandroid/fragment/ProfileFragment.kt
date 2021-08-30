@@ -9,11 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.LoginActivity
 import com.example.wanandroid.databinding.FragmentProfileBinding
+import com.example.wanandroid.entity.User
+import com.example.wanandroid.entity.UserData
+import com.example.wanandroid.event.UserEvent
+import com.example.wanandroid.event.refresh.HomepageGoUpEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
+import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.UserViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class ProfileFragment : BaseFragment() {
@@ -24,16 +32,19 @@ class ProfileFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        arguments=Bundle()
+        Log.i("user","register")
+        EventBusUtil.register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        Log.i("Profile", "1234")
-        binding.name.setOnClickListener {
+        Glide.with(this)
+            .load(R.drawable.ic_logo)
+            .into(binding.image)
+        binding.username.setOnClickListener {
             //未登录状态,点击进行登录
             val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)//返回用户,用intent承载
+            startActivity(intent)
         }
-
         viewModel.getUser().observe(viewLifecycleOwner,{
             binding.username.text=it.nickname
             binding.rank.text=it.coinCount.toString()
@@ -41,6 +52,22 @@ class ProfileFragment : BaseFragment() {
 
         return binding.root
     }
+
+    override fun onDestroy() {
+        Log.i("user","destroy")
+        EventBusUtil.unregister(this)
+        super.onDestroy()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: UserEvent) {
+        val data: UserData =event.userdata
+        setUser(data.user)
+        Log.i("user",event.userdata.user.toString())
+    }
+
+    fun setUser(user: User) = viewModel.setUser(user)
 
 
 }

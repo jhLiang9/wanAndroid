@@ -48,4 +48,4 @@ data class User(
     val username:String = ""
 )
 
-data class UserData(val user:User,val errorCode:Int=0,val errorMessage:String="")
+data class UserData(val user:User,val errorCode:Int=-1,val errorMessage:String="")
