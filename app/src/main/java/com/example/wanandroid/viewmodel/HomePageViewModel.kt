@@ -45,7 +45,7 @@ open class HomePageViewModel : BaseViewModel() {
      * @param page 页码
      */
     private fun getByRetrofit(page: Int) {
-        val appService = ServiceCreator.create(AppService::class.java)
+
         appService.getArticleData(page).enqueue(object : Callback<ArticleList> {
             override fun onResponse(
                 call: Call<ArticleList>,
