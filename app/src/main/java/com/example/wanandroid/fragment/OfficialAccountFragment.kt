@@ -57,7 +57,7 @@ class WXAdapter(val list: ArrayList<Article>, val viewModel: OfficialAccountView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WXAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position

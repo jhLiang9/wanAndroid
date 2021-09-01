@@ -1,13 +1,10 @@
 package com.example.wanandroid.adapter
 
-import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
@@ -25,7 +22,7 @@ class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :H
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
         val viewHolder=ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
