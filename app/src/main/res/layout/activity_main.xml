@@ -7,19 +7,25 @@
             name="projectViewModel"
             type="com.example.wanandroid.viewmodel.ProjectViewModel" />
     </data>
+
     <LinearLayout
+
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F5F5F5"
         android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="22sp">
+        </View>
         <FrameLayout
             android:id="@+id/activity_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
             android:layout_weight="1"
-            android:background="#F5F5F5" />
+             />
         <RelativeLayout
             android:id="@+id/loadingPanel"
             android:layout_width="match_parent"

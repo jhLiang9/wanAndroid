@@ -1,8 +1,11 @@
 package com.example.wanandroid.activity
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.View
+import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.statusBarColor=Color.TRANSPARENT
+        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         val userViewModel :UserViewModel by viewModels()
         //cache
         val prefs = getSharedPreferences("user", Context.MODE_PRIVATE)
@@ -94,14 +99,14 @@ class MainActivity : AppCompatActivity() {
                         fragmentTransaction.replace(R.id.activity_fragment_container, HomePageFragment()).commit()
                         return@OnNavigationItemSelectedListener true
                     }
-                    //体系
-                    R.id.item_lib->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container, SystemFragment()).commit()
+                    //互动
+                    R.id.item_interact->{
+                        fragmentTransaction.replace(R.id.activity_fragment_container,InteractionFragment.newInstance()).commit()
                         return@OnNavigationItemSelectedListener true
                     }
-                    //问答
-                    R.id.item_qa->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container,QuestionAndAnswerFragment()).commit()
+                    //体系
+                    R.id.item_system->{
+                        fragmentTransaction.replace(R.id.activity_fragment_container, SystemFragment()).commit()
 //                        addToBackStack就是 加入到回退栈。取决于你是否要在回退的时候显示上一个Fragment。
 //                        fragmentTransaction.add(R.id.activity_fragment_container,ProfileFragment()).addToBackStack("ProfileFragment").commit();
                         return@OnNavigationItemSelectedListener true

@@ -84,12 +84,6 @@ class HomePageFragment : HomePageFragmentVM() {
     }
 
     private fun initView() {
-        binding.ArticleRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.refreshLayout.setOnRefreshListener {
             refresh()

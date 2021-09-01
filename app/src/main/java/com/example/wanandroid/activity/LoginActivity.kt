@@ -53,4 +53,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(name:String,password:String) = viewModel.login(name,password)
+
+    fun start(context:Context){
+        val intent = Intent(context,LoginActivity::class.java)
+        context.startActivity(intent)
+    }
 }

@@ -13,8 +13,10 @@
         <entry key="app/src/main/res/layout/article_item.xml" value="0.2921195652173913" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20364741641337386" />
+        <entry key="app/src/main/res/layout/fragment_interaction.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_navi.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2911458333333333" />
+        <entry key="app/src/main/res/layout/fragment_official_account.xml" value="0.41847826086956524" />
         <entry key="app/src/main/res/layout/fragment_playground.xml" value="0.3138586956521739" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.2708333333333333" />

@@ -5,13 +5,14 @@
         android:icon="@drawable/homepage"
         android:title="@string/home_page" />
     <item
-        android:id="@+id/item_lib"
+        android:id="@+id/item_interact"
         android:icon="@drawable/system"
-        android:title="@string/system" />
+        android:title="@string/interact" />
     <item
-        android:id="@+id/item_qa"
+        android:id="@+id/item_system"
         android:icon="@drawable/find"
-        android:title="@string/wenda" />
+        android:title="@string/system" />
+
     <item
         android:id="@+id/item_project"
         android:icon="@drawable/projects"

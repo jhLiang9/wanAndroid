@@ -38,7 +38,6 @@ interface AppService {
     @GET("navi/json")
     fun getNavi(): Call<ArticleList>
 
-
     /**
      * 用户登陆
      * @param username 用户名
@@ -63,13 +62,13 @@ interface AppService {
      * 收藏文章列表
      */
     @GET("lg/collect/list/{page}/json")
-    fun getCollection(@Path("page") page: String)
+    fun getCollection(@Path("page") page: Int)
 
     /**
      * 收藏站内文章
      */
     @POST("lg/collect/{page}/json")
-    fun postInsideCollection(@Path("page") page: String)
+    fun postInsideCollection(@Path("page") page: Int)
 
     /**
      * 收藏站外文章
@@ -84,7 +83,7 @@ interface AppService {
      * @param page_size 分页数量 【1-40】，不传使用默认值
      */
     @GET("user_article/list/{page}/json")
-    fun getPlayground(@Path("page")page:String)
+    fun getPlayground(@Path("page")page:Int):Call<ArticleList>
 
     /**
      * 登出
@@ -92,8 +91,37 @@ interface AppService {
     @GET("user/logout/json")
     fun logout()
 
+    /**
+     * 微信公众号 列表
+     */
     @GET("wxarticle/chapters/json")
-    fun getWXArticles()
+    fun getWXArticles():Call<ArticleList>
 
-    //TODO 我的收藏、搜索、公众号
+    /**
+     * 某个微信公众号的历史数据
+     * @param id 公众号代表id
+     * @param page 页码
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    fun getWxDetail(@Path("id")id:Int,@Path("page")page:Int):Call<ArticleList>
+
+
+    /**
+     * 某个微信公众号的历史数据
+     * @param id 公众号代表id
+     * @param page 页码
+     */
+    @GET("wxarticle/list/{id}/{page}/json/")
+    fun getWxKeyDetail(@Path("id")id:Int,@Path("page")page:Int,@Query("k")keyword: String):Call<ArticleList>
+
+    //TODO 我的收藏
+
+    /**
+     *搜索
+     * @param page 页码
+     * @param keyword 关键字
+     */
+    @FormUrlEncoded
+    @POST("article/query/{page}/json")
+    fun search(@Path("page")page:Int,@Field("k")keyword:String)
 }

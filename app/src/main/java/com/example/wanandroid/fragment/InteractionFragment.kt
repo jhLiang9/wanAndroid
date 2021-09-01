@@ -51,7 +51,7 @@ class InteractionFragment : Fragment() {
                 }
             }
         }.attach()
-        return inflater.inflate(R.layout.fragment_interaction, container, false)
+        return binding.root
     }
 
 
