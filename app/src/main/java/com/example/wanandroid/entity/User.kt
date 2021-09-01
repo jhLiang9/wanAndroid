@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.wanandroid.entity.converter.UserConverter
+import java.io.Serializable
 
 /**
  * {
@@ -29,23 +30,20 @@ import com.example.wanandroid.entity.converter.UserConverter
  */
 @Entity(tableName = "user_table")
 @TypeConverters(UserConverter::class)
-data class User(
+data class User (
     val admin :Boolean= false,
-    val chapterTops:ArrayList<Any>,
-    val coinCount:Int ,
-    val collectIds:ArrayList<Any>,
+    val chapterTops:ArrayList<Any>?=null,
+    val coinCount:Int =-1,
+    val collectIds:ArrayList<Any>?=null,
     val email:String="",
     val icon :String="",
     @PrimaryKey(autoGenerate = false)
-    val id:Int,
-    @ColumnInfo(name= "name")
-    val nickname:String,
-    @ColumnInfo(name= "password")
+    val id:Int=-1,
+    val nickname:String="未登录",
     val password :String="",
     val publicName:String="",
     val token:String="",
-    val type:Int,
-    val username:String = ""
-)
+    val type:Int=-1,
+    val username:String = "未登录"
+):Serializable
 
-data class UserData(val user:User,val errorCode:Int=-1,val errorMessage:String="")

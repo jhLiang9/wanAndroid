@@ -1,13 +1,11 @@
 package com.example.wanandroid.service
 
-import com.example.wanandroid.entity.UserData
+import com.example.wanandroid.entity.data.UserData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * 网络请求
@@ -35,10 +33,10 @@ interface AppService {
     fun getSystemTree(): Call<TreeList>
 
     /**
-     * 导航
+     * 导航数据
      */
     @GET("navi/json")
-    fun getNavi():Call<ArticleList>
+    fun getNavi(): Call<ArticleList>
 
 
     /**
@@ -46,16 +44,51 @@ interface AppService {
      * @param username 用户名
      * @param password 用户密码
      */
+    @FormUrlEncoded
     @POST("user/login/")
-    fun longin(@Query("username") username: String, @Query("password") password: String) :Call<UserData>
+    fun longin(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<UserData>
 
+    @FormUrlEncoded
     @POST("user/register/")
     fun register(
-        @Query("username") username: String,
-        @Query("password") password: String,
-        @Query("repassword") repassword: String
-    )
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("repassword") repassword: String
+    ): Call<UserData>
 
+    /**
+     * 收藏文章列表
+     */
+    @GET("lg/collect/list/{page}/json")
+    fun getCollection(@Path("page") page: String)
+
+    /**
+     * 收藏站内文章
+     */
+    @POST("lg/collect/{page}/json")
+    fun postInsideCollection(@Path("page") page: String)
+
+    /**
+     * 收藏站外文章
+     */
+    @FormUrlEncoded
+    @POST("lg/collect/add/json/")
+    fun postOutsideCollection(@Field("title") title: String,@Field("author") author: String,@Field("link") link: String)
+
+    /**
+     * 广场
+     * @param page 页码【从0开始】
+     * @param page_size 分页数量 【1-40】，不传使用默认值
+     */
+    @GET("user_article/list/{page}/json")
+    fun getPlayground(@Path("page")page:String)
+
+    /**
+     * 登出
+     */
     @GET("user/logout/json")
     fun logout()
 

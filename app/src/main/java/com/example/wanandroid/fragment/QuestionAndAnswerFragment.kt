@@ -26,10 +26,8 @@ class QuestionAndAnswerFragment : Fragment() {
     private lateinit var viewModel:QAViewModel
 
     companion object {
-        fun newInstance():QuestionAndAnswerFragment{
-            val fragment = QuestionAndAnswerFragment()
-            return fragment
-        }
+        fun newInstance() = QuestionAndAnswerFragment()
+
     }
 
 

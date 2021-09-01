@@ -1,5 +1,6 @@
 package com.example.wanandroid.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.util.SparseArray
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityMainBinding
+import com.example.wanandroid.entity.User
 import com.example.wanandroid.event.refresh.HomepageGoUpEvent
 import com.example.wanandroid.event.refresh.ProjectRefreshEvent
 import com.example.wanandroid.event.refresh.QARefreshEvent
@@ -18,13 +20,13 @@ import com.example.wanandroid.event.refresh.SystemRefreshEvent
 import com.example.wanandroid.fragment.*
 import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.ProjectViewModel
+import com.example.wanandroid.viewmodel.UserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.greenrobot.eventbus.EventBus
 import com.github.moduth.blockcanary.BlockCanaryContext
 
 import com.github.moduth.blockcanary.BlockCanary
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomnavigation.LabelVisibilityMode
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,12 +35,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val userViewModel :UserViewModel by viewModels()
         //cache
-        val userConfig = getSharedPreferences("user",0)
-        val name = userConfig.getString("user_name","")
-        if(name==""){
-            //....
-        }
+        val prefs = getSharedPreferences("user", Context.MODE_PRIVATE)
+        //第二个参数是默认值，即 找不到键值时，返回默认值
+        var name = prefs.getString("username", "未登录")
+        var coinCount = prefs.getInt("coinCount", -1)
+        var id = prefs.getInt("id", -1)
+        userViewModel.getUser().postValue(User(username=name!!,coinCount=coinCount,id=id,nickname = name))
 
         //BlockCanary
 //        BlockCanary.install(this, BlockCanaryContext()).start()

@@ -1,33 +1,17 @@
 package com.example.wanandroid.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.wanandroid.databinding.ActivityLoginBinding
 import com.example.wanandroid.entity.User
-import com.example.wanandroid.entity.UserData
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.event.UserEvent
-import com.example.wanandroid.service.AppService
-import com.example.wanandroid.service.ServiceCreator
 import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.UserViewModel
 
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -45,36 +29,28 @@ class LoginActivity : AppCompatActivity() {
         binding.login.setOnClickListener {
             val name = binding.accountEdit.text.toString()
             val pass = binding.passwordEdit.text.toString()
-            Log.i("user", name.toString())
-            Log.i("user", pass.toString())
             login(name, pass)
+//            val editor = getSharedPreferences("user", Context.MODE_PRIVATE).edit()
+//            val user:User = viewModel.getUser().value!!
+//            editor.putString("username",user.username)
+//            editor.putInt("coinCount",user.coinCount)
+//            editor.putInt("id",user.id)
+//            editor.apply()
+            Thread.sleep(1000L)
+            val intent = Intent()
+            val bundle=Bundle()
+            bundle.putSerializable("user",viewModel.getUser().value)
+            intent.putExtra("data",bundle)
+            setResult(1,intent)
+            finish()
         }
         binding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
         setContentView(binding.root)
     }
 
-    private fun login(username: String, password: String) {
-        val appService = ServiceCreator.create(AppService::class.java)
-
-        appService.longin(username, password).enqueue(object : Callback<UserData> {
-            override fun onResponse(
-                call: Call<UserData>,
-                response: Response<UserData>
-            ) {
-                val body = response.body()
-                Thread.sleep(2000L)
-                Log.i("user", body.toString())
-                EventBusUtil.post(UserEvent(body!!))
-                finish()
-            }
-
-            override fun onFailure(call: Call<UserData>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
-    }
-
+    private fun login(name:String,password:String) = viewModel.login(name,password)
 }

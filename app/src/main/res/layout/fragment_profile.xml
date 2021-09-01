@@ -139,12 +139,45 @@
                 android:layout_height="1sp"
                 android:layout_below="@+id/collection"
                 android:background="@color/light_gray" />
+            <RelativeLayout
+                android:id="@+id/rl_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/collection"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="false"
+
+                >
+
+                <TextView
+                    android:id="@+id/navigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:text="工具导航"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:text=">"
+                    android:textSize="18sp" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/share_article"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collection"
+                android:layout_below="@id/rl_navigation"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="false"
