@@ -23,7 +23,7 @@
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/time"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_top"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6sp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4sp"
+            android:layout_marginEnd="9sp"
             android:gravity="center_vertical">
 
             <TextView
@@ -58,24 +58,31 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_middle"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6sp"
+            android:layout_marginTop="3sp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3sp"
             android:gravity="center_vertical">
 
-
-            <TextView
-                android:id="@+id/superChapterName"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp" />
+                android:background="@color/purple_700">
+
+                <TextView
+                    android:id="@+id/superChapterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp" />
+
+            </androidx.cardview.widget.CardView>
 
 
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_below="@+id/rl_bottom"
             android:layout_height="1sp"
+            android:layout_below="@+id/rl_bottom"
             android:background="@color/light_gray" />
 
         <View
