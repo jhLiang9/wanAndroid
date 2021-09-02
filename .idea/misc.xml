@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/fragment_navi.xml" value="0.5744791666666667" />
+        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/fragment_playground.xml" value="0.5744791666666667" />
         <entry key="app/src/main/res/drawable/ripple_bg.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout-v23/fragment_profile.xml" value="0.2658514492753623" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2942708333333333" />

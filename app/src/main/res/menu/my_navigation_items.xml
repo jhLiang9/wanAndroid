@@ -6,20 +6,20 @@
         android:title="@string/home_page" />
     <item
         android:id="@+id/item_interact"
-        android:icon="@drawable/system"
+        android:icon="@drawable/ic_system"
         android:title="@string/interact" />
     <item
         android:id="@+id/item_system"
-        android:icon="@drawable/find"
+        android:icon="@drawable/ic_find"
         android:title="@string/system" />
 
     <item
         android:id="@+id/item_project"
-        android:icon="@drawable/projects"
+        android:icon="@drawable/ic_projects"
 
         android:title="@string/project" />
     <item
         android:id="@+id/item_profile"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_user"
         android:title="@string/profile" />
 </menu>
