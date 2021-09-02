@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
@@ -15,25 +14,47 @@
         tools:context=".fragment.ProjectFragment"
         android:orientation="horizontal">
 
-        <fragment
+        <FrameLayout
             android:id="@+id/project_nav"
-            android:name="com.example.wanandroid.fragment.ProjectListFragment"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-        </fragment>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
         <View
             android:id="@+id/divide"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:visibility="invisible"
             android:background="#808080"/>
-        <fragment
+        <FrameLayout
             android:id="@+id/project_content"
-            android:name="com.example.wanandroid.fragment.ProjectContentFragment"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent">
-        </fragment>
+            <RelativeLayout
+                android:id="@+id/loadingPanel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true" />
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
     </LinearLayout>
 </layout>

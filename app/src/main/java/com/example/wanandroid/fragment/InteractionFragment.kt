@@ -20,13 +20,13 @@ class InteractionFragment : Fragment() {
     companion object {
         fun newInstance() = InteractionFragment()
     }
-    private lateinit var viewModel: InteractionViewModel
+//    private lateinit var viewModel: InteractionViewModel
     private lateinit var binding : FragmentInteractionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_interaction,container,false)
         val sparseArray =SparseArray<Fragment>(2)
         val tabs= listOf("问答","广场")
@@ -35,14 +35,14 @@ class InteractionFragment : Fragment() {
             //TODO 判断是否存活，存活无须多次创建
             override fun createFragment(position: Int): Fragment = sparseArray.get(position)
         }
-        viewModel = ViewModelProvider(this).get(InteractionViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(InteractionViewModel::class.java)
         sparseArray.put(0, QuestionAndAnswerFragment.newInstance())
         sparseArray.put(1, PlaygroundFragment.newInstance())
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
 //            tab.icon = ResourcesCompat.getDrawable(resources,icons[position],null)
             tab.view.setOnClickListener {
-                binding.viewPager.setCurrentItem(position)
+                binding.viewPager.currentItem = position
                 if(tab.isSelected){
                     when(position){
 //                        0-> EventBusUtil.post(HomepageGoUpEvent)

@@ -26,7 +26,7 @@ open class SystemViewModel : BaseViewModel() {
                 response: retrofit2.Response<TreeList>
             ) {
                 val body = response.body()
-                overview.postValue(body)
+                overview.postValue(body!!)
             }
 
             override fun onFailure(call: retrofit2.Call<TreeList>, t: Throwable) {

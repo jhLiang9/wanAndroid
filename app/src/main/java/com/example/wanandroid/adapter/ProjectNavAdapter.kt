@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.wanandroid.R
 import android.view.LayoutInflater
-import com.example.wanandroid.entity.Tree
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.viewmodel.ProjectViewModel
 
 
-class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Tree>) :
+class ProjectNavAdapter(var viewModel: ProjectViewModel) :
     RecyclerView.Adapter<ProjectNavAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,19 +25,19 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel, var navList: List<Tree>
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val nav = navList[position]
+            val nav = viewModel.leftList[position]
             //获得用户点击的cid
             val cid: Int = nav.id
-            viewModel.cid.value = cid
+            viewModel.cid.postValue(cid)
         }
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val nav = navList[position]
+        val nav = viewModel.leftList[position]
         holder.name.text = nav.name
     }
 
-    override fun getItemCount(): Int = navList.size
+    override fun getItemCount(): Int = viewModel.leftList.size
 
 }

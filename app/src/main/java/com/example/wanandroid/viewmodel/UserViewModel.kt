@@ -1,6 +1,5 @@
 package com.example.wanandroid.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +15,6 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 class UserViewModel : BaseViewModel() {
     private var user = MutableLiveData(User())

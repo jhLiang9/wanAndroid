@@ -17,8 +17,11 @@ import java.io.IOException
 
 class ProjectViewModel : BaseViewModel(){
     var cid = MutableLiveData(294)
+    var leftList = ArrayList<Tree>()
+    var rightList = ArrayList<Article>()
     val navList = MutableLiveData<TreeList>()
     val projectList = MutableLiveData<ArticleList>()
+    
 
     fun initProjectOverview(){
             val url = "https://www.wanandroid.com/project/tree/json"
@@ -41,7 +44,8 @@ class ProjectViewModel : BaseViewModel(){
 
     }
 
-    fun getProjectContent(url :String){
+    fun getProjectContent(cid :Int,page:Int){
+        val url= "https://www.wanandroid.com/project/list/$page/json?cid=$cid"
         val request = Request.Builder()
             .url(url)
             .build()

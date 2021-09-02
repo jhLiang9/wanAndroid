@@ -3,6 +3,8 @@ package com.example.wanandroid.service
 import com.example.wanandroid.entity.data.UserData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
+import com.example.wanandroid.entity.list.WXAccountList
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -95,7 +97,7 @@ interface AppService {
      * 微信公众号 列表
      */
     @GET("wxarticle/chapters/json")
-    fun getWXArticles():Call<ArticleList>
+    fun getWxAccounts():Call<WXAccountList>
 
     /**
      * 某个微信公众号的历史数据
@@ -103,7 +105,7 @@ interface AppService {
      * @param page 页码
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    fun getWxDetail(@Path("id")id:Int,@Path("page")page:Int):Call<ArticleList>
+    fun getWxArticles(@Path("id")id:Int,@Path("page")page:Int):Call<ArticleList>
 
 
     /**
@@ -112,8 +114,7 @@ interface AppService {
      * @param page 页码
      */
     @GET("wxarticle/list/{id}/{page}/json/")
-    fun getWxKeyDetail(@Path("id")id:Int,@Path("page")page:Int,@Query("k")keyword: String):Call<ArticleList>
-
+    fun getWxKeyArticles(@Path("id")id:Int,@Path("page")page:Int,@Query("k")keyword: String): Observable<ArticleList>
     //TODO 我的收藏
 
     /**

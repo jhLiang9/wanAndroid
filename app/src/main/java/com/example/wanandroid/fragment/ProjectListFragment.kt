@@ -33,13 +33,11 @@ class ProjectListFragment : Fragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_project_list, container, false)
-        //线
-        binding.nav.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         initProjectNavigation()
         //初始化导航内容
         binding.nav.layoutManager = LinearLayoutManager(activity)
-        binding.nav.adapter = ProjectNavAdapter(viewModel, navList)
+        binding.nav.adapter = ProjectNavAdapter(viewModel)
         viewModel.navList.observe(viewLifecycleOwner,{
             navList.addAll(it.data)
             binding.nav.adapter?.notifyDataSetChanged()

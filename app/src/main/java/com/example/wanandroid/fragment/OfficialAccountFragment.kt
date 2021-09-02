@@ -11,13 +11,17 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.databinding.FragmentOfficialAccountBinding
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.entity.WXAccount
+import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.viewmodel.OfficialAccountViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 
-class OfficialAccountFragment : Fragment() {
+class OfficialAccountFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = OfficialAccountFragment()
@@ -30,20 +34,43 @@ class OfficialAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val list = ArrayList<Article>()
+        val tabs = ArrayList<WXAccount>()
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_official_account, container, false)
         viewModel = ViewModelProvider(this).get(OfficialAccountViewModel::class.java)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = WXAdapter(list, viewModel)
+        initTabs()
+        binding.wxViewPager.adapter = object :FragmentStateAdapter(this){
+            override fun getItemCount(): Int = tabs.size
 
-        viewModel.getList().observe(viewLifecycleOwner, {
-            val data = it.data.datas
-            list.addAll(data)
+            override fun createFragment(position: Int): Fragment {
+                return  WxArticleFragment.newInstance(tabs[position].id,0)
+            }
+
+        }
+//        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+//        binding.recyclerView.adapter = WXAdapter(list, viewModel)
+        viewModel.getAccountList().observe(viewLifecycleOwner, {
+            val data = it.data
+            if (data != null) {
+                tabs.addAll(data)
+            }
         })
+        TabLayoutMediator(binding.wxTabs,binding.wxViewPager){ tab,position->
+            tab.text=tabs[position].name
+            tab.view.setOnClickListener {
+                binding.wxViewPager.currentItem = position
 
+            }
+        }.attach()
 
         return binding.root
     }
+    private fun initTabs(){
+        viewModel.getAccounts()
+    }
+
+
 }
 
 class WXAdapter(val list: ArrayList<Article>, val viewModel: OfficialAccountViewModel) :
@@ -67,6 +94,7 @@ class WXAdapter(val list: ArrayList<Article>, val viewModel: OfficialAccountView
             intent.putExtra("data", link);
             parent.context.startActivity(intent)
         }
+
         return viewHolder
 
     }
@@ -84,7 +112,7 @@ class WXAdapter(val list: ArrayList<Article>, val viewModel: OfficialAccountView
 
     override fun getItemCount(): Int = list.size
     
-    private fun getNextPage() = viewModel.getData(viewModel.currentPage++)
+    private fun getNextPage() = viewModel.getArticles(viewModel.accountId,viewModel.currentPage++)
 
 
 }

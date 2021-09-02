@@ -38,22 +38,7 @@ class ProjectContentFragment : Fragment() {
     private lateinit var binding: FragmentProjectContentBinding
 
     var projectList = ArrayList<Article>()
-    private val startURL: String = "https://www.wanandroid.com/project/list/1/json?cid="
 
-    companion object {
-        @Volatile
-        private var INSTANCE: ProjectContentFragment? = null
-        fun getInstance(): ProjectContentFragment {
-            synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = ProjectContentFragment()
-                    INSTANCE = instance
-                }
-                return instance
-            }
-        }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -64,8 +49,7 @@ class ProjectContentFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_content, container, false)
         initView()
         viewModel.cid.observe(viewLifecycleOwner,  { cid ->
-            val fullUrl = startURL + cid.toString()
-            getContent(fullUrl)
+            getContent(cid,1)
         })
         viewModel.projectList.observe(viewLifecycleOwner,{
             projectList.clear()
@@ -105,11 +89,7 @@ class ProjectContentFragment : Fragment() {
         binding.content.adapter = ProjectContentAdapter(projectList)
     }
 
-    private fun getContent(cid: Int,page:Int){
-        getContent("https://www.wanandroid.com/project/list/$page/json?cid=$cid")
-    }
+    private fun getContent(cid: Int,page:Int)  =viewModel.getProjectContent(cid,page)
 
-    private fun getContent(url: String){
-        viewModel.getProjectContent(url)
-    }
+
 }
