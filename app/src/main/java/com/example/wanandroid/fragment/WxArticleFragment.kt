@@ -23,15 +23,13 @@ private const val ARG_ID = "wxId"
 private const val ARG_PAGE = "page"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [WxArticleFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * 微信公众号文章Fragment
  */
 class WxArticleFragment : BaseFragment() {
     private var wxId: Int = 0
     private var page: Int = 0
-    private lateinit var binding: FragmentWxArticleBinding
     private val articleList = ArrayList<Article>()
+    private lateinit var binding: FragmentWxArticleBinding
     private lateinit var viewModel: WxArticleViewModel
 
     companion object {
@@ -41,7 +39,6 @@ class WxArticleFragment : BaseFragment() {
          * @param page 页码
          * @return A new instance of fragment WxArticleFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(id: Int, page: Int) =
             WxArticleFragment().apply {
@@ -69,62 +66,21 @@ class WxArticleFragment : BaseFragment() {
         init()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = WxArticleAdapter(articleList)
-
+        viewModel.getArticleList().observe(viewLifecycleOwner, {
+            binding.loadingPanel.visibility=View.GONE
+            articleList.addAll(it.data.datas)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
+        })
 
         return binding.root
     }
 
     private fun init() {
-        articleList.addAll(viewModel.getArticles(wxId, page).data.datas)
+        viewModel.getArticles(wxId, page)
 
     }
 
 }
-//  val observable:Observable<Int> = Observable.create { e ->
-//            e.onNext(1)
-//            e.onNext(2)
-//            e.onNext(4)
-//            e.onComplete()
-//        }
-//        val flowable :Flowable<Int> = Flowable.create({ s->
-//            for(i in 0 until 2){
-//                var b=i
-//                s.onNext(1)
-//                s.onNext(3)
-//                s.onNext(5)
-//            }
-//            s.onComplete()
-//        },BackpressureStrategy.MISSING)
-//        val subscriber :FlowableSubscriber<Int> =object:FlowableSubscriber<Int>{
-//            override fun onSubscribe(s: Subscription?) {
-//                Log.i("main","flowable sub")
-//            }
-//
-//            override fun onNext(t: Int?) {
-//                Log.i("main","flowable sub $t")
-//            }
-//
-//            override fun onError(t: Throwable?) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onComplete() {
-//                Log.i("main","flowable sub finish")
-//            }
-//
-//        }
-//
-//        flowable.subscribe(subscriber)
-//
-//
-//        val observer :Observer<Int> = object :Observer<Int>{
-//            override fun onSubscribe(d: Disposable?) {
-//                Log.i("main","subscribe")
-//            }
-//
-//            override fun onNext(t: Int?) {
-//                Log.i("main","onNext: $t")
-//            }
 
 class WxArticleAdapter(val list: ArrayList<Article>) :
     RecyclerView.Adapter<WxArticleAdapter.ViewHolder>() {

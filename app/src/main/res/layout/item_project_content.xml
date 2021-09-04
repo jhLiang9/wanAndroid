@@ -9,6 +9,8 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
@@ -71,5 +73,11 @@
                 android:maxLines="2"
                 />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:layout_below="@+id/rl_bottom"
+            android:background="@color/dim_gray" />
+
     </RelativeLayout>
 </layout>

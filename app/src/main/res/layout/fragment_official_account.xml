@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,6 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:context=".fragment.OfficialAccountFragment">
 
         <LinearLayout
@@ -19,16 +21,22 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/wx_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:tabMode="scrollable" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/wx_view_pager"
+            <com.example.wanandroid.ui.NestedScrollableHost
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10">
+                android:layout_height="0dp"
+                android:layout_weight="12">
 
-            </androidx.viewpager2.widget.ViewPager2>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/wx_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.viewpager2.widget.ViewPager2>
+            </com.example.wanandroid.ui.NestedScrollableHost>
         </LinearLayout>
 
 

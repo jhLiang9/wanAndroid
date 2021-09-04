@@ -14,6 +14,7 @@ class OfficialAccountViewModel : BaseViewModel() {
     private var wxAccountList =MutableLiveData<WXAccountList>()
     var currentPage =0
     var accountId=-1
+    var amount=-1
     fun getAccountList() = wxAccountList
     fun getArticleList() = wxArticleList
      fun getAccounts(){

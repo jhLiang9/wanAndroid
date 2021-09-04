@@ -1,19 +1,27 @@
 package com.example.wanandroid.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.list.ArticleList
+import com.example.wanandroid.entity.list.WXAccountList
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class WxArticleViewModel : BaseViewModel() {
+    private var wxArticleList = MutableLiveData<ArticleList>()
 
-    fun getArticles(id: Int, page: Int):ArticleList{
-        val call =appService.getWxArticles(id,page)
-        lateinit var res:ArticleList
-        call.enqueue(object: Callback<ArticleList>{
+    var currentPage = 0
+    var accountId = -1
+    var amount = -1
+
+    fun getArticleList() = wxArticleList
+
+    fun getArticles(id: Int, page: Int) {
+        appService.getWxArticles(id, page).enqueue(object : Callback<ArticleList> {
             override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
-                res = response.body()!!
+                val body = response.body()
+                wxArticleList.postValue(body!!)
             }
 
             override fun onFailure(call: Call<ArticleList>, t: Throwable) {
@@ -21,6 +29,7 @@ class WxArticleViewModel : BaseViewModel() {
             }
 
         })
-        return res
     }
+
+
 }

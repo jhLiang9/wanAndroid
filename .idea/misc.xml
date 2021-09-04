@@ -4,8 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.18020833333333333" />
-        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/fragment_navi.xml" value="0.5744791666666667" />
-        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/fragment_playground.xml" value="0.5744791666666667" />
         <entry key="app/src/main/res/drawable/ripple_bg.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout-v23/fragment_profile.xml" value="0.2658514492753623" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2942708333333333" />
@@ -25,11 +23,12 @@
         <entry key="app/src/main/res/layout/fragment_project_content.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.20364741641337386" />
         <entry key="app/src/main/res/layout/fragment_question_and_answer.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.4791666666666667" />
+        <entry key="app/src/main/res/layout/fragment_study.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_system.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/fragment_wx_article.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/interaction_fragment.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/item_article.xml" value="0.41530797101449274" />
+        <entry key="app/src/main/res/layout/item_project_content.xml" value="0.23302938196555217" />
         <entry key="app/src/main/res/layout/item_project_nav.xml" value="0.4791666666666667" />
         <entry key="app/src/main/res/layout/item_qa.xml" value="0.29347826086956524" />
         <entry key="app/src/main/res/layout/item_system.xml" value="0.28177083333333336" />

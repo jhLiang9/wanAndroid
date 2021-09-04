@@ -30,6 +30,7 @@ class StudyFragment : Fragment() {
         val sparseArray = SparseArray<Fragment>(2)
         sparseArray.put(0, ProjectFragment.newInstance())
         sparseArray.put(1, OfficialAccountFragment.newInstance())
+
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 2
 
