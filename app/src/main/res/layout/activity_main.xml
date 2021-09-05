@@ -19,6 +19,21 @@
             android:layout_width="match_parent"
             android:layout_height="22sp">
         </View>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:title="热门"
+            android:textSize="10sp"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="38sp"
+            app:titleTextColor="@android:color/black"
+           >
+        </androidx.appcompat.widget.Toolbar>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/light_gray"
+            android:layout_height="1sp">
+        </View>
         <FrameLayout
             android:id="@+id/activity_fragment_container"
             android:layout_width="match_parent"

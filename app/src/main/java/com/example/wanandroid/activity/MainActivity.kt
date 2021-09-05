@@ -30,6 +30,9 @@ import com.github.moduth.blockcanary.BlockCanaryContext
 
 import com.github.moduth.blockcanary.BlockCanary
 import com.google.android.material.bottomnavigation.BottomNavigationView
+//import android.R
+import android.view.Menu
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,9 +56,10 @@ class MainActivity : AppCompatActivity() {
 //        BlockCanary.install(this, BlockCanaryContext()).start()
         //hide the title bar
         supportActionBar?.hide()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
-
+        setSupportActionBar(binding.toolbar)
 //        val tabs= listOf("首页","体系","问答","项目","我的")
 //        val icons = listOf(R.drawable.homepage,R.drawable.system,R.drawable.find,R.drawable.projects,R.drawable.user)
         sparseArray.put(0, HomePageFragment())
@@ -126,5 +130,11 @@ class MainActivity : AppCompatActivity() {
             }
         )
         setContentView(view)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(com.example.wanandroid.R.menu.menu_toolbar, menu)
+        return true
     }
 }
