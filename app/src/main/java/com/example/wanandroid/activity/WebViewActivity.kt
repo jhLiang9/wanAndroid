@@ -18,14 +18,12 @@ class WebViewActivity : AppCompatActivity() {
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         //允许JavaScript运行
 //        val webView = binding.webView
-        val webView =findViewById<WebView>(R.id.webView)
+        val webView:WebView =findViewById(R.id.webView)
         webView.settings.javaScriptEnabled=true
         webView.webViewClient = WebViewClient()
         val intent = intent
         val url: String? = intent.getStringExtra("data");
         if (url != null) {
-            Log.i("WebActivity","loading")
-            //加载url
             webView.loadUrl(url)
         }
     }
