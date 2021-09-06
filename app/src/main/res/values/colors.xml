@@ -12,4 +12,7 @@
     <color name="silver">#C0C0C0</color>
     <color name="light_gray">#D0D0D0</color>
     <color name="white_smoke">#F5F5F5</color>
+    <color name="marine_blue">#00477D</color>
+    <color name="ultramarine">#0033FF</color>
+    <color name="azure">#007FFF</color>
 </resources>

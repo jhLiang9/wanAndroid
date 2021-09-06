@@ -19,7 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="22sp">
         </View>
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_logo"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/activity_fragment_container"

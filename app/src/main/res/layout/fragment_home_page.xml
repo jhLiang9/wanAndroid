@@ -14,14 +14,24 @@
             android:layout_height="match_parent"
             tools:context=".fragment.HomePageFragment">
 
+
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:title="HOT"
-                app:titleTextColor="@color/black">
+                android:layout_height="40dp"
+                app:title="热门"
+                app:titleTextColor="#002FA7">
 
             </androidx.appcompat.widget.Toolbar>
+            <View
+                android:layout_below="@id/toolbar"
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="1dp">
+
+            </View>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ArticleRecyclerView"
@@ -33,10 +43,10 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <RelativeLayout
-                android:layout_below="@+id/ArticleRecyclerView"
                 android:id="@+id/loadingPanel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/ArticleRecyclerView"
 
                 android:gravity="center">
 
