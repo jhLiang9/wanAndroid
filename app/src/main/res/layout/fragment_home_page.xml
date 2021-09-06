@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
@@ -8,21 +9,35 @@
         android:layout_height="match_parent">
 
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".fragment.HomePageFragment">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="HOT"
+                app:titleTextColor="@color/black">
+
+            </androidx.appcompat.widget.Toolbar>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ArticleRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="0dp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar"
+                android:layout_marginBottom="0dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <RelativeLayout
+                android:layout_below="@+id/ArticleRecyclerView"
                 android:id="@+id/loadingPanel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:gravity="center">
 
                 <ProgressBar
@@ -30,6 +45,6 @@
                     android:layout_height="wrap_content"
                     android:indeterminate="true" />
             </RelativeLayout>
-        </FrameLayout>
+        </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

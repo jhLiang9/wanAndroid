@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="1sp"
             android:layout_below="@+id/rl_bottom"
-            android:background="@color/dim_gray" />
+            android:background="@color/gray" />
 
     </RelativeLayout>
 </layout>

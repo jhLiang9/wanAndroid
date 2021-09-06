@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
-        setSupportActionBar(binding.toolbar)
+
 //        val tabs= listOf("首页","体系","问答","项目","我的")
 //        val icons = listOf(R.drawable.homepage,R.drawable.system,R.drawable.find,R.drawable.projects,R.drawable.user)
         sparseArray.put(0, HomePageFragment())

@@ -1,11 +1,9 @@
 package com.example.wanandroid.fragment
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -37,10 +35,19 @@ import org.greenrobot.eventbus.ThreadMode
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import kotlin.concurrent.thread
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import android.animation.AnimatorListenerAdapter
+import android.graphics.Color
+import android.os.Build
+import android.view.*
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.appbar.AppBarLayout
+import kotlin.math.abs
 
 
 class HomePageFragment : HomePageFragmentVM() {
-
+    var statusAlpha=0
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var database: ArticleDatabaseDao
 
@@ -53,6 +60,12 @@ class HomePageFragment : HomePageFragmentVM() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +75,74 @@ class HomePageFragment : HomePageFragmentVM() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
         database =
             ArticleDatabase.getInstance(requireContext().applicationContext).articleDatabaseDao
+
+//        binding.nsvLayout.setOnScrollChangeListener{ _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+//            val headerHeight = binding.ArticleRecyclerView.height
+//            val scrollDistance = Math.min(scrollY, headerHeight)
+//            statusAlpha = (255F * scrollDistance / headerHeight).toInt()
+//            setTopBackground()
+//
+//
+//        }
+//        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
+
+//        binding.appBar.addOnOffsetChangedListener(object: AppBarLayout.OnOffsetChangedListener {
+//            var isShow :Boolean = false
+//            var scrollRange = -1
+//            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+//                if(scrollRange==-1){
+//                    if (appBarLayout != null) {
+//                        scrollRange = appBarLayout.totalScrollRange
+//                    }
+//                }
+//                if(scrollRange+verticalOffset ==0){
+//                    isShow = true
+//                }else if(isShow){
+//                    isShow=false
+//                }
+//            }
+//
+//        })
+//        var scrollDownDistance =0
+//        var scrollUpDistance =0
+//        binding.ArticleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//            }
+//
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                //向下滑动
+//                val listHeight=recyclerView.height
+//                if (dy > 0) {
+//                    val offset = recyclerView.computeVerticalScrollOffset()
+//                    if (offset > 10) {
+//                        binding.searchView.animate()
+//                            .alpha(0f)
+//                            .translationY(0f)//-binding.searchView.height.toFloat())
+//                            .scaleY(0f)
+//                            .setListener(object : AnimatorListenerAdapter() {
+//                                override fun onAnimationEnd(animation: Animator?) {
+//                                    super.onAnimationEnd(animation)
+//                                    binding.searchView.visibility =View.GONE
+//                                }
+//                            })
+//                            .start()
+//                    }
+//                }
+//                else if(dy<0){
+//                    scrollDownDistance += dy
+//                    val offset = recyclerView.computeVerticalScrollOffset()
+//                    if (offset > listHeight/2&& abs(scrollDownDistance)>listHeight) {
+//                        binding.searchView.visibility =View.VISIBLE
+//                        binding.searchView.scaleX=1f
+//                        binding.searchView.scaleY=1f
+//                        binding.searchView.alpha=1f
+//
+//                    }
+//                }
+//            }
+//        })
+
         initFirstPage()
         initView()
         initData()
@@ -72,6 +153,17 @@ class HomePageFragment : HomePageFragmentVM() {
         super.onDestroy()
         EventBusUtil.unregister(this)
     }
+
+//    private fun setTopBackground() {
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            binding.ArticleRecyclerView.setBackgroundColor(Color.argb(statusAlpha, 255, 255, 255))
+//            val window = activity!!.window
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//            window.statusBarColor = Color.argb(statusAlpha, 255, 255, 255)
+//        }
+//    }
+
 
     /**
      * 点击下方导航栏回到顶部
@@ -100,14 +192,14 @@ class HomePageFragment : HomePageFragmentVM() {
 
             Observable.create(ObservableOnSubscribe<Article> { emitter ->
                 for (item in it.data.datas) {
-                    emitter?.onNext(item)
+                    emitter.onNext(item)
                 }
-                emitter?.onComplete()
+                emitter.onComplete()
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe { t ->
-                    if (t != null && database.get(t.id) != null) {
+                    if (database.get(t.id) != null) {
                         database.insert(t)
                     }
                 }
