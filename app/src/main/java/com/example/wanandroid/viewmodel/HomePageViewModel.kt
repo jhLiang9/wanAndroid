@@ -48,8 +48,7 @@ open class HomePageViewModel : BaseViewModel() {
 
         appService.getArticleData(page).enqueue(object : Callback<ArticleList> {
             override fun onResponse(
-                call: Call<ArticleList>,
-                response: Response<ArticleList>
+                call: Call<ArticleList>, response: Response<ArticleList>
             ) {
                 articleList.postValue(response.body()!!)
             }

@@ -124,5 +124,6 @@ interface AppService {
      */
     @FormUrlEncoded
     @POST("article/query/{page}/json")
-    fun search(@Path("page")page:Int,@Field("k")keyword:String)
+    fun search(@Path("page")page:Int,@Field("k")keyword:String): Call<ArticleList>
+
 }
