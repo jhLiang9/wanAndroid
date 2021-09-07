@@ -4,12 +4,8 @@ import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.HomeArticleAdapter
@@ -28,7 +24,6 @@ import com.example.wanandroid.viewmodel.HomePageViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -38,10 +33,12 @@ import kotlin.concurrent.thread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.view.*
 import androidx.core.widget.NestedScrollView
+import com.example.wanandroid.activity.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 
@@ -71,38 +68,20 @@ class HomePageFragment : HomePageFragmentVM() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         EventBusUtil.register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
+        binding.searchView.setOnClickListener {
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
         database =
             ArticleDatabase.getInstance(requireContext().applicationContext).articleDatabaseDao
 
-//        binding.nsvLayout.setOnScrollChangeListener{ _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
-//            val headerHeight = binding.ArticleRecyclerView.height
-//            val scrollDistance = Math.min(scrollY, headerHeight)
-//            statusAlpha = (255F * scrollDistance / headerHeight).toInt()
-//            setTopBackground()
-//
-//
-//        }
-//        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-
-//        binding.appBar.addOnOffsetChangedListener(object: AppBarLayout.OnOffsetChangedListener {
-//            var isShow :Boolean = false
-//            var scrollRange = -1
-//            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-//                if(scrollRange==-1){
-//                    if (appBarLayout != null) {
-//                        scrollRange = appBarLayout.totalScrollRange
-//                    }
-//                }
-//                if(scrollRange+verticalOffset ==0){
-//                    isShow = true
-//                }else if(isShow){
-//                    isShow=false
-//                }
-//            }
-//
-//        })
         var scrollDownDistance = 0
         var scrollUpDistance = 0
         binding.ArticleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
