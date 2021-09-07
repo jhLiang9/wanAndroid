@@ -47,7 +47,7 @@ import kotlin.math.abs
 
 
 class HomePageFragment : HomePageFragmentVM() {
-    var statusAlpha=0
+    var statusAlpha = 0
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var database: ArticleDatabaseDao
 
@@ -103,51 +103,114 @@ class HomePageFragment : HomePageFragmentVM() {
 //            }
 //
 //        })
-//        var scrollDownDistance =0
-//        var scrollUpDistance =0
-//        binding.ArticleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//            }
-//
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                //向下滑动
-//                val listHeight=recyclerView.height
-//                if (dy > 0) {
-//                    val offset = recyclerView.computeVerticalScrollOffset()
-//                    if (offset > 10) {
-//                        binding.searchView.animate()
-//                            .alpha(0f)
-//                            .translationY(0f)//-binding.searchView.height.toFloat())
-//                            .scaleY(0f)
-//                            .setListener(object : AnimatorListenerAdapter() {
-//                                override fun onAnimationEnd(animation: Animator?) {
-//                                    super.onAnimationEnd(animation)
-//                                    binding.searchView.visibility =View.GONE
-//                                }
-//                            })
-//                            .start()
+        var scrollDownDistance = 0
+        var scrollUpDistance = 0
+        binding.ArticleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                //正在滚动
+//                public static final int SCROLL_STATE_IDLE = 0;
+
+                //正在被外部拖拽,一般为用户正在用手指滚动
+//                public static final int SCROLL_STATE_DRAGGING = 1;
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    var offset: Int = recyclerView.computeVerticalScrollOffset();
+                    Log.i("roll", offset.toString())
+//                    if (offset <500) {
+//                        //根据是否select 是否显示
+//                        binding.searchBar.setSelected(true);
 //                    }
-//                }
-//                else if(dy<0){
-//                    scrollDownDistance += dy
-//                    val offset = recyclerView.computeVerticalScrollOffset()
-//                    if (offset > listHeight/2&& abs(scrollDownDistance)>listHeight) {
-//                        binding.searchView.visibility =View.VISIBLE
-//                        binding.searchView.scaleX=1f
-//                        binding.searchView.scaleY=1f
-//                        binding.searchView.alpha=1f
-//
-//                    }
-//                }
-//            }
-//        })
+                }
+
+                //自动滚动开始
+//                public static final int SCROLL_STATE_SETTLING = 2;
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    var offset: Int = recyclerView.computeVerticalScrollOffset();
+
+                    if (offset == 0) {
+//                        binding.searchBar.setSelected(true);
+                    }
+                }
+
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                //向下滚动
+                var temp = ViewConfiguration.get(context).scaledTouchSlop
+                val listHeight = recyclerView.height
+                if (dy > 10) {
+                    if (abs(dy) > temp) {
+                        scrollDownDistance = 0
+                    }
+                    //向下滚动
+                    if (binding.searchBar.visibility == View.GONE) {
+                        return;
+                    }
+                    scrollUpDistance += dy
+                    if (scrollUpDistance > listHeight / 2) {
+                        hideSearch()
+                    }
+                } else if (dy < -10) {
+                    if (abs(dy) > temp) {
+                        scrollUpDistance = 0
+                    }
+                    if (binding.searchBar.visibility == View.VISIBLE) {
+                        return;
+                    }
+                    //向上滚动
+                    scrollDownDistance += dy
+//                    var offset = recyclerView.computeVerticalScrollOffset()
+//                    if (offset > listHeight * 2&& abs(scrollDownDistance)>listHeight) {}
+                    showSearch()
+                }
+            }
+        })
 
         initFirstPage()
         initView()
         initData()
         return binding.root
     }
+
+    private fun showSearch() {
+        binding.searchBar.visibility = View.VISIBLE
+        binding.searchBar.translationY = -binding.searchBar.height.toFloat()
+        binding.searchBar.alpha = 0f
+        binding.searchBar.scaleY = 0f
+        binding.searchBar.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .scaleY(1.0f)
+            .setListener(null)
+            .start()
+
+
+    }
+
+    private fun hideSearch() {
+        binding.searchBar.alpha = 1f
+        binding.searchBar.scaleX = 1f
+        binding.searchBar.scaleY = 1f
+        binding.toolbar.animate()
+            .translationY(0f)
+            .setDuration(200L)
+            .start()
+        binding.searchBar.animate()
+            .alpha(0f)
+            .translationY(-binding.searchBar.height.toFloat())
+            .scaleY(0f)
+            .setDuration(100L)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.searchBar.visibility = View.GONE
+                }
+            })
+            .start()
+
+
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
