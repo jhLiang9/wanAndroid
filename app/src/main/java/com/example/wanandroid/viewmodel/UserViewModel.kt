@@ -44,14 +44,21 @@ class UserViewModel : BaseViewModel() {
                 Log.i("user", response.toString())
                 Log.i("user null", response.body()?.data.toString())
                 val data = response.body()?.data
-                response.headers().get("Set-Cookie")
+                val headers = response.headers()
+                val cookies=response.headers().get("Set-Cookie")
+
+                if (cookies != null) {
+
+                        Log.i("user cookie",cookies.toString())
+
+                }
                 Log.i("user",response.headers().toString())
                 user.postValue(response.body()?.data)
                 if (data != null) {
-                    application.user = data
+                    if(data.id!=-1){
+                        application.user = data
+                    }
                 }
-                Log.i("user", "posted")
-                Log.i("app user", application.user.toString())
                 EventBusUtil.post(UserEvent())
             }
 
