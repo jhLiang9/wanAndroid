@@ -44,6 +44,8 @@ class UserViewModel : BaseViewModel() {
                 Log.i("user", response.toString())
                 Log.i("user null", response.body()?.data.toString())
                 val data = response.body()?.data
+                response.headers().get("Set-Cookie")
+                Log.i("user",response.headers().toString())
                 user.postValue(response.body()?.data)
                 if (data != null) {
                     application.user = data

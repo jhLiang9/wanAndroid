@@ -35,14 +35,15 @@ class ProfileFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         EventBusUtil.register(this)
-        if(application.user.id==-1){
-            binding.logout.visibility = View.GONE
-        }
+
         arguments = Bundle()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         Glide.with(this)
             .load(R.drawable.ic_logo)
             .into(binding.image)
+        if(application.user.id==-1){
+            binding.logout.visibility = View.GONE
+        }
         binding.username.setOnClickListener {
             //未登录状态,点击进行登录
             val intent = Intent(context, LoginActivity::class.java)
@@ -52,11 +53,7 @@ class ProfileFragment : BaseFragment() {
 //            viewModel
         }
 
-//        viewModel.getUser().observe(viewLifecycleOwner, Observer {
-//            binding.username.text = it.nickname
-//            binding.rank.text = it.coinCount.toString()
-//        }
-//        )
+
 
         return binding.root
     }
