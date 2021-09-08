@@ -6,25 +6,71 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#002FA7"
         android:orientation="vertical"
         tools:context=".activity.SearchActivity">
+
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-            <EditText
-                android:id="@+id/edit_text"
+            android:layout_height="0dp"
+            android:layout_marginTop="40sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="10sp"
+            android:layout_weight="1">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </EditText>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:paddingStart="10dp"
+                    android:layout_width="30dp"
+                    android:id="@+id/back"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_image_view"
+                    android:src="@drawable/ic_back">
+
+                </ImageView>
+
+                <EditText
+                    android:id="@+id/edit_text"
+                    android:paddingStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="text"
+                    android:hint="Search"
+                    android:maxLines="1">
+
+                </EditText>
+            </LinearLayout>
+
         </androidx.appcompat.widget.Toolbar>
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:background="@color/white_smoke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="18"
-            android:layout_height="0dp">
+            android:background="@color/white_smoke">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+
+
     </LinearLayout>
 
 </layout>

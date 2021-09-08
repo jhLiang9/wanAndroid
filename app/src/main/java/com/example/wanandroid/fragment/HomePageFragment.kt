@@ -49,6 +49,7 @@ class HomePageFragment : HomePageFragmentVM() {
     private lateinit var database: ArticleDatabaseDao
 
     companion object {
+        fun newInstance() = HomePageFragment()
         fun newInstance(bundle: Bundle): HomePageFragment {
             val fragment = HomePageFragment()
             fragment.arguments = bundle

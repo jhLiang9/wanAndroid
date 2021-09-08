@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
@@ -41,9 +42,17 @@ class QuestionAndAnswerFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question_and_answer, container, false)
         init()
         //分割线
+
         val layoutManager = LinearLayoutManager(activity)
         binding.QARecyclerView.layoutManager = layoutManager
         binding.QARecyclerView.adapter = QAAdapter(qaList,viewModel)
+        binding.QARecyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //Eventbus 通知外部Fragment 隐藏搜索框
+            }
+        })
+
 
         viewModel.list.observe(viewLifecycleOwner,{
             qaList.addAll(it.data.datas)

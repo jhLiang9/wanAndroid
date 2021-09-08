@@ -39,10 +39,6 @@ class SystemFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SystemViewModel::class.java)
         database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
-//        val t0 = Tree(ArrayList<Tree>(),1,1,"21415",1,1,false,2)
-//        val t1 = Tree(arrayListOf(t0),1,1,"123",1,1,false,2)
-//        val tl = ArrayList<Tree>()
-//        tl.add(t1)
         binding.systemModule.adapter = SystemAdapter(viewModel.list, viewModel)
         binding.systemModule.layoutManager = LinearLayoutManager(context)
         initData()

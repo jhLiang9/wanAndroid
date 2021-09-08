@@ -31,19 +31,19 @@ import java.io.Serializable
 @Entity(tableName = "user_table")
 @TypeConverters(UserConverter::class)
 data class User (
-    val admin :Boolean= false,
-    val chapterTops:ArrayList<Any>?=null,
-    val coinCount:Int =-1,
-    val collectIds:ArrayList<Any>?=null,
-    val email:String="",
-    val icon :String="",
+    var admin :Boolean= false,
+    var chapterTops:ArrayList<Any>?=null,
+    var coinCount:Int =-1,
+    var collectIds:ArrayList<Any>?=null,
+    var email:String="",
+    var icon :String="",
     @PrimaryKey(autoGenerate = false)
-    val id:Int=-1,
-    val nickname:String="未登录",
-    val password :String="",
-    val publicName:String="",
-    val token:String="",
-    val type:Int=-1,
-    val username:String = "未登录"
+    var id:Int=-1,
+    var nickname:String="未登录",
+    var password :String="",
+    var publicName:String="",
+    var token:String="",
+    var type:Int=-1,
+    var username:String = "未登录"
 ):Serializable
 

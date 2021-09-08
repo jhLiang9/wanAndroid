@@ -50,6 +50,7 @@ class ProjectFragment: Fragment() {
 
         viewModel.cid.observe(viewLifecycleOwner,{
             viewModel.getProjectContent(it,1)
+            binding.loadingPanel.visibility=View.VISIBLE
         })
 
         viewModel.projectList.observe(viewLifecycleOwner,{

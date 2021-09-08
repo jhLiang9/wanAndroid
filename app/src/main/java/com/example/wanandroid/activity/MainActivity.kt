@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.widget.Toast
@@ -32,99 +33,86 @@ import com.github.moduth.blockcanary.BlockCanary
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import android.R
 import android.view.Menu
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val sparseArray: SparseArray<Fragment> = SparseArray(5)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor=Color.TRANSPARENT
-        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        val userViewModel :UserViewModel by viewModels()
+        window.statusBarColor = Color.TRANSPARENT
+        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        val userViewModel: UserViewModel by viewModels()
         //cache
         val prefs = getSharedPreferences("user", Context.MODE_PRIVATE)
         //第二个参数是默认值，即 找不到键值时，返回默认值
         var name = prefs.getString("username", "未登录")
         var coinCount = prefs.getInt("coinCount", -1)
         var id = prefs.getInt("id", -1)
-        userViewModel.getUser().postValue(User(username=name!!,coinCount=coinCount,id=id,nickname = name))
+//        userViewModel.getUser()
+//            .postValue(User(username = name!!, coinCount = coinCount, id = id, nickname = name))
 
         //BlockCanary
 //        BlockCanary.install(this, BlockCanaryContext()).start()
+
         //hide the title bar
         supportActionBar?.hide()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
-//        binding.searchBar.setOnClickListener{
-//            //TODO 新的Activity
-//        }
-//        val tabs= listOf("首页","体系","问答","项目","我的")
-//        val icons = listOf(R.drawable.homepage,R.drawable.system,R.drawable.find,R.drawable.projects,R.drawable.user)
-        sparseArray.put(0, HomePageFragment())
-        sparseArray.put(1, SystemFragment())
-        sparseArray.put(2, QuestionAndAnswerFragment())
-        sparseArray.put(3, ProjectFragment())
-        sparseArray.put(4, ProfileFragment())
 
-//        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
-//            override fun getItemCount(): Int = 5
-//            //TODO 判断是否存活，存活无须多次创建
-//            override fun createFragment(position: Int): Fragment = sparseArray.get(position)
-//        }
-
-//        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-//            tab.text = tabs[position]
-//            tab.icon = ResourcesCompat.getDrawable(resources,icons[position],null)
-//            tab.view.setOnClickListener {
-////                binding.viewPager.setCurrentItem(position)
-//                if(tab.isSelected){
-//                    when(position){
-//                        0->EventBusUtil.post(HomepageGoUpEvent)
-//                        1->EventBusUtil.post(SystemRefreshEvent)
-//                        2->EventBusUtil.post(QARefreshEvent)
-//                        3->EventBusUtil.post(ProjectRefreshEvent)
-//                    }
-//                }
-//            }
-//        }.attach()
         val start: FragmentTransaction = supportFragmentManager.beginTransaction()
-        start.replace(R.id.activity_fragment_container,HomePageFragment()).commit()
+        start.replace(R.id.activity_fragment_container, HomePageFragment()).commit()
         supportFragmentManager.executePendingTransactions()
 
-        binding.navigation.labelVisibilityMode= BottomNavigationView.LABEL_VISIBILITY_LABELED
-        binding.navigation.setOnNavigationItemSelectedListener (
+        binding.navigation.labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_LABELED
+        binding.navigation.setOnNavigationItemSelectedListener(
             BottomNavigationView.OnNavigationItemSelectedListener {
-                val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                when(it.itemId){
+                val fragmentTransaction: FragmentTransaction =
+                    supportFragmentManager.beginTransaction()
+                when (it.itemId) {
                     //首页
-                    R.id.item_news->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container, HomePageFragment()).commit()
+                    R.id.item_news -> {
+                        fragmentTransaction.replace(
+                            R.id.activity_fragment_container,
+                            HomePageFragment.newInstance()
+                        ).commit()
                         return@OnNavigationItemSelectedListener true
                     }
                     //互动
-                    R.id.item_interact->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container,InteractionFragment.newInstance()).commit()
+                    R.id.item_interact -> {
+                        fragmentTransaction.replace(
+                            R.id.activity_fragment_container,
+                            InteractionFragment.newInstance()
+                        ).commit()
                         return@OnNavigationItemSelectedListener true
                     }
                     //体系
-                    R.id.item_system->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container, SystemFragment()).commit()
+                    R.id.item_system -> {
+                        fragmentTransaction.replace(
+                            R.id.activity_fragment_container,
+                            SystemFragment()
+                        ).commit()
 //                        addToBackStack就是 加入到回退栈。取决于你是否要在回退的时候显示上一个Fragment。
 //                        fragmentTransaction.add(R.id.activity_fragment_container,ProfileFragment()).addToBackStack("ProfileFragment").commit();
                         return@OnNavigationItemSelectedListener true
                     }
                     //项目
-                    R.id.item_project->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container, StudyFragment()).commit()
+                    R.id.item_project -> {
+                        fragmentTransaction.replace(
+                            R.id.activity_fragment_container,
+                            StudyFragment()
+                        ).commit()
                         return@OnNavigationItemSelectedListener true
                     }
                     //个人主页
-                    R.id.item_profile->{
-                        fragmentTransaction.replace(R.id.activity_fragment_container, ProfileFragment()).commit()
+                    R.id.item_profile -> {
+                        fragmentTransaction.replace(
+                            R.id.activity_fragment_container,
+                            ProfileFragment()
+                        ).commit()
                         return@OnNavigationItemSelectedListener true
                     }
                 }
@@ -139,4 +127,24 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(com.example.wanandroid.R.menu.menu_toolbar, menu)
         return true
     }
+
+    private var firstTime: Long = 0
+    private var secondTime: Long = 0
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                secondTime = System.currentTimeMillis()
+                if (secondTime - firstTime > 2000) {
+                    Toast.makeText(this, "再按一次返回退出程序", Toast.LENGTH_SHORT).show()
+                    firstTime = secondTime
+                }else{
+                    finish()
+                    exitProcess(0)
+                }
+                return true
+            }
+        }
+        return super.onKeyUp(keyCode, event)
+    }
+
 }

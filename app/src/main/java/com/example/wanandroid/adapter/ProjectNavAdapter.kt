@@ -46,12 +46,13 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel) :
         }
 
         if (click == position) {
-            holder.relativeLayout.setBackgroundColor(Color.parseColor("#F5F5F5"))
-            holder.name.setTextColor(Color.parseColor("#888888"))
+            holder.relativeLayout.setBackgroundColor(Color.parseColor("#007FFF"))
+//            holder.relativeLayout.background =
+            holder.name.setTextColor(Color.parseColor("#FFFFFF"))
         } else {
             //TODO 了解RecyclerView机制
             //加else 解决 recyclerView复用错乱问题
-            holder.relativeLayout.setBackgroundColor(Color.parseColor("#696969"))
+            holder.relativeLayout.setBackgroundColor(Color.parseColor("#C0C0C0"))
             holder.name.setTextColor(Color.parseColor("#FFFFFF"))
         }
 

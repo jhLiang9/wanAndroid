@@ -22,26 +22,15 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
-
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
-//        supportActionBar?.setHomeButtonEnabled(true); //设置返回键可用
-
         binding.login.setOnClickListener {
             val name = binding.accountEdit.text.toString()
             val pass = binding.passwordEdit.text.toString()
             login(name, pass)
-//            val editor = getSharedPreferences("user", Context.MODE_PRIVATE).edit()
-//            val user:User = viewModel.getUser().value!!
-//            editor.putString("username",user.username)
-//            editor.putInt("coinCount",user.coinCount)
-//            editor.putInt("id",user.id)
-//            editor.apply()
-            Thread.sleep(1000L)
+
             val intent = Intent()
             val bundle=Bundle()
-            bundle.putSerializable("user",viewModel.getUser().value)
+//            bundle.putSerializable("user",viewModel.getUser().value)
             intent.putExtra("data",bundle)
-            setResult(1,intent)
             finish()
         }
         binding.register.setOnClickListener {

@@ -18,7 +18,7 @@
             android:id="@+id/project_nav"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:background="@color/dim_gray"
+            android:background="@color/silver"
             android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_left"

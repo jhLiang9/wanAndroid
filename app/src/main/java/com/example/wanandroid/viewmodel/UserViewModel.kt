@@ -3,8 +3,10 @@ package com.example.wanandroid.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.entity.User
 import com.example.wanandroid.entity.data.UserData
+import com.example.wanandroid.event.UserEvent
 import com.example.wanandroid.service.AppService
 import com.example.wanandroid.service.ServiceCreator
 import com.example.wanandroid.utils.EventBusUtil
@@ -19,9 +21,17 @@ import retrofit2.Response
 class UserViewModel : BaseViewModel() {
     private var user = MutableLiveData(User())
 
-    fun getUser(): MutableLiveData<User> {
-        return user
+    val application = WanAndroidApplication
+    private var appUser = WanAndroidApplication.user
+    fun getUser(): User {
+        return appUser
     }
+
+    fun logout(){
+        TODO("返回内容")
+        appService.logout()
+    }
+
 
     fun login(username: String, password: String) {
 
@@ -30,11 +40,17 @@ class UserViewModel : BaseViewModel() {
                 call: Call<UserData>,
                 response: Response<UserData>
             ) {
-                Thread.sleep(6000L)
+                Thread.sleep(1000L)
                 Log.i("user", response.toString())
                 Log.i("user null", response.body()?.data.toString())
+                val data = response.body()?.data
                 user.postValue(response.body()?.data)
+                if (data != null) {
+                    application.user = data
+                }
                 Log.i("user", "posted")
+                Log.i("app user", application.user.toString())
+                EventBusUtil.post(UserEvent())
             }
 
             override fun onFailure(call: Call<UserData>, t: Throwable) {

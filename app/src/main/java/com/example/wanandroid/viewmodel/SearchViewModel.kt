@@ -15,6 +15,7 @@ class SearchViewModel :BaseViewModel() {
     fun search(page:Int,keyword:String){
         appService.search(page,keyword).enqueue(object :Callback<ArticleList>{
             override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
+
                 articleList.postValue(response.body())
             }
 

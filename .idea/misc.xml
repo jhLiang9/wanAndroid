@@ -5,10 +5,15 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/activity_main.xml" value="0.38269927536231885" />
-        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/activity_search.xml" value="0.4532258064516129" />
+        <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/activity_search.xml" value="0.5744791666666667" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.3596774193548387" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/item_article.xml" value="0.38269927536231885" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/menu/menu_toolbar.xml" value="0.5744791666666667" />
+        <entry key="app/src/main/res/drawable/bg_edittext.xml" value="0.4009259259259259" />
+        <entry key="app/src/main/res/drawable/bg_edittext_gray.xml" value="0.4009259259259259" />
+        <entry key="app/src/main/res/drawable/bg_edittext_normal.xml" value="0.4009259259259259" />
+        <entry key="app/src/main/res/drawable/bg_image_view.xml" value="0.4009259259259259" />
+        <entry key="app/src/main/res/drawable/bg_round.xml" value="0.4009259259259259" />
         <entry key="app/src/main/res/drawable/ripple_bg.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout-v23/fragment_profile.xml" value="0.2658514492753623" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2942708333333333" />
@@ -16,10 +21,11 @@
         <entry key="app/src/main/res/layout/activity_nnnnnnntest.xml" value="0.27708333333333335" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.4791666666666667" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.37228260869565216" />
+        <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.3686594202898551" />
         <entry key="app/src/main/res/layout/article_item.xml" value="0.2921195652173913" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.23822463768115942" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2911458333333333" />
-        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20364741641337386" />
+        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_interaction.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_navi.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2911458333333333" />
