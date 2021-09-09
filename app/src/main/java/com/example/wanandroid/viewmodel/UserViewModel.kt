@@ -24,10 +24,7 @@ class UserViewModel : BaseViewModel() {
     private var user = MutableLiveData(User())
     val application = WanAndroidApplication
 
-    fun logout(){
-        TODO("返回内容")
-        appService.logout()
-    }
+
 
 
     fun login(username: String, password: String) {

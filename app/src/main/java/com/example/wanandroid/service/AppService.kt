@@ -1,5 +1,6 @@
 package com.example.wanandroid.service
 
+import com.example.wanandroid.entity.BaseResponse
 import com.example.wanandroid.entity.data.UserData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
@@ -91,10 +92,7 @@ interface AppService {
      * 登出
      */
     @GET("user/logout/json")
-    fun logout(){
-        //TODO("获取头部内容")
-        //logout主要是头部设置
-    }
+    fun logout():Call<BaseResponse>
     /**
      * {"data":null,"errorCode":0,"errorMsg":""}
      */
