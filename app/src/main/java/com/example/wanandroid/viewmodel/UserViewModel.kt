@@ -37,7 +37,6 @@ class UserViewModel : BaseViewModel() {
                 call: Call<UserData>,
                 response: Response<UserData>
             ) {
-                Thread.sleep(1000L)
                 Log.i("user", response.toString())
                 Log.i("user null", response.body()?.data.toString())
                 val data = response.body()?.data
@@ -45,8 +44,40 @@ class UserViewModel : BaseViewModel() {
                 for(i in header){
                     Log.i("cookie",i.first+" "+i.second)
                     if(i.first == "Set-Cookie"){
-                        if(i.second.startsWith("loginUserName")||i.second.startsWith("token_pass")){
-                            application.saveCookie
+                        if(i.second.startsWith("loginUserName")){
+                            var start  = -1
+                            var end = -1
+                            for( t in 0.. i.second.length-1){
+                                if(i.second[t]=='='){
+                                    start = t
+                                    Log.i("ccookie save","start"+start)
+                                }
+                                else if(i.second[t]==';'){
+                                    end = t
+                                    Log.i("ccookie save","end "+end)
+                                    break
+                                }
+
+                            }
+                           Log.i("cookie save",i.second.substring(start+1,end))
+                            application.saveCookie("loginUserName",i.second.substring(start+1,end))
+                        }else if(i.second.startsWith("token_pass")){
+                            var start  = -1
+                            var end = -1
+                            for( t in 0.. i.second.length-1){
+                                if(i.second[t]=='='){
+                                    start = t
+                                    Log.i("ccookie save","start"+start)
+                                }
+                                else if(i.second[t]==';'){
+                                    end = t
+                                    Log.i("ccookie save","end "+end)
+                                    break
+                                }
+
+                            }
+                            Log.i("cookie save",i.second.substring(start+1,end))
+                            application.saveCookie("token_pass",i.second.substring(start+1,end))
                         }
                         //token_pass=5d9b90bcb70640183e09d1e755ead823; Expires=Sat, 09-Oct-2021 09:37:24 GMT;
                         //loginUserName=Hometest; Expires=Sat, 09-Oct-2021 09:37:24 GMT; Path=/

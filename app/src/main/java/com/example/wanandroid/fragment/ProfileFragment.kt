@@ -47,9 +47,10 @@ class ProfileFragment : BaseFragment() {
             .load(R.drawable.ic_logo)
             .into(binding.image)
         viewModel.isLogin.observe(viewLifecycleOwner,{
-            if(it==false){
+            if(!it){
                 binding.logout.visibility = View.GONE
-                resetUI()
+                binding.username.text = application.user.username
+                binding.rank.text = application.user.coinCount.toString()
             }else{
             binding.logout.visibility = View.VISIBLE
         }
@@ -82,10 +83,7 @@ class ProfileFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun resetUI() {
-        binding.username.text = application.user.username
-        binding.rank.text = application.user.coinCount.toString()
-    }
+
 
     /**
      * 登录成功后
@@ -115,6 +113,7 @@ class LogoutDialogFragment: DialogFragment(){
                 .setPositiveButton("确定", DialogInterface.OnClickListener{
                         dialog,id->
                     application.clearUser()
+                    application.cookies.clear()
                     viewModel.isLogin.postValue(false)
 
                 }).setNegativeButton("取消", DialogInterface.OnClickListener{

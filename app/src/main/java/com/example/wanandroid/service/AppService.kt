@@ -91,7 +91,13 @@ interface AppService {
      * 登出
      */
     @GET("user/logout/json")
-    fun logout()
+    fun logout(){
+        //TODO("获取头部内容")
+        //logout主要是头部设置
+    }
+    /**
+     * {"data":null,"errorCode":0,"errorMsg":""}
+     */
 
     /**
      * 微信公众号 列表

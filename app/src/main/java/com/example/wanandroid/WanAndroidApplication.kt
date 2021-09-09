@@ -3,6 +3,7 @@ package com.example.wanandroid
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.example.wanandroid.entity.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -17,7 +18,7 @@ class WanAndroidApplication : Application() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var user: User
-        lateinit var cookies:ArrayList<HashMap<String,String>>
+        lateinit var cookies:HashMap<String,String>
         var login :Boolean = false
         fun clearUser() {
             val prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE).edit()
@@ -66,11 +67,8 @@ class WanAndroidApplication : Application() {
             if (prefs != null) {
                 prefs.putString(key,value)
                 prefs.apply()
-
             }
-            val map =HashMap<String,String>()
-            map.put(key,value)
-            cookies.add(map)
+            cookies.put(key,value)
         }
 
         fun clearCookies(){
@@ -90,7 +88,7 @@ class WanAndroidApplication : Application() {
         context = applicationContext
         //TODO 从数据库中读->更新
         user = initUser()
-        cookies = initCookie()
+        cookies=initCookie()
         login = initLogin()
     }
 
@@ -100,10 +98,23 @@ class WanAndroidApplication : Application() {
         return id != -1
     }
 
-    private fun initCookie(): ArrayList<Pair<String,String>> {
-        val
+    private fun initCookie():HashMap<String,String>{
+        val res= HashMap<String,String>()
+        val prefs = getSharedPreferences("cookies", Context.MODE_PRIVATE)
+        val username = prefs.getString("loginUserName","")
+        val tokenPass = prefs.getString("token_pass","")
+        if (username != null) {
+//            cookies.put("loginUserName",username)
+            res.put("loginUserName",username)
 
-
+            Log.i("init cookie","loginUserName"+":"+username)
+        }
+        if (tokenPass != null) {
+//            cookies.put("token_pass",tokenPass)
+            res.put("token_pass",tokenPass)
+            Log.i("init cookie","token_pass"+":"+tokenPass)
+        }
+        return  res
     }
 
     private fun initUser(): User {
