@@ -44,15 +44,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT
         window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        val userViewModel: UserViewModel by viewModels()
-        //cache
-        val prefs = getSharedPreferences("user", Context.MODE_PRIVATE)
-        //第二个参数是默认值，即 找不到键值时，返回默认值
-        var name = prefs.getString("username", "未登录")
-        var coinCount = prefs.getInt("coinCount", -1)
-        var id = prefs.getInt("id", -1)
-//        userViewModel.getUser()
-//            .postValue(User(username = name!!, coinCount = coinCount, id = id, nickname = name))
 
         //BlockCanary
 //        BlockCanary.install(this, BlockCanaryContext()).start()

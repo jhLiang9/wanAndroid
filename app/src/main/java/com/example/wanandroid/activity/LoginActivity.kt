@@ -26,11 +26,6 @@ class LoginActivity : AppCompatActivity() {
             val name = binding.accountEdit.text.toString()
             val pass = binding.passwordEdit.text.toString()
             login(name, pass)
-
-            val intent = Intent()
-            val bundle=Bundle()
-//            bundle.putSerializable("user",viewModel.getUser().value)
-            intent.putExtra("data",bundle)
             finish()
         }
         binding.register.setOnClickListener {

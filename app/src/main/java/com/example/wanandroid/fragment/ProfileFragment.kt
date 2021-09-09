@@ -1,5 +1,9 @@
 package com.example.wanandroid.fragment
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.DatabaseUtils
 import android.os.Bundle
@@ -8,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +26,7 @@ import com.example.wanandroid.event.UserEvent
 import com.example.wanandroid.event.refresh.QARefreshEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
+import com.example.wanandroid.viewmodel.ProfileViewModel
 import com.example.wanandroid.viewmodel.UserViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -29,44 +35,94 @@ import org.greenrobot.eventbus.ThreadMode
 class ProfileFragment : BaseFragment() {
     private val application = WanAndroidApplication
     private lateinit var binding: FragmentProfileBinding
-    private val viewModel: UserViewModel by activityViewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         EventBusUtil.register(this)
-
         arguments = Bundle()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         Glide.with(this)
             .load(R.drawable.ic_logo)
             .into(binding.image)
-        if(application.user.id==-1){
-            binding.logout.visibility = View.GONE
+        viewModel.isLogin.observe(viewLifecycleOwner,{
+            if(it==false){
+                binding.logout.visibility = View.GONE
+                resetUI()
+            }else{
+            binding.logout.visibility = View.VISIBLE
         }
-        binding.username.setOnClickListener {
+
+        })
+        if (application.user.id == -1) {
             //未登录状态,点击进行登录
             val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
+            binding.logout.visibility = View.GONE
+            binding.username.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.image.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.rl1.setOnClickListener {
+                startActivity(intent)
+            }
+        } else {
+            //已登录状态
+            binding.username.text = application.user.username
+            binding.rank.text = application.user.coinCount.toString()
+            // TODO("各种点击事件")
         }
+
         binding.logout.setOnClickListener {
-//            viewModel
+            val dialogFragment = LogoutDialogFragment()
+            dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
         }
-
-
-
         return binding.root
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event :UserEvent){
+    private fun resetUI() {
         binding.username.text = application.user.username
         binding.rank.text = application.user.coinCount.toString()
+    }
+
+    /**
+     * 登录成功后
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: UserEvent) {
+        binding.username.text = application.user.username
+        binding.rank.text = application.user.coinCount.toString()
+        binding.logout.visibility = View.VISIBLE
+        binding.username.isClickable = false
     }
 
     override fun onDestroy() {
         EventBusUtil.unregister(this)
         super.onDestroy()
+    }
+}
+
+class LogoutDialogFragment: DialogFragment(){
+    private val application =WanAndroidApplication
+    private val viewModel: ProfileViewModel by activityViewModels()
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let{
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage("确定退出当前账号")
+                .setTitle("退出账号")
+                .setPositiveButton("确定", DialogInterface.OnClickListener{
+                        dialog,id->
+                    application.clearUser()
+                    viewModel.isLogin.postValue(false)
+
+                }).setNegativeButton("取消", DialogInterface.OnClickListener{
+                        dialog,id->
+                })
+            builder.create()
+
+        }?:throw  IllegalStateException("activity can't be null")
     }
 
 }
