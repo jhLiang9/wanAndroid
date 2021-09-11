@@ -3,6 +3,7 @@ package com.example.wanandroid.activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -34,7 +35,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 //import android.R
 import android.view.Menu
 import kotlin.system.exitProcess
-
+import okhttp3.Cookie
+import okhttp3.HttpUrl
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         //hide the title bar
         supportActionBar?.hide()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 

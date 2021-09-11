@@ -63,9 +63,11 @@ interface AppService {
 
     /**
      * 收藏文章列表
+     * e.g:  https://www.wanandroid.com/lg/collect/list/0/json
      */
+    @Headers("Cookie:loginUserName_wanandroid_com=12345","Cookie:token_pass_wanandroid_com=5d9b90bcb70640183e09d1e755ead823")
     @GET("lg/collect/list/{page}/json")
-    fun getCollection(@Path("page") page: Int)
+    fun getCollection(@Path("page") page: Int):Call<ArticleList>
 
     /**
      * 收藏站内文章

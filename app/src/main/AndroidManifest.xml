@@ -21,6 +21,9 @@
             android:name=".activity.ShareActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.MyCollectionActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SearchActivity"
             android:exported="true" />
         <activity android:name=".activity.WebViewActivity" />

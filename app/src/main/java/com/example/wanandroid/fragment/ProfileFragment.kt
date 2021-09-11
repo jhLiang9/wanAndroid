@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.example.wanandroid.R
 import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.activity.LoginActivity
+import com.example.wanandroid.activity.MyCollectionActivity
 import com.example.wanandroid.databinding.FragmentProfileBinding
 import com.example.wanandroid.entity.User
 import com.example.wanandroid.event.UserEvent
@@ -64,7 +65,10 @@ class ProfileFragment : BaseFragment() {
             //已登录状态
             binding.username.text = application.user.username
             binding.rank.text = application.user.coinCount.toString()
-            // TODO("各种点击事件")
+            binding.rlCollection.setOnClickListener {
+                val intent = Intent(context,MyCollectionActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         binding.logout.setOnClickListener {
