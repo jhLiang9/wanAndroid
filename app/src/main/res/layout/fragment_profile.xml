@@ -38,14 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl0"
-
             android:layout_marginTop="20sp"
-
-
             android:background="#F5F5F5">
 
             <RelativeLayout
-                android:id="@+id/rl2"
+                android:id="@+id/rl_rank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
@@ -74,7 +71,7 @@
                     android:layout_toEndOf="@+id/tv_rank"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="12345678901234567890123"
+                    android:text=""
                     android:textSize="18dp" />
 
                 <TextView
@@ -92,14 +89,14 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1sp"
-                android:layout_below="@+id/rl2"
+                android:layout_below="@+id/rl_rank"
                 android:background="@color/light_gray" />
 
             <RelativeLayout
                 android:id="@+id/rl_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rl2"
+                android:layout_below="@id/rl_rank"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="false">

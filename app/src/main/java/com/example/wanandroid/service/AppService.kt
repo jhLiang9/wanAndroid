@@ -39,7 +39,7 @@ interface AppService {
      * 导航数据
      */
     @GET("navi/json")
-    fun getNavi(): Call<ArticleList>
+    fun getToolNavi(): Call<ArticleList>
 
     /**
      * 用户登陆

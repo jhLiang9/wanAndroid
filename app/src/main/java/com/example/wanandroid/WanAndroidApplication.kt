@@ -21,6 +21,7 @@ class WanAndroidApplication : Application() {
         lateinit var cookies:HashMap<String,String>
         var login :Boolean = false
         fun clearUser() {
+            user =User()
             val prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE).edit()
             if (prefs != null) {
                 prefs.remove("username")

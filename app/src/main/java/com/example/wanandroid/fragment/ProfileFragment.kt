@@ -41,7 +41,6 @@ class ProfileFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         EventBusUtil.register(this)
-        arguments = Bundle()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         Glide.with(this)
             .load(R.drawable.ic_logo)
@@ -51,24 +50,16 @@ class ProfileFragment : BaseFragment() {
                 binding.logout.visibility = View.GONE
                 binding.username.text = application.user.username
                 binding.rank.text = application.user.coinCount.toString()
+                on()
             }else{
             binding.logout.visibility = View.VISIBLE
         }
-
         })
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
-            val intent = Intent(context, LoginActivity::class.java)
+            on()
             binding.logout.visibility = View.GONE
-            binding.username.setOnClickListener {
-                startActivity(intent)
-            }
-            binding.image.setOnClickListener {
-                startActivity(intent)
-            }
-            binding.rl1.setOnClickListener {
-                startActivity(intent)
-            }
+
         } else {
             //已登录状态
             binding.username.text = application.user.username
@@ -83,7 +74,34 @@ class ProfileFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun on(){
+        val intent = Intent(context, LoginActivity::class.java)
 
+        binding.username.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.image.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.rlRank.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.rlCollection.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.rlProfile.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.rlNavigation.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.shareArticle.setOnClickListener {
+            startActivity(intent)
+        }
+        binding.shareProject.setOnClickListener {
+            startActivity(intent)
+        }
+    }
 
     /**
      * 登录成功后
@@ -100,10 +118,11 @@ class ProfileFragment : BaseFragment() {
         EventBusUtil.unregister(this)
         super.onDestroy()
     }
+
+
 }
 
 class LogoutDialogFragment: DialogFragment(){
-    private val application =WanAndroidApplication
     private val viewModel: ProfileViewModel by activityViewModels()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let{
@@ -112,12 +131,9 @@ class LogoutDialogFragment: DialogFragment(){
                 .setTitle("退出账号")
                 .setPositiveButton("确定", DialogInterface.OnClickListener{
                         dialog,id->
-                    application.clearUser()
-                    application.cookies.clear()
-                    viewModel.isLogin.postValue(false)
-
+                    viewModel.logout()
                 }).setNegativeButton("取消", DialogInterface.OnClickListener{
-                        dialog,id->
+                        _, _ ->
                 })
             builder.create()
 

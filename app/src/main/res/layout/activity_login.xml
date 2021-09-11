@@ -5,14 +5,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/mother"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:gravity="center">
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_logo" />
 
@@ -36,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:hint="手机/邮箱" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +106,6 @@
                 android:layout_toEndOf="@id/login"
                 android:text="注册" />
         </RelativeLayout>
-
 
     </LinearLayout>
 

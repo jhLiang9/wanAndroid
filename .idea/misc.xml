@@ -21,17 +21,22 @@
         <entry key="app/src/main/res/layout/activity_nnnnnnntest.xml" value="0.27708333333333335" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.4791666666666667" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.37228260869565216" />
+        <entry key="app/src/main/res/layout/activity_share.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.3686594202898551" />
         <entry key="app/src/main/res/layout/article_item.xml" value="0.2921195652173913" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.23822463768115942" />
+        <entry key="app/src/main/res/layout/fragment_account_detail.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.225" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_interaction.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_my_collection.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/layout/fragment_my_collection_list.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/fragment_navi.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2911458333333333" />
         <entry key="app/src/main/res/layout/fragment_official_account.xml" value="0.41847826086956524" />
         <entry key="app/src/main/res/layout/fragment_playground.xml" value="0.3138586956521739" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/fragment_project_content.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.20364741641337386" />
@@ -39,6 +44,7 @@
         <entry key="app/src/main/res/layout/fragment_scrolling.xml" value="0.4791666666666667" />
         <entry key="app/src/main/res/layout/fragment_study.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_system.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/fragment_tool_navi.xml" value="0.35778985507246375" />
         <entry key="app/src/main/res/layout/fragment_wx_article.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/interaction_fragment.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/item_article.xml" value="0.41530797101449274" />

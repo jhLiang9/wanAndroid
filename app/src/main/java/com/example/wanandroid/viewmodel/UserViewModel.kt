@@ -23,7 +23,7 @@ import retrofit2.Response
 class UserViewModel : BaseViewModel() {
     private var user = MutableLiveData(User())
     val application = WanAndroidApplication
-
+    val success = MutableLiveData<Boolean>()
 
 
 
@@ -44,14 +44,14 @@ class UserViewModel : BaseViewModel() {
                         if(i.second.startsWith("loginUserName")){
                             var start  = -1
                             var end = -1
-                            for( t in 0.. i.second.length-1){
+                            for( t in i.second.indices){
                                 if(i.second[t]=='='){
                                     start = t
-                                    Log.i("ccookie save","start"+start)
+                                    Log.i("cookie save","start"+start)
                                 }
                                 else if(i.second[t]==';'){
                                     end = t
-                                    Log.i("ccookie save","end "+end)
+                                    Log.i("cookie save","end "+end)
                                     break
                                 }
 
@@ -89,14 +89,18 @@ class UserViewModel : BaseViewModel() {
                 Log.i("user",response.headers().toString())
                 if (data != null) {
                     if(data.id!=-1){
+                        success.postValue(true)
                         application.user = data
                         application.saveUser(data)
                         EventBusUtil.post(UserEvent())
+                    }else{
+                        success.postValue(false)
                     }
+                }else{
+                    success.postValue(false)
                 }
 
             }
-
             override fun onFailure(call: Call<UserData>, t: Throwable) {
                 t.printStackTrace()
             }
