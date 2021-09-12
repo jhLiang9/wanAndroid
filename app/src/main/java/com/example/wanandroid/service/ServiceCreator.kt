@@ -15,7 +15,7 @@ object ServiceCreator {
         override fun intercept(chain: Interceptor.Chain): Response {
             val original:Request = chain.request()
             val requestBuilder = original.newBuilder()
-            if(application.cookies["loginUserName"]!=""){
+            if(application.cookies["loginUserName"]!=""||application.cookies["loginUserName"]!=null){
                 requestBuilder.addHeader("Cookie", "loginUserName="+ application.cookies["loginUserName"]+";token_pass="+ application.cookies["token_pass"])
                 requestBuilder.method(original.method, original.body)
             }

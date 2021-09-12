@@ -1,6 +1,8 @@
 package com.example.wanandroid.service
 
 import com.example.wanandroid.entity.BaseResponse
+import com.example.wanandroid.entity.CoinData
+import com.example.wanandroid.entity.CoinDetailData
 import com.example.wanandroid.entity.data.UserData
 import com.example.wanandroid.entity.list.ArticleList
 import com.example.wanandroid.entity.list.TreeList
@@ -132,4 +134,15 @@ interface AppService {
     @POST("article/query/{page}/json")
     fun search(@Path("page")page:Int,@Field("k")keyword:String): Call<ArticleList>
 
+    /**
+     * 积分详情
+     */
+    @GET("lg/coin/userinfo/json")
+    fun coinData():Call<CoinData>
+
+    /**
+     * 积分来源详情
+     */
+    @GET("lg/coin/list/{page}/json")
+    fun coinDetail(@Path("page")page:Int):Call<CoinDetailData>
 }

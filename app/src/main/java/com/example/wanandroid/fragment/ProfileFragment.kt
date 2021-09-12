@@ -47,6 +47,7 @@ class ProfileFragment : BaseFragment() {
             .load(R.drawable.ic_logo)
             .into(binding.image)
         viewModel.isLogin.observe(viewLifecycleOwner,{
+            binding.parent.alpha =1f
             if(!it){
                 binding.logout.visibility = View.GONE
                 binding.username.text = application.user.username
@@ -73,6 +74,7 @@ class ProfileFragment : BaseFragment() {
 
         binding.logout.setOnClickListener {
             val dialogFragment = LogoutDialogFragment()
+            binding.parent.alpha=0.70f
             dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
         }
         return binding.root

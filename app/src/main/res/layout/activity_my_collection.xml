@@ -11,8 +11,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="match_parent">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="22sp">
+            </View>
             <FrameLayout
                 android:id="@+id/activity_fragment_container"
                 android:layout_width="match_parent"
