@@ -11,11 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.ShareActivity">
+        <View
+            android:id="@id/top"
+            android:background="@color/white_smoke"
+            android:layout_width="match_parent"
+            android:layout_height="22sp">
+        </View>
 
         <Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/top"
             android:background="@color/white_smoke"
             android:title="分享">
 

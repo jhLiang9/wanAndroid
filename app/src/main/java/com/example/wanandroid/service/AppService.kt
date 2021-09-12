@@ -142,7 +142,16 @@ interface AppService {
      */
     @GET("lg/coin/userinfo/json")
     fun coinData():Call<CoinData>
-
+//{
+//    "data": {
+//        "coinCount": 451, //总积分
+//        "rank": 7, //当前排名
+//        "userId": 2,
+//        "username": "x**oyang"
+//    },
+//    "errorCode": 0,
+//    "errorMsg": ""
+//}
     /**
      * 积分来源详情
      */

@@ -2,7 +2,9 @@ package com.example.wanandroid.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.wanandroid.R
@@ -17,6 +19,9 @@ class MyCollectionActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.statusBarColor = Color.TRANSPARENT
+        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+
         binding = ActivityMyCollectionBinding.inflate(layoutInflater)
         val view = binding.root
         val fragmentTransaction: FragmentTransaction =

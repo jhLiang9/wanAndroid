@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl0"
+        android:layout_marginTop="20sp"
+        android:background="#F5F5F5">
+
+        <RelativeLayout
+            android:id="@+id/rl_rank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="积分"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_toRightOf="@+id/tv_coin"
+                android:text="1234"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1sp"
+            android:layout_below="@+id/rl_rank"
+            android:background="@color/light_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rl_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_rank"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="false">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:id="@+id/tv_current_rank"
+                android:layout_marginBottom="10sp"
+                android:text="当前排名"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_toRightOf="@+id/tv_current_rank"
+                android:text="1234"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1sp"
+            android:layout_below="@+id/rl_profile"
+            android:background="@color/light_gray" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_profile"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/tv_userid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:text="用户id"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_toRightOf="@+id/tv_userid"
+                android:text="1234"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1sp"
+            android:layout_below="@+id/rl_collection"
+            android:background="@color/light_gray" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_collection"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:text="用户名"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_toRightOf="@+id/tv_username"
+                android:text="1234"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1sp"
+            android:layout_below="@+id/rl_navigation"
+            android:background="@color/light_gray" />
+
+
+    </RelativeLayout>
+
+
+</layout>
