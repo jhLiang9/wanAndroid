@@ -17,6 +17,7 @@ import retrofit2.http.*
  * 获取数据、登陆、登出、注册
  */
 interface AppService {
+
     /**
      * 首页文章
      * @param page 页码
@@ -67,7 +68,7 @@ interface AppService {
      * 收藏文章列表
      * e.g:  https://www.wanandroid.com/lg/collect/list/0/json
      */
-    @Headers("Cookie:loginUserName_wanandroid_com=12345","Cookie:token_pass_wanandroid_com=5d9b90bcb70640183e09d1e755ead823")
+    //@Headers("Cookie:loginUserName_wanandroid_com=12345","Cookie:token_pass_wanandroid_com=5d9b90bcb70640183e09d1e755ead823")
     @GET("lg/collect/list/{page}/json")
     fun getCollection(@Path("page") page: Int):Call<ArticleList>
 
@@ -133,6 +134,8 @@ interface AppService {
     @FormUrlEncoded
     @POST("article/query/{page}/json")
     fun search(@Path("page")page:Int,@Field("k")keyword:String): Call<ArticleList>
+    @POST("lg/user_article/add/json")
+    fun shareArticle(@Field("title") title: String,@Field("link") link: String)
 
     /**
      * 积分详情

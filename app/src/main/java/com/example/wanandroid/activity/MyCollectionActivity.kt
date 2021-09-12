@@ -1,5 +1,7 @@
 package com.example.wanandroid.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
@@ -24,5 +26,10 @@ class MyCollectionActivity: AppCompatActivity() {
             MyCollectionFragment.newInstance()
         ).commit()
         setContentView(binding.root)
+    }
+
+    fun start( context:Context){
+        val intent = Intent(context,this::class.java)
+        startActivity(intent)
     }
 }
