@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:hint="12345"
+                android:text="12345"
                 android:layout_weight="1"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -75,6 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="123456"
+                android:text="123456"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:inputType="textPassword"

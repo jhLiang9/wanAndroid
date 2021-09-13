@@ -15,11 +15,7 @@ open class SystemViewModel : BaseViewModel() {
     val list = ArrayList<Tree>()
     val overview = MutableLiveData<TreeList>()
     fun getData() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.wanandroid.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val appService = retrofit.create(AppService::class.java)
+
         appService.getSystemTree().enqueue(object : retrofit2.Callback<TreeList> {
             override fun onResponse(
                 call: retrofit2.Call<TreeList>,

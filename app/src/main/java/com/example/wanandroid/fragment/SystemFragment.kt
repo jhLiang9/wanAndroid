@@ -16,17 +16,16 @@ import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.databinding.FragmentSystemBinding
 import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.entity.list.TreeList
+import com.example.wanandroid.fragment.basefragment.BaseFragment
+import com.example.wanandroid.service.AppService
+import com.example.wanandroid.service.ServiceCreator
 import com.example.wanandroid.viewmodel.SystemViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.*
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.functions.Consumer
-import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.Executors
-import kotlin.concurrent.thread
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class SystemFragment : Fragment() {
+class SystemFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSystemBinding
     private lateinit var viewModel: SystemViewModel
@@ -39,60 +38,26 @@ class SystemFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SystemViewModel::class.java)
         database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
-        binding.systemModule.adapter = SystemAdapter(viewModel.list, viewModel)
-        binding.systemModule.layoutManager = LinearLayoutManager(context)
         initData()
         return binding.root
     }
 
     private fun initData() {
-
-        viewModel.getData()
-        viewModel.overview.observe(viewLifecycleOwner, {
-            lateinit var disposable: Disposable
-            Observable.create(ObservableOnSubscribe<Tree> { emitter ->
-                for(item in it.data){
-                    emitter.onNext(item)
+        appService.getSystemTree().enqueue(object : Callback<TreeList> {
+            override fun onResponse(call: Call<TreeList>, response: Response<TreeList>) {
+                val body = response.body()
+                if (body != null) {
+                    viewModel.list.addAll(body.data)
+                    binding.systemModule.adapter = SystemAdapter( viewModel)
+                    binding.systemModule.layoutManager = LinearLayoutManager(context)
                 }
-                emitter.onComplete()
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(object :Observer<Tree>{
-                    override fun onSubscribe(d: Disposable?) {
-                        if (d != null) {
-                            disposable = d
-                        }
-                    }
+                binding.loadingPanel.visibility = View.GONE
+            }
 
-                    override fun onNext(t: Tree?) {
-                        if (t != null) {
-                            if(database.getTree(t.id)==null){
-                                Log.i("system","insert")
-                                database.insert(t)
-                            }
+            override fun onFailure(call: Call<TreeList>, t: Throwable) {
+                t.printStackTrace()
+            }
 
-                        }
-                        Log.i("system","OnNext")
-                    }
-
-                    override fun onError(e: Throwable?) {
-                    }
-
-                    override fun onComplete() {
-
-                        viewModel.list.addAll(database.getAllSystemTree())
-                        Log.i("system",viewModel.list[0].toString())
-                    }
-
-                })
-            //TODO 处理好先后关系
-
-            while(!disposable.isDisposed){}
-            Thread.sleep(2000L)
-            binding.systemModule.adapter?.notifyDataSetChanged()
-            Log.i("system","notify")
-            binding.loadingPanel.visibility = View.GONE
         })
     }
 

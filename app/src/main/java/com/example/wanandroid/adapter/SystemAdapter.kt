@@ -4,8 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +15,8 @@ import com.example.wanandroid.entity.list.TreeList
 import com.example.wanandroid.viewmodel.SystemViewModel
 
 
-class SystemAdapter( private val overviewList:ArrayList<Tree>, val viewModel:SystemViewModel) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
-    private val size = overviewList.size
+class SystemAdapter(val viewModel:SystemViewModel) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
+    private val size = viewModel.list.size
     private lateinit var binding: ItemSystemModuleBinding
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,8 +30,8 @@ class SystemAdapter( private val overviewList:ArrayList<Tree>, val viewModel:Sys
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.moduleName.text = overviewList[position].name
-            binding.recyclerView.adapter = ModuleAdapter(overviewList[position].children, viewModel)
+            holder.moduleName.text = viewModel.list[position].name
+            binding.recyclerView.adapter = ModuleAdapter(viewModel.list[position].children, viewModel)
             binding.recyclerView.layoutManager = GridLayoutManager(binding.root.context, 4)
         }
 

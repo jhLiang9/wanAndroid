@@ -11,8 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl0"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="22sp"
         android:background="#F5F5F5">
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_rank"
@@ -34,6 +46,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
@@ -41,7 +54,7 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:layout_toRightOf="@+id/tv_coin"
-                android:text="1234"
+                android:text="coin"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -72,6 +85,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
@@ -79,7 +93,7 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:layout_toRightOf="@+id/tv_current_rank"
-                android:text="1234"
+                android:text="rank"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -112,6 +126,7 @@
 
 
             <TextView
+                android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
@@ -119,7 +134,7 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:layout_toRightOf="@+id/tv_userid"
-                android:text="1234"
+                android:text="Id"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -152,6 +167,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
@@ -159,7 +175,7 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:layout_toRightOf="@+id/tv_username"
-                android:text="1234"
+                android:text="name"
                 android:textSize="18sp" />
         </RelativeLayout>
 

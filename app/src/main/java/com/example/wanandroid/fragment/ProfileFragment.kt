@@ -19,9 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.wanandroid.R
 import com.example.wanandroid.WanAndroidApplication
-import com.example.wanandroid.activity.LoginActivity
-import com.example.wanandroid.activity.MyCollectionActivity
-import com.example.wanandroid.activity.ShareActivity
+import com.example.wanandroid.activity.*
 import com.example.wanandroid.databinding.FragmentProfileBinding
 import com.example.wanandroid.entity.User
 import com.example.wanandroid.event.UserEvent
@@ -53,18 +51,32 @@ class ProfileFragment : BaseFragment() {
                 binding.logout.visibility = View.GONE
                 binding.username.text = application.user.username
                 binding.rank.text = application.user.coinCount.toString()
-                on()
+                isLogin(false)
             }else{
+            isLogin(true)
             binding.logout.visibility = View.VISIBLE
         }
         })
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
-            on()
+            isLogin(false)
             binding.logout.visibility = View.GONE
 
         } else {
             //已登录状态
+           isLogin(true)
+        }
+
+        binding.logout.setOnClickListener {
+            val dialogFragment = LogoutDialogFragment()
+            binding.parent.alpha=0.70f
+            dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
+        }
+        return binding.root
+    }
+
+    private fun isLogin(boolean:Boolean) {
+        if(boolean){
             binding.username.text = application.user.username
             binding.rank.text = application.user.coinCount.toString()
             binding.rlCollection.setOnClickListener {
@@ -79,44 +91,45 @@ class ProfileFragment : BaseFragment() {
                 val intent = Intent(context,ShareActivity::class.java)
                 startActivity(intent)
             }
+            binding.rlRank.setOnClickListener {
+                val intent = Intent(context,CoinDetailActivity::class.java)
+                startActivity(intent)
+            }
+            binding.rlProfile.setOnClickListener {
+                val intent = Intent(context,MyCoinActivity::class.java)
+                startActivity(intent)
+            }
+        }else{
+            val intent = Intent(context, LoginActivity::class.java)
+
+            binding.username.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.image.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.rlRank.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.rlCollection.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.rlProfile.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.rlNavigation.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.shareArticle.setOnClickListener {
+                startActivity(intent)
+            }
+            binding.shareProject.setOnClickListener {
+                startActivity(intent)
+            }
         }
 
-        binding.logout.setOnClickListener {
-            val dialogFragment = LogoutDialogFragment()
-            binding.parent.alpha=0.70f
-            dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
-        }
-        return binding.root
     }
 
-    private fun on(){
-        val intent = Intent(context, LoginActivity::class.java)
-
-        binding.username.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.image.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.rlRank.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.rlCollection.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.rlProfile.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.rlNavigation.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.shareArticle.setOnClickListener {
-            startActivity(intent)
-        }
-        binding.shareProject.setOnClickListener {
-            startActivity(intent)
-        }
-    }
 
     /**
      * 登录成功后
@@ -127,6 +140,7 @@ class ProfileFragment : BaseFragment() {
         binding.rank.text = application.user.coinCount.toString()
         binding.logout.visibility = View.VISIBLE
         binding.username.isClickable = false
+        isLogin(true)
     }
 
     override fun onDestroy() {

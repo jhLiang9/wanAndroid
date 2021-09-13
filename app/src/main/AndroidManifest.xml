@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid">
         <activity
+            android:name=".activity.CoinDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.MyCoinActivity"
             android:exported="true" />
         <activity
@@ -25,6 +28,9 @@
             android:exported="true" />
         <activity
             android:name=".activity.MyCollectionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ShareActivity"
             android:exported="true" />
         <activity
             android:name=".activity.SearchActivity"

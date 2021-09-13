@@ -139,8 +139,6 @@ class HomePageFragment : HomePageFragmentVM() {
                     }
                     //向上滚动
                     scrollDownDistance += dy
-//                    var offset = recyclerView.computeVerticalScrollOffset()
-//                    if (offset > listHeight * 2&& abs(scrollDownDistance)>listHeight) {}
                     showSearch()
                 }
             }
