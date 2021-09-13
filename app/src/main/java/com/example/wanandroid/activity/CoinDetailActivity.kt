@@ -42,7 +42,6 @@ class CoinDetailActivity : AppCompatActivity() {
                 response: Response<CoinDetailData>
             ) {
                 val body = response.body()
-                Log.i("coinD",body.toString())
                 if (body != null) {
                     list.addAll(body.data.datas)
                     binding.recyclerView.adapter = CoinDetailAdapter(list)

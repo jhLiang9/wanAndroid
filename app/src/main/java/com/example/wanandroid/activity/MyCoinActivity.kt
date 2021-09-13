@@ -23,20 +23,18 @@ class MyCoinActivity : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
         window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         appService = ServiceCreator.create(AppService::class.java)
-        binding.root.alpha =0.7f
+        binding.root.alpha = 0.7f
         binding.loadingPanel.visibility = View.VISIBLE
         appService.coinData().enqueue(object : Callback<CoinData> {
             override fun onResponse(call: Call<CoinData>, response: Response<CoinData>) {
                 val body = response.body()
-                Log.i("myCoin",body.toString())
-                if(body!=null){
+                if (body != null) {
                     binding.coin.text = body.data.coinCount.toString()
                     binding.rank.text = body.data.rank.toString()
                     binding.userId.text = body.data.userId.toString()
-                    binding.username.text = body.data.username.toString()
-                    binding.root.alpha =1f
+                    binding.username.text = body.data.username
+                    binding.root.alpha = 1f
                     binding.loadingPanel.visibility = View.GONE
-
 
                 }
             }
