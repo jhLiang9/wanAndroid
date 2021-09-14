@@ -109,7 +109,8 @@ dependencies {
 
     //RefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
+    //flexboxLayout
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     //GSON
     implementation 'com.google.code.gson:gson:2.8.7'
     //BlockCanary

@@ -88,11 +88,11 @@ class CoinDetailActivity : AppCompatActivity() {
 
             var start = -1
             val length = list[position].desc.length
-                for(i in 0.. length-1){
-                    if ( list[position].desc[i]=='+'){
-                        start = i
-                    }
+            for(i in 0.. length-1){
+                if ( list[position].desc[i]=='+'){
+                    start = i
                 }
+            }
             val amount = list[position].desc.substring(start,length)
             holder.amount.text = amount
             holder.reason.text = list[position].reason

@@ -22,8 +22,9 @@
                 android:id="@+id/module_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="2sp"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
         </androidx.cardview.widget.CardView>
 

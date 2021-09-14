@@ -1,18 +1,15 @@
 package com.example.wanandroid.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ItemSystemDetailBinding
 import com.example.wanandroid.databinding.ItemSystemModuleBinding
 import com.example.wanandroid.entity.Tree
-import com.example.wanandroid.entity.list.TreeList
 import com.example.wanandroid.viewmodel.SystemViewModel
+import com.google.android.flexbox.FlexboxLayoutManager
 
 
 class SystemAdapter(val viewModel:SystemViewModel) : RecyclerView.Adapter<SystemAdapter.ViewHolder>() {
@@ -26,13 +23,15 @@ class SystemAdapter(val viewModel:SystemViewModel) : RecyclerView.Adapter<System
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_system_module, parent, false)
             binding = ItemSystemModuleBinding.bind(view)
-            return ViewHolder(view)
+            val viewHolder =ViewHolder(view)
+            viewHolder.setIsRecyclable(false)
+            return viewHolder
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.moduleName.text = viewModel.list[position].name
             binding.recyclerView.adapter = ModuleAdapter(viewModel.list[position].children, viewModel)
-            binding.recyclerView.layoutManager = GridLayoutManager(binding.root.context, 4)
+            binding.recyclerView.layoutManager = FlexboxLayoutManager(binding.root.context)
         }
 
         override fun getItemCount(): Int = size

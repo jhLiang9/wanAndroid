@@ -45,17 +45,17 @@ class ProfileFragment : BaseFragment() {
         Glide.with(this)
             .load(R.drawable.ic_logo)
             .into(binding.image)
-        viewModel.isLogin.observe(viewLifecycleOwner,{
-            binding.parent.alpha =1f
-            if(!it){
+        viewModel.isLogin.observe(viewLifecycleOwner, {
+            binding.parent.alpha = 1f
+            if (!it) {
                 binding.logout.visibility = View.GONE
                 binding.username.text = application.user.username
                 binding.rank.text = application.user.coinCount.toString()
                 isLogin(false)
-            }else{
-            isLogin(true)
-            binding.logout.visibility = View.VISIBLE
-        }
+            } else {
+                isLogin(true)
+                binding.logout.visibility = View.VISIBLE
+            }
         })
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
@@ -64,42 +64,42 @@ class ProfileFragment : BaseFragment() {
 
         } else {
             //已登录状态
-           isLogin(true)
+            isLogin(true)
         }
 
         binding.logout.setOnClickListener {
             val dialogFragment = LogoutDialogFragment()
-            binding.parent.alpha=0.70f
+            binding.parent.alpha = 0.70f
             dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
         }
         return binding.root
     }
 
-    private fun isLogin(boolean:Boolean) {
-        if(boolean){
+    private fun isLogin(boolean: Boolean) {
+        if (boolean) {
             binding.username.text = application.user.username
             binding.rank.text = application.user.coinCount.toString()
             binding.rlCollection.setOnClickListener {
-                val intent = Intent(context,MyCollectionActivity::class.java)
+                val intent = Intent(context, MyCollectionActivity::class.java)
                 startActivity(intent)
             }
             binding.shareArticle.setOnClickListener {
-                val intent = Intent(context,ShareActivity::class.java)
+                val intent = Intent(context, ShareActivity::class.java)
                 startActivity(intent)
             }
-            binding.shareProject.setOnClickListener{
-                val intent = Intent(context,ShareActivity::class.java)
+            binding.shareProject.setOnClickListener {
+                val intent = Intent(context, ShareActivity::class.java)
                 startActivity(intent)
             }
             binding.rlRank.setOnClickListener {
-                val intent = Intent(context,CoinDetailActivity::class.java)
+                val intent = Intent(context, CoinDetailActivity::class.java)
                 startActivity(intent)
             }
             binding.rlProfile.setOnClickListener {
-                val intent = Intent(context,MyCoinActivity::class.java)
+                val intent = Intent(context, MyCoinActivity::class.java)
                 startActivity(intent)
             }
-        }else{
+        } else {
             val intent = Intent(context, LoginActivity::class.java)
 
             binding.username.setOnClickListener {
@@ -151,22 +151,20 @@ class ProfileFragment : BaseFragment() {
 
 }
 
-class LogoutDialogFragment: DialogFragment(){
+class LogoutDialogFragment : DialogFragment() {
     private val viewModel: ProfileViewModel by activityViewModels()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let{
+        return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setMessage("确定退出当前账号")
                 .setTitle("退出账号")
-                .setPositiveButton("确定", DialogInterface.OnClickListener{
-                        dialog,id->
+                .setPositiveButton("确定", DialogInterface.OnClickListener { dialog, id ->
                     viewModel.logout()
-                }).setNegativeButton("取消", DialogInterface.OnClickListener{
-                        _, _ ->
+                }).setNegativeButton("取消", DialogInterface.OnClickListener { _, _ ->
                 })
             builder.create()
 
-        }?:throw  IllegalStateException("activity can't be null")
+        } ?: throw  IllegalStateException("activity can't be null")
     }
 
 }
