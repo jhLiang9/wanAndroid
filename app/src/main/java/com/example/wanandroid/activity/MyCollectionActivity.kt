@@ -26,11 +26,13 @@ class MyCollectionActivity: AppCompatActivity() {
         val view = binding.root
         val fragmentTransaction: FragmentTransaction =
             supportFragmentManager.beginTransaction()
+
         fragmentTransaction.replace(
             R.id.activity_fragment_container,
             MyCollectionFragment.newInstance()
         ).commit()
-        setContentView(binding.root)
+
+        setContentView(view)
     }
 
     fun start( context:Context){

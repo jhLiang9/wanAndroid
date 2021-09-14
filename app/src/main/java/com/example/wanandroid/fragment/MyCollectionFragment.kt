@@ -27,6 +27,7 @@ class MyCollectionFragment :BaseFragment() {
         binding.recyclerView.adapter = MyCollectionAdapter(viewModel)
         binding.recyclerView.layoutManager =LinearLayoutManager(context)
         InitFirstPageCollection()
+
         viewModel.collection.observe(viewLifecycleOwner,{
             viewModel.collectionList.addAll(it.data.datas)
             binding.recyclerView.adapter?.notifyDataSetChanged()
