@@ -3,9 +3,9 @@ package com.example.wanandroid.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.entity.Tree
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.entity.list.TreeList
+import com.example.wanandroid.entity.TreeList
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import com.google.gson.Gson
 import okhttp3.Call

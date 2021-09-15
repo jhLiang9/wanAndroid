@@ -1,3 +1,3 @@
 package com.example.wanandroid.entity
 
-data class BaseResponse(val data:Any,val errorCode:Int,val errorMsg:String)
+open class BaseResponse(val errorCode:Int=-1, val errorMsg:String="")

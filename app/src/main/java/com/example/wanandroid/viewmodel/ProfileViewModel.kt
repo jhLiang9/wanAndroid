@@ -10,7 +10,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileViewModel:BaseViewModel() {
-    val application = WanAndroidApplication
     val isLogin =MutableLiveData<Boolean>()
     fun logout(){
         appService.logout().enqueue(object : Callback<BaseResponse>{

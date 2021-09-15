@@ -1,9 +1,11 @@
 package com.example.wanandroid.activity
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +23,28 @@ class WebViewActivity : AppCompatActivity() {
         window.statusBarColor= Color.TRANSPARENT
         window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //允许JavaScript运行
+        val cookieManager = CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
         val webView = binding.webView
-//        val webView:WebView =findViewById(R.id.webView)
+        webView.webViewClient=object:WebViewClient(){
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                cookieManager.setCookie(url,cookieManager.getCookie(url))
+                Log.i("cookieManager set",cookieManager.getCookie(url))
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                val cookie = cookieManager.getCookie(url)
+                Log.i("cookieManager",cookie)
+                super.onPageFinished(view, url)
+            }
+
+        }
         webView.settings.javaScriptEnabled=true
-        webView.webViewClient = WebViewClient()
+
         val intent = intent
+
         val url: String? = intent.getStringExtra("data");
         if (url != null) {
             webView.loadUrl(url)

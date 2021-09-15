@@ -17,7 +17,7 @@ class ShareActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT
-        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
 
         appService= ServiceCreator.create(AppService::class.java)

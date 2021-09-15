@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -78,7 +79,6 @@ class CoinDetailActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: CoinDetailAdapter.ViewHolder, position: Int) {
-
             val dNow = Date()
             val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
             ft.format(dNow)
@@ -88,7 +88,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
             var start = -1
             val length = list[position].desc.length
-            for(i in 0.. length-1){
+            for(i in 0 until length){
                 if ( list[position].desc[i]=='+'){
                     start = i
                 }

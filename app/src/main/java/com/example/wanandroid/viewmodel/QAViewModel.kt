@@ -1,7 +1,7 @@
 package com.example.wanandroid.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.wanandroid.entity.list.ArticleList
+import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.event.QAEvent
 import com.example.wanandroid.service.AppService
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
@@ -12,7 +12,6 @@ import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 
 class QAViewModel : BaseViewModel() {
     val list = MutableLiveData<ArticleList>()
@@ -23,12 +22,6 @@ class QAViewModel : BaseViewModel() {
     }
 
     fun getPageByRetrofit(page: Int) {
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.wanandroid.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val appService = retrofit.create(AppService::class.java)
         appService.getWenDa(page).enqueue(object : retrofit2.Callback<ArticleList> {
             override fun onResponse(
                 call: retrofit2.Call<ArticleList>,

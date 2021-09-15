@@ -2,30 +2,20 @@ package com.example.wanandroid.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.entity.Article
+import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.entity.User
-import com.example.wanandroid.entity.data.UserData
-import com.example.wanandroid.entity.list.ArticleList
+import com.example.wanandroid.entity.UserData
 import com.example.wanandroid.event.UserEvent
-import com.example.wanandroid.service.AppService
-import com.example.wanandroid.service.ServiceCreator
 import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
-import com.google.gson.Gson
-import okhttp3.FormBody
-import okhttp3.Request
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserViewModel : BaseViewModel() {
-    private var user = MutableLiveData(User())
-    val application = WanAndroidApplication
     val success = MutableLiveData<Boolean>()
     val collection  = MutableLiveData<ArticleList>()
     val collectionList =ArrayList<Article>()
@@ -135,8 +125,10 @@ class UserViewModel : BaseViewModel() {
                 val body = response.body()
                 Log.i("collection_body",body.toString())
                 if (body != null) {
-                    if(body.data!=null&&body.errorCode!=-1001)
-                        collection.postValue(body!!)
+                    if(body.errorCode!=-1001){
+                        collection.postValue(body)
+
+                    }
                     }else{ }
             }
 

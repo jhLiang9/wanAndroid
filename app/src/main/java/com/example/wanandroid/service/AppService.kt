@@ -1,14 +1,7 @@
 package com.example.wanandroid.service
 
-import com.example.wanandroid.entity.BaseResponse
-import com.example.wanandroid.entity.CoinData
-import com.example.wanandroid.entity.CoinDetailData
-import com.example.wanandroid.entity.data.UserData
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.entity.list.TreeList
-import com.example.wanandroid.entity.list.WXAccountList
+import com.example.wanandroid.entity.*
 import io.reactivex.rxjava3.core.Observable
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 

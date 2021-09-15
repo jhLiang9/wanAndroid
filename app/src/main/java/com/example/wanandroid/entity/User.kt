@@ -47,3 +47,4 @@ data class User (
     var username:String = "未登录"
 ):Serializable
 
+data class UserData(val data: User?=null):BaseResponse()

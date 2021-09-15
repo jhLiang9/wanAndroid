@@ -14,7 +14,7 @@ import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.databinding.FragmentWxArticleBinding
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.entity.list.ArticleList
+import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.viewmodel.WxArticleViewModel
 import io.reactivex.rxjava3.core.Single

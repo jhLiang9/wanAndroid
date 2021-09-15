@@ -1,8 +1,7 @@
 package com.example.wanandroid.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.entity.list.WXAccountList
+import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import retrofit2.Call
 import retrofit2.Callback

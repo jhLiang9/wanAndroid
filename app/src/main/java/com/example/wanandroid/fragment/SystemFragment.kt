@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
@@ -15,7 +14,7 @@ import com.example.wanandroid.database.SystemDatabase
 import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.databinding.FragmentSystemBinding
 import com.example.wanandroid.entity.Tree
-import com.example.wanandroid.entity.list.TreeList
+import com.example.wanandroid.entity.TreeList
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.service.AppService
 import com.example.wanandroid.service.ServiceCreator

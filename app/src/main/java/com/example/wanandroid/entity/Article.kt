@@ -1,12 +1,9 @@
 package com.example.wanandroid.entity
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.wanandroid.entity.converter.ArticleConverter
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -56,4 +53,14 @@ data class Article (
     val visible :Int,
     val zan:Int
 
+)
+
+data class ArticleList(val data: ArticleData):BaseResponse()
+data class ArticleData(
+    val curPage: Int,
+    val datas: ArrayList<Article>,
+    val over: Boolean = false,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
 )

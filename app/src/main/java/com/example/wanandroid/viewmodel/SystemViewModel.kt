@@ -3,8 +3,8 @@ package com.example.wanandroid.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.Tree
-import com.example.wanandroid.entity.list.ArticleList
-import com.example.wanandroid.entity.list.TreeList
+import com.example.wanandroid.entity.ArticleList
+import com.example.wanandroid.entity.TreeList
 import com.example.wanandroid.service.AppService
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 import com.google.gson.Gson

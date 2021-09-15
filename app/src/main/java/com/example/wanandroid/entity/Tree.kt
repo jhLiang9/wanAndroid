@@ -31,9 +31,6 @@ data class Tree(
 
     @ColumnInfo(name ="visible")
     val visible: Int,
-    //Tree的类型，体系、或者其他
-//    @ColumnInfo(name ="type")
-//    @Transient
-//    val type:String=""
 
 )
+data class TreeList(val data: ArrayList<Tree>):BaseResponse()
