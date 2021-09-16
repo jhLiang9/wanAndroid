@@ -30,7 +30,6 @@ class MyCollectionFragment :BaseFragment() {
         InitFirstPageCollection()
 
         viewModel.collection.observe(viewLifecycleOwner,{
-            Log.i("Collection",it.data.datas.toString())
             viewModel.collectionList.addAll(it.data.datas)
             binding.recyclerView.adapter?.notifyDataSetChanged()
         })

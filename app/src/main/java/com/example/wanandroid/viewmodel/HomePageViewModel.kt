@@ -28,17 +28,15 @@ open class HomePageViewModel : BaseViewModel() {
         //清除数据集，重新加载
         presentList.clear()
         nextPage = 1
-        getArticlesByPage(0)
+        getArticles(0)
     }
 
-    fun getArticlesByPage(page: Int) {
-        getByRetrofit(page)
-    }
+
 
     /**
      * @param page 页码
      */
-    private fun getByRetrofit(page: Int) {
+    fun getArticles(page: Int) {
 
         appService.getArticleData(page).enqueue(object : Callback<ArticleList> {
             override fun onResponse(
@@ -46,7 +44,6 @@ open class HomePageViewModel : BaseViewModel() {
             ) {
                 articleList.postValue(response.body()!!)
             }
-
             override fun onFailure(call: Call<ArticleList>, t: Throwable) {
                 t.printStackTrace()
             }

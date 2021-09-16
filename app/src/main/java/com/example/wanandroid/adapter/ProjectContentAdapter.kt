@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
-import com.example.wanandroid.databinding.ItemProjectContentBinding
 import com.example.wanandroid.entity.Article
 
 class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {

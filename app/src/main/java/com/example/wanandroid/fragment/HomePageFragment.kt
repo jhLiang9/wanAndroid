@@ -187,13 +187,17 @@ class HomePageFragment : HomePageFragmentVM() {
     private fun initView() {
         binding.ArticleRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.refreshLayout.setOnRefreshListener {
-            refresh()
+            binding.refreshLayout.isRefreshing = false
+            viewModel.refresh()
         }
 
     }
 
+    /**
+     * 刷新，重新加载加载数据
+     */
     private fun initData() {
-        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel.presentList, viewModel)
+        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel)
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             //TODO observe 发生变化时 只需要notify就行
             viewModel.presentList.addAll(it.data.datas)
@@ -219,19 +223,13 @@ class HomePageFragment : HomePageFragmentVM() {
 
     }
 
-    /**
-     * 刷新，重新加载加载数据
-     */
-    private fun refresh() {
-        viewModel.refresh()
-        binding.refreshLayout.isRefreshing = false
-    }
+
 
     /**
      * 加载首页数据
      */
     private fun initFirstPage() {
-        viewModel.getArticlesByPage(0)
+        viewModel.getArticles(0)
     }
 
 

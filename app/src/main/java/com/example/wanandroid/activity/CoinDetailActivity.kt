@@ -1,9 +1,7 @@
 package com.example.wanandroid.activity
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,31 +9,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
+import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.databinding.ActivityCoinDetailBinding
 import com.example.wanandroid.entity.CoinDetail
 import com.example.wanandroid.entity.CoinDetailData
-import com.example.wanandroid.service.AppService
-import com.example.wanandroid.service.ServiceCreator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CoinDetailActivity : AppCompatActivity() {
+class CoinDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityCoinDetailBinding
-    private lateinit var appService: AppService
     private val list = ArrayList<CoinDetail>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT
-        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         binding = ActivityCoinDetailBinding.inflate(layoutInflater)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        appService = ServiceCreator.create(AppService::class.java)
 
         appService.coinDetail(1).enqueue(object : Callback<CoinDetailData> {
             override fun onResponse(
@@ -46,7 +39,7 @@ class CoinDetailActivity : AppCompatActivity() {
                 if (body != null) {
                     list.addAll(body.data.datas)
                     binding.recyclerView.adapter = CoinDetailAdapter(list)
-                }else{
+                } else {
 
                 }
             }
@@ -83,17 +76,17 @@ class CoinDetailActivity : AppCompatActivity() {
             val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
             ft.format(dNow)
             val time = list[position].date
-            val res= Date(time)
+            val res = Date(time)
             holder.date.text = ft.format(res)
 
             var start = -1
             val length = list[position].desc.length
-            for(i in 0 until length){
-                if ( list[position].desc[i]=='+'){
+            for (i in 0 until length) {
+                if (list[position].desc[i] == '+') {
                     start = i
                 }
             }
-            val amount = list[position].desc.substring(start,length)
+            val amount = list[position].desc.substring(start, length)
             holder.amount.text = amount
             holder.reason.text = list[position].reason
 

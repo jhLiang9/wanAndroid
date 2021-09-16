@@ -8,25 +8,7 @@ import com.example.wanandroid.entity.converter.UserConverter
 import java.io.Serializable
 
 /**
- * {
-"data": {
-"admin": false,
-"chapterTops": [],
-"coinCount": 21,
-"collectIds": [],
-"email": "",
-"icon": "",
-"id": 108609,
-"nickname": "Hometest",
-"password": "",
-"publicName": "Hometest",
-"token": "",
-"type": 0,
-"username": "Hometest"
-},
-"errorCode": 0,
-"errorMsg": ""
-}
+ * 用户信息
  */
 @Entity(tableName = "user_table")
 @TypeConverters(UserConverter::class)

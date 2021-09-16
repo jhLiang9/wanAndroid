@@ -2,19 +2,9 @@ package com.example.wanandroid.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityRegisterBinding
-import com.example.wanandroid.service.AppService
 import com.example.wanandroid.viewmodel.UserViewModel
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONArray
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding

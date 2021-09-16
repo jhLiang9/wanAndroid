@@ -21,7 +21,7 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         window.statusBarColor= Color.TRANSPARENT
-        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         //允许JavaScript运行
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)

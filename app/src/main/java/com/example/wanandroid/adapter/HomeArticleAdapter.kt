@@ -12,7 +12,7 @@ import com.example.wanandroid.entity.Article
 import com.example.wanandroid.viewmodel.HomePageViewModel
 
 
-class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :HomePageViewModel) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
+class HomeArticleAdapter( val viewModel :HomePageViewModel) :RecyclerView.Adapter<HomeArticleAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -27,7 +27,7 @@ class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :H
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val article =articleList[position]
+            val article =viewModel.presentList[position]
             val link=article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
             intent.putExtra("data", link);
@@ -38,19 +38,19 @@ class HomeArticleAdapter(private val articleList:List<Article>, val viewModel :H
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article = articleList[position]
+        val article = viewModel.presentList[position]
         holder.title.text= article.title
         holder.author.text=article.author
         holder.superChapterName.text=article.superChapterName
         holder.time.text=article.niceDate
         //加载下一页
-        if(position == itemCount-5){
+        if(position >= itemCount-5){
             getNextPage()
 
         }
     }
-    private fun getNextPage() = viewModel.getArticlesByPage(viewModel.nextPage++)
+    private fun getNextPage() = viewModel.getArticles(viewModel.nextPage++)
 
-    override fun getItemCount(): Int = articleList.size
+    override fun getItemCount(): Int = viewModel.presentList.size
 
 }

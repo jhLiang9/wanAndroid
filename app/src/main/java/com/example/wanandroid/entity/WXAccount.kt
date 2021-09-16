@@ -1,5 +1,8 @@
 package com.example.wanandroid.entity
 
+/**
+ * 微信公众号文章
+ */
 data class WXAccount(
     val children: ArrayList<WXAccount>? = null,
     val courseId: Int = -1,

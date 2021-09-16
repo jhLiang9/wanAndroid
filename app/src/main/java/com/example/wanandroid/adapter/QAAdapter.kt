@@ -1,18 +1,14 @@
 package com.example.wanandroid.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
-import com.example.wanandroid.activity.MainActivity
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.fragment.QuestionAndAnswerFragment
 import com.example.wanandroid.viewmodel.QAViewModel
 
 class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
@@ -47,8 +43,9 @@ class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
         holder.time.text = article.niceDate
         holder.description.text = article.desc
         if (position >= itemCount - 5) {
-            viewModel.getPageByRetrofit(viewModel.nextPage++)
-
+            if (viewModel.nextPage < viewModel.pageCount) {
+                viewModel.getPageByRetrofit(viewModel.nextPage++)
+            }
         }
     }
 
