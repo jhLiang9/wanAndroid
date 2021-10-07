@@ -91,7 +91,6 @@ class HomePageFragment : HomePageFragmentVM() {
                 }
 
             }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 //向下滚动
                 var temp = ViewConfiguration.get(context).scaledTouchSlop
@@ -139,8 +138,6 @@ class HomePageFragment : HomePageFragmentVM() {
             .scaleY(1.0f)
             .setListener(null)
             .start()
-
-
     }
 
     private fun hideSearch() {
@@ -197,7 +194,9 @@ class HomePageFragment : HomePageFragmentVM() {
      * 刷新，重新加载加载数据
      */
     private fun initData() {
-        binding.ArticleRecyclerView.adapter = HomeArticleAdapter(viewModel)
+        val adapter= HomeArticleAdapter<Article>
+        adapter.setData(viewModel.presentList)
+        binding.ArticleRecyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             //TODO observe 发生变化时 只需要notify就行
             viewModel.presentList.addAll(it.data.datas)
@@ -229,7 +228,7 @@ class HomePageFragment : HomePageFragmentVM() {
      * 加载首页数据
      */
     private fun initFirstPage() {
-        viewModel.getArticles(0)
+        viewModel.getFirstPage()
     }
 
 

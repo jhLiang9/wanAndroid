@@ -34,7 +34,7 @@ class OfficialAccountFragment : BaseFragment() {
         viewModel = ViewModelProvider(this).get(OfficialAccountViewModel::class.java)
         initTabs()
 
-        viewModel.getAccountList().observe(viewLifecycleOwner, {
+        getAccountList().observe(viewLifecycleOwner, {
             if (it.data != null) {
                 tabs.addAll(it.data)
                 binding.wxViewPager.adapter = object : FragmentStateAdapter(this) {
@@ -55,7 +55,7 @@ class OfficialAccountFragment : BaseFragment() {
         })
         return binding.root
     }
-
+    private fun getAccountList() = viewModel.getAccountList()
     private fun initTabs() = viewModel.getAccounts()
 
 

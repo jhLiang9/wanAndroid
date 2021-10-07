@@ -20,33 +20,36 @@ open class HomePageViewModel : BaseViewModel() {
     private lateinit var set: HashSet<Int>
     val articleList = MutableLiveData<ArticleList>()
     var presentList = ArrayList<Article>()
+    var currentPage = -1
 
     //下一页
     var nextPage: Int = 1
     var pageCount: Int = -1
-    fun refresh() {
-        //清除数据集，重新加载
-        presentList.clear()
-        nextPage = 1
-        getArticles(0)
-    }
+
 
 
 
     /**
      * @param page 页码
      */
-    fun getArticles(page: Int) {
-
+    private fun getArticles(page: Int) {
         appService.getArticleData(page).enqueue(object : Callback<ArticleList> {
-            override fun onResponse(
-                call: Call<ArticleList>, response: Response<ArticleList>
-            ) {
+            override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) =
                 articleList.postValue(response.body()!!)
-            }
-            override fun onFailure(call: Call<ArticleList>, t: Throwable) {
-                t.printStackTrace()
-            }
+
+            override fun onFailure(call: Call<ArticleList>, t: Throwable) = t.printStackTrace()
         })
     }
+
+    fun getNextPage() = getArticles(nextPage++)
+
+    fun getFirstPage() = getArticles(0)
+
+    fun refresh() {
+        //清除数据集，重新加载
+        presentList.clear()
+        nextPage = 1
+        getFirstPage()
+    }
+
 }

@@ -8,22 +8,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.adapter.viewholder.BaseViewHolder
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.viewmodel.QAViewModel
 
 class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
     RecyclerView.Adapter<QAAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.title)
-        val author: TextView = view.findViewById(R.id.author)
-        val time: TextView = view.findViewById(R.id.time)
-        val description: TextView = view.findViewById(R.id.description)
+    inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
+            val title: TextView = itemView.findViewById(R.id.title)
+            val author: TextView = itemView.findViewById(R.id.author)
+            val time: TextView = itemView.findViewById(R.id.time)
+            val description: TextView = itemView.findViewById(R.id.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QAAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_qa, parent, false)
-        val viewHolder: ViewHolder = ViewHolder(view)
+        val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
             val article = qaList[position]
@@ -43,8 +44,8 @@ class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
         holder.time.text = article.niceDate
         holder.description.text = article.desc
         if (position >= itemCount - 5) {
-            if (viewModel.nextPage < viewModel.pageCount) {
-                viewModel.getPageByRetrofit(viewModel.nextPage++)
+            if (viewModel.hasNextPage()) {
+                viewModel.getNextPage()
             }
         }
     }

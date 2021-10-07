@@ -7,7 +7,7 @@ import com.example.wanandroid.entity.converter.ArticleConverter
 import kotlin.collections.ArrayList
 
 /**
- * 首页文章
+ * 文章
  */
 @Entity(tableName = "home_page_article_table")
 @TypeConverters(ArticleConverter::class)

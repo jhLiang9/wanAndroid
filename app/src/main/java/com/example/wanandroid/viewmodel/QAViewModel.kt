@@ -30,4 +30,11 @@ class QAViewModel : BaseViewModel() {
         })
 
     }
+    fun getNextPage(){
+        getPageByRetrofit(nextPage)
+        nextPage++
+    }
+    fun hasNextPage():Boolean{
+        return nextPage < pageCount
+    }
 }

@@ -8,12 +8,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.wanandroid.R
+import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.databinding.ActivityMainBinding
 import com.example.wanandroid.databinding.ActivityMyCollectionBinding
 import com.example.wanandroid.fragment.InteractionFragment
 import com.example.wanandroid.fragment.MyCollectionFragment
 
-class MyCollectionActivity: AppCompatActivity() {
+class MyCollectionActivity: BaseActivity() {
 
     private lateinit var binding: ActivityMyCollectionBinding
 
@@ -24,13 +25,7 @@ class MyCollectionActivity: AppCompatActivity() {
 
         binding = ActivityMyCollectionBinding.inflate(layoutInflater)
         val view = binding.root
-        val fragmentTransaction: FragmentTransaction =
-            supportFragmentManager.beginTransaction()
-
-        fragmentTransaction.replace(
-            R.id.activity_fragment_container,
-            MyCollectionFragment.newInstance()
-        ).commit()
+        replaceFragment(R.id.activity_fragment_container,MyCollectionFragment.newInstance())
 
         setContentView(view)
     }
