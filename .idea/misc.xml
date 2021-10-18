@@ -3,6 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_coin_detail.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_login.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_main.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_register.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_search.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_playground.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_profile.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_study.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/item_coin_detail.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/item_project_nav.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/item_qa.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/item_system_detail.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/item_system_module.xml" value="0.4673913043478261" />
         <entry key="..\:/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/activity_main.xml" value="0.38269927536231885" />
         <entry key="..\:/Users/JH/Desktop/wanAndroid/app/src/main/res/layout/activity_my_coin.xml" value="0.32971014492753625" />

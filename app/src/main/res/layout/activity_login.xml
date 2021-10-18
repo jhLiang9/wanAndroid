@@ -43,7 +43,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="账号:"
+                android:text="@string/account"
                 android:textSize="18sp" />
 
             <EditText
@@ -68,7 +68,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="密码:"
+                android:text="@string/password"
                 android:textSize="18sp" />
 
             <EditText
@@ -92,12 +92,11 @@
                 android:layout_width="160dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="登录" />
+                android:text="@string/login" />
 
             <Button
                 android:id="@+id/register"
@@ -109,7 +108,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_toEndOf="@id/login"
-                android:text="注册" />
+                android:text="@string/register" />
         </RelativeLayout>
 
     </LinearLayout>
