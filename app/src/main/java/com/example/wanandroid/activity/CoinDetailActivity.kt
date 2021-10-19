@@ -1,5 +1,7 @@
 package com.example.wanandroid.activity
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +25,17 @@ import kotlin.collections.ArrayList
 class CoinDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityCoinDetailBinding
     private val list = ArrayList<CoinDetail>()
+
+    companion object{
+        @JvmStatic
+        fun start(context: Context?){
+            if(context!=null){
+                val intent = Intent(context,CoinDetailActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT

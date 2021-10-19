@@ -29,7 +29,6 @@ class ProjectFragment: Fragment() {
     private lateinit var binding : FragmentProjectBinding
     companion object {
         fun newInstance() = ProjectFragment()
-
     }
 
     override fun onCreateView(

@@ -27,14 +27,16 @@ import retrofit2.Response
 class SystemFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSystemBinding
-    private lateinit var viewModel: SystemViewModel
     private lateinit var database: SystemDatabaseDao
+    private val viewModel: SystemViewModel by lazy{
+        getViewModel(SystemViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(SystemViewModel::class.java)
+
         database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
         initData()

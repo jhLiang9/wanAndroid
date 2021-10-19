@@ -50,6 +50,10 @@ class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     override fun getItemCount(): Int = qaList.size
 
 }

@@ -24,12 +24,27 @@ import android.widget.EditText
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: UserViewModel by viewModels()
+
+    companion object{
+        @JvmStatic
+        fun start(context: Context) {
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.hide()
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        initView()
+        initViewModel()
 
+    }
+
+    private fun initView() {
         binding.login.setOnClickListener {
             val inputMethodManager: InputMethodManager =
                 applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -41,29 +56,29 @@ class LoginActivity : AppCompatActivity() {
             login(name, pass)
             binding.loadingPanel.visibility = View.VISIBLE
             binding.mother.alpha = 0.5f
-            //登录成功 finish
-            viewModel.success.observe(this, {
-                if (it) {
-                    finish()
-                } else {
-                    binding.loadingPanel.visibility = View.GONE
-                    binding.mother.alpha = 1f
-                    Toast.makeText(this, "账号密码不匹配", Toast.LENGTH_SHORT).show()
-                }
-            })
+
         }
         binding.register.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            RegisterActivity.start(this)
         }
 
-        setContentView(binding.root)
+
+    }
+
+    private fun initViewModel() {
+        viewModel.success.observe(this, {
+            //登录成功 finish
+            if (it) {
+                finish()
+            } else {
+                binding.loadingPanel.visibility = View.GONE
+                binding.mother.alpha = 1f
+                Toast.makeText(this, "账号密码不匹配", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun login(name: String, password: String) = viewModel.login(name, password)
 
-    fun start(context: Context) {
-        val intent = Intent(context, LoginActivity::class.java)
-        context.startActivity(intent)
-    }
+
 }
