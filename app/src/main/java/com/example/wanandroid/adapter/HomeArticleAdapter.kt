@@ -28,11 +28,13 @@ class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
         val author: TextView = view.findViewById(R.id.author)
         val time: TextView = view.findViewById(R.id.time)
         val superChapterName: TextView = view.findViewById(R.id.superChapterName)
+        
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
         val viewHolder = ViewHolder(view)
+
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position

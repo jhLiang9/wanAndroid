@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 class ProfileFragment : BaseFragment() {
     private val application = WanAndroidApplication
+
     private lateinit var binding: FragmentProfileBinding
     private val viewModel: ProfileViewModel by activityViewModels()
     override fun onCreateView(
@@ -103,7 +104,7 @@ class ProfileFragment : BaseFragment() {
             val intent = Intent(context, LoginActivity::class.java)
 
             binding.username.setOnClickListener {
-                startActivity(intent)
+                context?.let { it1 -> LoginActivity.start(it1) }
             }
             binding.image.setOnClickListener {
                 startActivity(intent)

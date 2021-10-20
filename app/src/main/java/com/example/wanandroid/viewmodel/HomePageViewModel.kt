@@ -1,5 +1,6 @@
 package com.example.wanandroid.viewmodel
 
+import androidx.lifecycle.LiveData
 import com.example.wanandroid.utils.HtmlElementUtil
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,9 @@ import retrofit2.Response
 open class HomePageViewModel : BaseViewModel() {
 
     private lateinit var set: HashSet<Int>
-    val articleList = MutableLiveData<ArticleList>()
+    private val _articleList = MutableLiveData<ArticleList>()
+    val articleList :LiveData<ArticleList> = _articleList
+
     var presentList = ArrayList<Article>()
     var currentPage = -1
 
@@ -27,15 +30,16 @@ open class HomePageViewModel : BaseViewModel() {
     var pageCount: Int = -1
 
 
-
-
     /**
      * @param page 页码
      */
     private fun getArticles(page: Int) {
         appService.getArticleData(page).enqueue(object : Callback<ArticleList> {
-            override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) =
-                articleList.postValue(response.body()!!)
+            override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
+                if(response.body()!=null){
+                    _articleList.postValue(response.body())
+                }
+            }
 
             override fun onFailure(call: Call<ArticleList>, t: Throwable) = t.printStackTrace()
         })

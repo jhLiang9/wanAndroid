@@ -170,7 +170,6 @@ class HomePageFragment : HomePageFragmentVM() {
     }
 
 
-
     /**
      * 点击下方导航栏回到顶部
      */
@@ -194,7 +193,7 @@ class HomePageFragment : HomePageFragmentVM() {
      * 刷新，重新加载加载数据
      */
     private fun initData() {
-        val adapter= HomeArticleAdapter<Article>
+        val adapter= HomeArticleAdapter<Article>(viewModel)
         adapter.setData(viewModel.presentList)
         binding.ArticleRecyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner, Observer {

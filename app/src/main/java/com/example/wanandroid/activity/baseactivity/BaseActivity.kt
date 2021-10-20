@@ -1,5 +1,7 @@
 package com.example.wanandroid.activity.baseactivity
 
+import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -13,6 +15,10 @@ import com.example.wanandroid.viewmodel.SearchViewModel
 import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
 
 open class BaseActivity : AppCompatActivity(){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+    }
 
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T  = ViewModelProvider(this).get(modelClass)
     protected val appService = ServiceCreator.create(AppService::class.java)

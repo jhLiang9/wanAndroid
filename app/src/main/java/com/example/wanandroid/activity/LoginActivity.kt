@@ -1,7 +1,9 @@
 package com.example.wanandroid.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,16 +21,21 @@ import com.example.wanandroid.viewmodel.UserViewModel
 import android.view.inputmethod.InputMethodManager
 
 import android.widget.EditText
+import androidx.databinding.DataBindingUtil
+import com.example.wanandroid.activity.baseactivity.BaseActivity
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: UserViewModel by viewModels()
 
-    companion object{
+    companion object {
         @JvmStatic
         fun start(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
+            if (context is Activity) {
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
+            }
             context.startActivity(intent)
         }
     }
@@ -36,9 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        supportActionBar?.hide()
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         initView()
         initViewModel()
 
@@ -46,31 +51,18 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initView() {
         binding.login.setOnClickListener {
-            val inputMethodManager: InputMethodManager =
-                applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            //输入完成后隐藏输入法
-            inputMethodManager.hideSoftInputFromWindow(binding.passwordEdit.windowToken, 0)
-
-            val name = binding.accountEdit.text.toString()
-            val pass = binding.passwordEdit.text.toString()
-            login(name, pass)
-            binding.loadingPanel.visibility = View.VISIBLE
-            binding.mother.alpha = 0.5f
-
+            login()
         }
         binding.register.setOnClickListener {
             RegisterActivity.start(this)
         }
-
 
     }
 
     private fun initViewModel() {
         viewModel.success.observe(this, {
             //登录成功 finish
-            if (it) {
-                finish()
-            } else {
+            if (it) { finish() } else {
                 binding.loadingPanel.visibility = View.GONE
                 binding.mother.alpha = 1f
                 Toast.makeText(this, "账号密码不匹配", Toast.LENGTH_SHORT).show()
@@ -78,7 +70,21 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun login(name: String, password: String) = viewModel.login(name, password)
+    private fun login() {
+        val inputMethodManager: InputMethodManager =
+            applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        //输入完成后隐藏输入法
+        inputMethodManager.hideSoftInputFromWindow(binding.passwordEdit.windowToken, 0)
+        val name = binding.accountEdit.text.toString()
+        val pass = binding.passwordEdit.text.toString()
+        doLogin(name, pass)
+    }
+
+    private fun doLogin(name: String, password: String) {
+        viewModel.doLogin(name, password)
+        binding.loadingPanel.visibility = View.VISIBLE
+        binding.mother.alpha = 0.5f
+    }
 
 
 }

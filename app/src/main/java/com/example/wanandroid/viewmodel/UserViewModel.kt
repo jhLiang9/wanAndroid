@@ -20,7 +20,7 @@ class UserViewModel : BaseViewModel() {
     val collection  = MutableLiveData<ArticleList>()
     val collectionList =ArrayList<Article>()
 
-    fun login(username: String, password: String) {
+    fun doLogin(username: String, password: String) {
 
         appService.longin(username, password).enqueue(object : Callback<UserData> {
             override fun onResponse(
