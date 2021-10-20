@@ -10,30 +10,36 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.adapter.viewholder.HomeArticleViewHolder
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.viewmodel.HomePageViewModel
 
 
 class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
-    RecyclerView.Adapter<HomeArticleAdapter<T>.ViewHolder>() {
+    RecyclerView.Adapter<HomeArticleViewHolder>() {
     private var data: ArrayList<T> = ArrayList()
     var loadMore = MutableLiveData<Boolean>(false)
-    fun setData(data: ArrayList<T>) {
+
+    fun initData(){
+        //TODO
+    }
+
+    fun resetData(data: ArrayList<T>) {
+        this.data.clear()
         this.data.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun appendData(data: ArrayList<T>){
+        this.data.addAll(data)
+        notifyDataSetChanged()
     }
 
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.title)
-        val author: TextView = view.findViewById(R.id.author)
-        val time: TextView = view.findViewById(R.id.time)
-        val superChapterName: TextView = view.findViewById(R.id.superChapterName)
-        
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
-        val viewHolder = ViewHolder(view)
+        val viewHolder = HomeArticleViewHolder(view)
 
 
         viewHolder.itemView.setOnClickListener {
@@ -47,7 +53,7 @@ class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeArticleViewHolder, position: Int) {
         val article = data[position] as Article
         holder.title.text = article.title
         holder.author.text = article.author

@@ -194,11 +194,12 @@ class HomePageFragment : HomePageFragmentVM() {
      */
     private fun initData() {
         val adapter= HomeArticleAdapter<Article>(viewModel)
-        adapter.setData(viewModel.presentList)
+        adapter.appendData(viewModel.presentList)
         binding.ArticleRecyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             //TODO observe 发生变化时 只需要notify就行
-            viewModel.presentList.addAll(it.data.datas)
+
+            adapter.appendData(it.data.datas)
             viewModel.pageCount = it.data.pageCount
 
             Observable.create(ObservableOnSubscribe<Article> { emitter ->
@@ -214,8 +215,6 @@ class HomePageFragment : HomePageFragmentVM() {
                         database.insert(t)
                     }
                 }
-            binding.ArticleRecyclerView.adapter?.notifyDataSetChanged()
-
             binding.loadingPanel.visibility = View.GONE
         })
 
