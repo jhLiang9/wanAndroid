@@ -40,13 +40,9 @@ class CoinDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor = Color.TRANSPARENT
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         binding = DataBindingUtil.setContentView(this,R.layout.activity_coin_detail)
         initView()
         initData()
-
-
     }
 
     private fun initView() {

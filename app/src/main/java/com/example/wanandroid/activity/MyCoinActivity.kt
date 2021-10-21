@@ -4,6 +4,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import com.example.wanandroid.R
 import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.databinding.ActivityMyCoinBinding
 import com.example.wanandroid.entity.CoinData
@@ -17,11 +19,14 @@ class MyCoinActivity : BaseActivity() {
     private lateinit var binding: ActivityMyCoinBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMyCoinBinding.inflate(layoutInflater)
-        window.statusBarColor = Color.TRANSPARENT
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_coin)
         binding.root.alpha = 0.7f
         binding.loadingPanel.visibility = View.VISIBLE
+
+        initData()
+    }
+
+    private fun initData(){
         appService.coinData().enqueue(object : Callback<CoinData> {
             override fun onResponse(call: Call<CoinData>, response: Response<CoinData>) {
                 val body = response.body()
@@ -41,6 +46,6 @@ class MyCoinActivity : BaseActivity() {
             }
 
         })
-        setContentView(binding.root)
     }
+
 }

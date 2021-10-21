@@ -15,19 +15,14 @@ import com.example.wanandroid.fragment.InteractionFragment
 import com.example.wanandroid.fragment.MyCollectionFragment
 
 class MyCollectionActivity: BaseActivity() {
-
-    private lateinit var binding: ActivityMyCollectionBinding
+    private val binding by lazy{
+        ActivityMyCollectionBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor = Color.TRANSPARENT
-        window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-
-        binding = ActivityMyCollectionBinding.inflate(layoutInflater)
-        val view = binding.root
         replaceFragment(R.id.activity_fragment_container,MyCollectionFragment.newInstance())
-
-        setContentView(view)
+        setContentView(binding.root)
     }
 
     fun start( context:Context){
