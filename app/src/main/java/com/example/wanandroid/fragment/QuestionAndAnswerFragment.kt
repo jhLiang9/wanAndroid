@@ -15,16 +15,17 @@ import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.refresh.QARefreshEvent
+import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.QAViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class QuestionAndAnswerFragment : Fragment() {
+class QuestionAndAnswerFragment : BaseFragment() {
 
     private var qaList = ArrayList<Article>()
     private lateinit var binding: FragmentQuestionAndAnswerBinding
-    private lateinit var viewModel:QAViewModel
+    private val viewModel by lazy { getViewModel(QAViewModel::class.java) }
 
     companion object {
         fun newInstance() = QuestionAndAnswerFragment()
@@ -38,13 +39,18 @@ class QuestionAndAnswerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         EventBusUtil.register(this)
-        viewModel = ViewModelProvider(this).get(QAViewModel::class.java)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question_and_answer, container, false)
-        init()
+        initData()
         //分割线
 
-        val layoutManager = LinearLayoutManager(activity)
-        binding.QARecyclerView.layoutManager = layoutManager
+        initView()
+        initViewModel()
+        return binding.root
+    }
+
+    private fun initView() {
+        binding.QARecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.QARecyclerView.adapter = QAAdapter(qaList,viewModel)
         binding.QARecyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -52,14 +58,14 @@ class QuestionAndAnswerFragment : Fragment() {
                 //Eventbus 通知外部Fragment 隐藏搜索框
             }
         })
+    }
 
-
+    private fun initViewModel() {
         viewModel.list.observe(viewLifecycleOwner,{
             qaList.addAll(it.data.datas)
             binding.QARecyclerView.adapter?.notifyDataSetChanged()
             binding.loadingPanel.visibility=View.GONE
         })
-        return binding.root
     }
 
     override fun onDestroy() {
@@ -71,10 +77,10 @@ class QuestionAndAnswerFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: QARefreshEvent){
         binding.loadingPanel.visibility=View.VISIBLE
-        init()
+        initData()
     }
 
-    private fun init() {
+    private fun initData() {
         viewModel.init()
     }
 }
