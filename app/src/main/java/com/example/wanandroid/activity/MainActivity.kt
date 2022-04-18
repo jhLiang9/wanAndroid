@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                 if (secondTime - firstTime > 2000) {
                     Toast.makeText(this, "再按一次返回退出程序", Toast.LENGTH_SHORT).show()
                     firstTime = secondTime
-                }else{
+                } else {
                     finish()
                     exitProcess(0)
                 }

@@ -16,10 +16,10 @@ class QAAdapter(private val qaList: List<Article>, val viewModel: QAViewModel) :
     RecyclerView.Adapter<QAAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
-            val title: TextView = itemView.findViewById(R.id.title)
-            val author: TextView = itemView.findViewById(R.id.author)
-            val time: TextView = itemView.findViewById(R.id.time)
-            val description: TextView = itemView.findViewById(R.id.description)
+        val title: TextView = itemView.findViewById(R.id.title)
+        val author: TextView = itemView.findViewById(R.id.author)
+        val time: TextView = itemView.findViewById(R.id.time)
+        val description: TextView = itemView.findViewById(R.id.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QAAdapter.ViewHolder {

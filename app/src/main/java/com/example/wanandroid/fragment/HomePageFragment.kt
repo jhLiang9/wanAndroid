@@ -32,6 +32,7 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.view.*
 import androidx.core.widget.NestedScrollView
+import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.activity.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
@@ -50,7 +51,7 @@ class HomePageFragment : HomePageFragmentVM() {
         }
 
     }
-    
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -68,8 +69,8 @@ class HomePageFragment : HomePageFragmentVM() {
             val intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
         }
-        database =
-            ArticleDatabase.getInstance(requireContext().applicationContext).articleDatabaseDao
+//        database =
+//            ArticleDatabase.getInstance(WanAndroidApplication.context).articleDatabaseDao
 
         var scrollDownDistance = 0
         var scrollUpDistance = 0
@@ -91,6 +92,7 @@ class HomePageFragment : HomePageFragmentVM() {
                 }
 
             }
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 //向下滚动
                 var temp = ViewConfiguration.get(context).scaledTouchSlop
@@ -193,7 +195,7 @@ class HomePageFragment : HomePageFragmentVM() {
      * 刷新，重新加载加载数据
      */
     private fun initData() {
-        val adapter= HomeArticleAdapter<Article>(viewModel)
+        val adapter = HomeArticleAdapter<Article>(viewModel)
         adapter.appendData(viewModel.presentList)
         binding.ArticleRecyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
@@ -202,24 +204,10 @@ class HomePageFragment : HomePageFragmentVM() {
             adapter.appendData(it.data.datas)
             viewModel.pageCount = it.data.pageCount
 
-            Observable.create(ObservableOnSubscribe<Article> { emitter ->
-                for (item in it.data.datas) {
-                    emitter.onNext(item)
-                }
-                emitter.onComplete()
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe { t ->
-                    if (database.get(t.id) != null) {
-                        database.insert(t)
-                    }
-                }
             binding.loadingPanel.visibility = View.GONE
         })
 
     }
-
 
 
     /**

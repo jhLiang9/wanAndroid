@@ -9,10 +9,10 @@ import com.example.wanandroid.entity.User
 @Dao
 interface UserDatabaseDao {
     @Insert
-    suspend fun insert(user:User)
+    suspend fun insert(user: User)
 
     @Update
-    suspend fun update(user:User)
+    suspend fun update(user: User)
 
     @Query("delete from user_table")
     suspend fun delete()

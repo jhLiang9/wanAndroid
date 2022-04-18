@@ -14,14 +14,13 @@ class WanAndroidApplication : Application() {
 
     companion object {
 
-
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var user: User
-        lateinit var cookies:HashMap<String,String>
-        var login :Boolean = false
+        lateinit var cookies: HashMap<String, String>
+        var login: Boolean = false
         fun clearUser() {
-            user =User()
+//            user = User()
             val prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE).edit()
             if (prefs != null) {
                 prefs.remove("username")
@@ -40,39 +39,40 @@ class WanAndroidApplication : Application() {
                 prefs.apply()
             }
         }
-        fun saveUser(user:User){
+
+        fun saveUser(user: User) {
             val prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE)?.edit()
             if (prefs != null) {
                 val gson = Gson()
-                val chapterTops= gson.toJson(user.chapterTops)
-                val collectIds= gson.toJson(user.collectIds)
-                prefs.putString("username",user.username)
-                prefs.putBoolean("admin",user.admin)
-                prefs.putString("chapterTops",chapterTops)
-                prefs.putInt("coinCount",user.coinCount)
-                prefs.putString("collectIds",collectIds)
-                prefs.putString("email",user.email)
-                prefs.putString("icon",user.icon)
-                prefs.putInt("id",user.id)
-                prefs.putString("nickname",user.nickname)
-                prefs.putString("password",user.password)
-                prefs.putString("publicName",user.publicName)
-                prefs.putString("token",user.token)
-                prefs.putInt("type",user.type)
+                val chapterTops = gson.toJson(user.chapterTops)
+                val collectIds = gson.toJson(user.collectIds)
+                prefs.putString("username", user.username)
+                prefs.putBoolean("admin", user.admin)
+                prefs.putString("chapterTops", chapterTops)
+                prefs.putInt("coinCount", user.coinCount)
+                prefs.putString("collectIds", collectIds)
+                prefs.putString("email", user.email)
+                prefs.putString("icon", user.icon)
+                prefs.putInt("id", user.id)
+                prefs.putString("nickname", user.nickname)
+                prefs.putString("password", user.password)
+                prefs.putString("publicName", user.publicName)
+                prefs.putString("token", user.token)
+                prefs.putInt("type", user.type)
                 prefs.apply()
             }
         }
 
-        fun saveCookie(key:String,value:String){
+        fun saveCookie(key: String, value: String) {
             val prefs = context.getSharedPreferences("cookies", Context.MODE_PRIVATE)?.edit()
             if (prefs != null) {
-                prefs.putString(key,value)
+                prefs.putString(key, value)
                 prefs.apply()
             }
-            cookies.put(key,value)
+            cookies.put(key, value)
         }
 
-        fun clearCookies(){
+        fun clearCookies() {
             cookies.clear()
             val prefs = context.getSharedPreferences("cookies", Context.MODE_PRIVATE)?.edit()
             if (prefs != null) {
@@ -89,33 +89,33 @@ class WanAndroidApplication : Application() {
         context = applicationContext
         //TODO 从数据库中读->更新
         user = initUser()
-        cookies=initCookie()
+        cookies = initCookie()
         login = initLogin()
     }
 
     private fun initLogin(): Boolean {
         val prefs = getSharedPreferences("user", Context.MODE_PRIVATE)
-        val id = prefs.getInt("id",-1)
+        val id = prefs.getInt("id", -1)
         return id != -1
     }
 
-    private fun initCookie():HashMap<String,String>{
-        val res= HashMap<String,String>()
+    private fun initCookie(): HashMap<String, String> {
+        val res = HashMap<String, String>()
         val prefs = getSharedPreferences("cookies", Context.MODE_PRIVATE)
-        val username = prefs.getString("loginUserName","")
-        val tokenPass = prefs.getString("token_pass","")
+        val username = prefs.getString("loginUserName", "")
+        val tokenPass = prefs.getString("token_pass", "")
         if (username != null) {
 //            cookies.put("loginUserName",username)
-            res.put("loginUserName",username)
+            res.put("loginUserName", username)
 
-            Log.i("init cookie","loginUserName"+":"+username)
+            Log.i("init cookie", "loginUserName" + ":" + username)
         }
         if (tokenPass != null) {
 //            cookies.put("token_pass",tokenPass)
-            res.put("token_pass",tokenPass)
-            Log.i("init cookie","token_pass"+":"+tokenPass)
+            res.put("token_pass", tokenPass)
+            Log.i("init cookie", "token_pass" + ":" + tokenPass)
         }
-        return  res
+        return res
     }
 
     private fun initUser(): User {
@@ -164,7 +164,6 @@ class WanAndroidApplication : Application() {
             name!!
         )
     }
-
 
 
 }

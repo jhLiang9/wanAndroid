@@ -9,22 +9,26 @@ import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.entity.converter.TreeConverter
 
-@Database(entities = [Tree::class],version = 2,exportSchema = false)
+@Database(entities = [Tree::class], version = 2, exportSchema = false)
 @TypeConverters(TreeConverter::class)
-abstract class SystemDatabase :RoomDatabase(){
+abstract class SystemDatabase : RoomDatabase() {
     abstract val systemDatabaseDao: SystemDatabaseDao
 
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE:SystemDatabase? = null
-        fun getInstance(context: Context):SystemDatabase{
-            synchronized(this){
+        private var INSTANCE: SystemDatabase? = null
+        fun getInstance(context: Context): SystemDatabase {
+            synchronized(this) {
                 var instance = INSTANCE
-                if(instance==null){
-                    instance= Room.databaseBuilder(context.applicationContext,SystemDatabase::class.java,"system_table")
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        SystemDatabase::class.java,
+                        "system_table"
+                    )
                         .fallbackToDestructiveMigration()
                         .build()
-                    INSTANCE=instance
+                    INSTANCE = instance
                 }
                 return instance
             }
