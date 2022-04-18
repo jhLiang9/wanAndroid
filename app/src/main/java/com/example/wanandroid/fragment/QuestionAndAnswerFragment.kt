@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
@@ -40,7 +38,12 @@ class QuestionAndAnswerFragment : BaseFragment() {
     ): View {
         EventBusUtil.register(this)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question_and_answer, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_question_and_answer,
+            container,
+            false
+        )
         initData()
         //分割线
 
@@ -51,20 +54,16 @@ class QuestionAndAnswerFragment : BaseFragment() {
 
     private fun initView() {
         binding.QARecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.QARecyclerView.adapter = QAAdapter(qaList,viewModel)
-        binding.QARecyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                //Eventbus 通知外部Fragment 隐藏搜索框
-            }
+        binding.QARecyclerView.adapter = QAAdapter(qaList, viewModel)
+        binding.QARecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
         })
     }
 
     private fun initViewModel() {
-        viewModel.list.observe(viewLifecycleOwner,{
+        viewModel.list.observe(viewLifecycleOwner, {
             qaList.addAll(it.data.datas)
             binding.QARecyclerView.adapter?.notifyDataSetChanged()
-            binding.loadingPanel.visibility=View.GONE
+            binding.loadingPanel.visibility = View.GONE
         })
     }
 
@@ -75,8 +74,8 @@ class QuestionAndAnswerFragment : BaseFragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: QARefreshEvent){
-        binding.loadingPanel.visibility=View.VISIBLE
+    fun onEvent(event: QARefreshEvent) {
+        binding.loadingPanel.visibility = View.VISIBLE
         initData()
     }
 

@@ -20,7 +20,7 @@ class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
     private var data: ArrayList<T> = ArrayList()
     var loadMore = MutableLiveData<Boolean>(false)
 
-    fun initData(){
+    fun initData() {
         //TODO
     }
 
@@ -30,11 +30,10 @@ class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
         notifyDataSetChanged()
     }
 
-    fun appendData(data: ArrayList<T>){
+    fun appendData(data: ArrayList<T>) {
         this.data.addAll(data)
         notifyDataSetChanged()
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeArticleViewHolder {

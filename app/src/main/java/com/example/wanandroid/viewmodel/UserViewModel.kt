@@ -1,12 +1,9 @@
 package com.example.wanandroid.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.ArticleList
-import com.example.wanandroid.entity.User
 import com.example.wanandroid.entity.UserData
 import com.example.wanandroid.event.UserEvent
 import com.example.wanandroid.utils.EventBusUtil
@@ -17,8 +14,8 @@ import retrofit2.Response
 
 class UserViewModel : BaseViewModel() {
     val success = MutableLiveData<Boolean>()
-    val collection  = MutableLiveData<ArticleList>()
-    val collectionList =ArrayList<Article>()
+    val collection = MutableLiveData<ArticleList>()
+    val collectionList = ArrayList<Article>()
 
     fun doLogin(username: String, password: String) {
 
@@ -32,70 +29,72 @@ class UserViewModel : BaseViewModel() {
                 val data = response.body()?.data
                 val header = response.headers()
                 val set_cookie = response.headers().values("Set-Cookie")
-                Log.i("set_cookie",set_cookie.toString())
-                for(i in header){
-                    Log.i("cookie",i.first+" "+i.second)
-                    if(i.first == "Set-Cookie"){
-                        if(i.second.startsWith("loginUserName")){
-                            var start  = -1
+                Log.i("set_cookie", set_cookie.toString())
+                for (i in header) {
+                    Log.i("cookie", i.first + " " + i.second)
+                    if (i.first == "Set-Cookie") {
+                        if (i.second.startsWith("loginUserName")) {
+                            var start = -1
                             var end = -1
-                            for( t in i.second.indices){
-                                if(i.second[t]=='='){
+                            for (t in i.second.indices) {
+                                if (i.second[t] == '=') {
                                     start = t
-                                    Log.i("cookie save","start"+start)
-                                }
-                                else if(i.second[t]==';'){
+                                    Log.i("cookie save", "start" + start)
+                                } else if (i.second[t] == ';') {
                                     end = t
-                                    Log.i("cookie save","end "+end)
+                                    Log.i("cookie save", "end " + end)
                                     break
                                 }
 
                             }
-                           Log.i("cookie save",i.second.substring(start+1,end))
-                            application.saveCookie("loginUserName",i.second.substring(start+1,end))
-                        }else if(i.second.startsWith("token_pass")){
-                            var start  = -1
+                            Log.i("cookie save", i.second.substring(start + 1, end))
+                            application.saveCookie(
+                                "loginUserName",
+                                i.second.substring(start + 1, end)
+                            )
+                        } else if (i.second.startsWith("token_pass")) {
+                            var start = -1
                             var end = -1
-                            for( t in 0.. i.second.length-1){
-                                if(i.second[t]=='='){
+                            for (t in 0..i.second.length - 1) {
+                                if (i.second[t] == '=') {
                                     start = t
-                                    Log.i("ccookie save","start"+start)
-                                }
-                                else if(i.second[t]==';'){
+                                    Log.i("ccookie save", "start" + start)
+                                } else if (i.second[t] == ';') {
                                     end = t
-                                    Log.i("ccookie save","end "+end)
+                                    Log.i("ccookie save", "end " + end)
                                     break
                                 }
 
                             }
-                            Log.i("cookie save",i.second.substring(start+1,end))
-                            application.saveCookie("token_pass",i.second.substring(start+1,end))
+                            Log.i("cookie save", i.second.substring(start + 1, end))
+                            application.saveCookie("token_pass", i.second.substring(start + 1, end))
                         }
                         //token_pass=5d9b90bcb70640183e09d1e755ead823; Expires=Sat, 09-Oct-2021 09:37:24 GMT;
                         //loginUserName=Hometest; Expires=Sat, 09-Oct-2021 09:37:24 GMT; Path=/
 //                        application.cookie
                     }
                 }
-                val cookies= response.headers()["Set-Cookie"]
+                val cookies = response.headers()["Set-Cookie"]
 
                 if (cookies != null) {
-                        Log.i("user cookie",cookies.toString())
+                    Log.i("user cookie", cookies.toString())
                 }
-                Log.i("user",response.headers().toString())
+                Log.i("user", response.headers().toString())
                 if (data != null) {
-                    if(data.id!=-1){
+                    if (data.id != -1) {
                         success.postValue(true)
                         application.user = data
                         application.saveUser(data)
                         EventBusUtil.post(UserEvent())
-                    }else{
+                    } else {
                         success.postValue(false)
                     }
-                }else{
+                } else {
                     success.postValue(false)
                 }
 
             }
+
             override fun onFailure(call: Call<UserData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -119,17 +118,18 @@ class UserViewModel : BaseViewModel() {
         })
     }
 
-    fun getCollection(page:Int){
-        appService.getCollection(page).enqueue(object:Callback<ArticleList>{
+    fun getCollection(page: Int) {
+        appService.getCollection(page).enqueue(object : Callback<ArticleList> {
             override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
                 val body = response.body()
-                Log.i("collection_body",body.toString())
+                Log.i("collection_body", body.toString())
                 if (body != null) {
-                    if(body.errorCode!=-1001){
+                    if (body.errorCode != -1001) {
                         collection.postValue(body)
 
                     }
-                    }else{ }
+                } else {
+                }
             }
 
             override fun onFailure(call: Call<ArticleList>, t: Throwable) {

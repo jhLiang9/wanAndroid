@@ -1,44 +1,35 @@
 package com.example.wanandroid.fragment
 
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
+import com.example.wanandroid.activity.SearchActivity
 import com.example.wanandroid.adapter.HomeArticleAdapter
-import com.example.wanandroid.database.ArticleDatabase
 import com.example.wanandroid.database.dao.ArticleDatabaseDao
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.event.HomePageDataReadyEvent
 import com.example.wanandroid.event.refresh.HomepageGoUpEvent
-import com.example.wanandroid.fragment.vm.HomePageFragmentVM
+import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
-
-import com.example.wanandroid.utils.HtmlElementUtil
 import com.example.wanandroid.viewmodel.HomePageViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.*
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import kotlin.concurrent.thread
-import androidx.recyclerview.widget.RecyclerView
-import android.animation.AnimatorListenerAdapter
-import android.content.Intent
-import android.view.*
-import androidx.core.widget.NestedScrollView
-import com.example.wanandroid.WanAndroidApplication
-import com.example.wanandroid.activity.SearchActivity
-import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 
 
-class HomePageFragment : HomePageFragmentVM() {
+class HomePageFragment : BaseFragment() {
+    private val viewModel by lazy { getViewModel(HomePageViewModel::class.java) }
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var database: ArticleDatabaseDao
 
@@ -84,7 +75,7 @@ class HomePageFragment : HomePageFragmentVM() {
 //                public static final int SCROLL_STATE_SETTLING = 2;
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    var offset: Int = recyclerView.computeVerticalScrollOffset();
+                    var offset: Int = recyclerView.computeVerticalScrollOffset()
 
                     if (offset == 0) {
 //                        binding.searchBar.setSelected(true);
@@ -103,7 +94,7 @@ class HomePageFragment : HomePageFragmentVM() {
                     }
                     //向下滚动
                     if (binding.searchBar.visibility == View.GONE) {
-                        return;
+                        return
                     }
                     scrollUpDistance += dy
                     if (scrollUpDistance > listHeight / 2) {
@@ -114,7 +105,7 @@ class HomePageFragment : HomePageFragmentVM() {
                         scrollUpDistance = 0
                     }
                     if (binding.searchBar.visibility == View.VISIBLE) {
-                        return;
+                        return
                     }
                     //向上滚动
                     scrollDownDistance += dy

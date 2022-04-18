@@ -15,37 +15,37 @@ import okhttp3.Response
 import java.io.IOException
 
 
-class ProjectViewModel : BaseViewModel(){
+class ProjectViewModel : BaseViewModel() {
     var cid = MutableLiveData(294)
     var leftList = ArrayList<Tree>()
     var rightList = ArrayList<Article>()
     val navList = MutableLiveData<TreeList>()
     val projectList = MutableLiveData<ArticleList>()
-    
 
-    fun initProjectOverview(){
-            val url = "https://www.wanandroid.com/project/tree/json"
-            val request = Request.Builder()
-                .url(url)
-                .build()
-            val call: Call = client.newCall(request)
-            call.enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                }
 
-                override fun onResponse(call: Call, response: Response) {
-                    val responseData = response.body!!.string()
-                    val gson =Gson()
-                    val data = gson.fromJson(responseData, TreeList::class.java)
-                    navList.postValue(data)
-                }
-            })
+    fun initProjectOverview() {
+        val url = "https://www.wanandroid.com/project/tree/json"
+        val request = Request.Builder()
+            .url(url)
+            .build()
+        val call: Call = client.newCall(request)
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseData = response.body!!.string()
+                val gson = Gson()
+                val data = gson.fromJson(responseData, TreeList::class.java)
+                navList.postValue(data)
+            }
+        })
 
     }
 
-    fun getProjectContent(cid :Int,page:Int){
-        val url= "https://www.wanandroid.com/project/list/$page/json?cid=$cid"
+    fun getProjectContent(cid: Int, page: Int) {
+        val url = "https://www.wanandroid.com/project/list/$page/json?cid=$cid"
         val request = Request.Builder()
             .url(url)
             .build()

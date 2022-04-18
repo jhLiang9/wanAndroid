@@ -9,21 +9,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OfficialAccountViewModel : BaseViewModel() {
-    private var wxAccountList =MutableLiveData<WXAccountList>()
-    fun getAccountList() :LiveData<WXAccountList> = wxAccountList
-     fun getAccounts(){
-         appService.getWxAccounts().enqueue(object: Callback<WXAccountList> {
-             override fun onResponse(call: Call<WXAccountList>, response: Response<WXAccountList>) {
-                 val body=response.body()
-                 wxAccountList.postValue(body!!)
-             }
+    private var wxAccountList = MutableLiveData<WXAccountList>()
+    fun getAccountList(): LiveData<WXAccountList> = wxAccountList
+    fun getAccounts() {
+        appService.getWxAccounts().enqueue(object : Callback<WXAccountList> {
+            override fun onResponse(call: Call<WXAccountList>, response: Response<WXAccountList>) {
+                val body = response.body()
+                wxAccountList.postValue(body!!)
+            }
 
-             override fun onFailure(call: Call<WXAccountList>, t: Throwable) {
-                 t.printStackTrace()
-             }
+            override fun onFailure(call: Call<WXAccountList>, t: Throwable) {
+                t.printStackTrace()
+            }
 
-         })
-     }
+        })
+    }
 
 
 }

@@ -2,7 +2,6 @@ package com.example.wanandroid.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,8 @@ import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.databinding.FragmentWxArticleBinding
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.viewmodel.WxArticleViewModel
-import io.reactivex.rxjava3.core.Single
 
 private const val ARG_ID = "wxId"
 private const val ARG_PAGE = "page"
@@ -67,7 +64,7 @@ class WxArticleFragment : BaseFragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = WxArticleAdapter(articleList)
         viewModel.getArticleList().observe(viewLifecycleOwner, {
-            binding.loadingPanel.visibility=View.GONE
+            binding.loadingPanel.visibility = View.GONE
             articleList.addAll(it.data.datas)
             binding.recyclerView.adapter?.notifyDataSetChanged()
         })
@@ -101,7 +98,7 @@ class WxArticleAdapter(val list: ArrayList<Article>) :
             val article = list[position]
             val link: String = article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
-            intent.putExtra("data", link);
+            intent.putExtra("data", link)
             parent.context.startActivity(intent)
         }
 

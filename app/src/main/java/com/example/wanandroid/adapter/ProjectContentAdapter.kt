@@ -10,25 +10,27 @@ import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.entity.Article
 
-class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
+class ProjectContentAdapter(private val contentList: List<Article>) :
+    RecyclerView.Adapter<ProjectContentAdapter.ViewHolder>() {
 
-     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val description :TextView=view.findViewById(R.id.description)
-        val author:TextView =view.findViewById(R.id.author)
-        val time :TextView =view.findViewById(R.id.time)
-        val title :TextView =view.findViewById(R.id.title)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val description: TextView = view.findViewById(R.id.description)
+        val author: TextView = view.findViewById(R.id.author)
+        val time: TextView = view.findViewById(R.id.time)
+        val title: TextView = view.findViewById(R.id.title)
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project_content, parent, false)
-        val viewHolder =ViewHolder(view)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_project_content, parent, false)
+        val viewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val article =contentList[position]
-            val link=article.link
+            val article = contentList[position]
+            val link = article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
             intent.putExtra("data", link);
             parent.context.startActivity(intent)
@@ -38,10 +40,10 @@ class ProjectContentAdapter (private val contentList:List<Article>) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contentList[position]
-        holder.description.text=content.desc
-        holder.author.text=content.author
-        holder.time.text=content.niceDate
-        holder.title.text=content.title
+        holder.description.text = content.desc
+        holder.author.text = content.author
+        holder.time.text = content.niceDate
+        holder.title.text = content.title
     }
 
     override fun getItemCount(): Int {

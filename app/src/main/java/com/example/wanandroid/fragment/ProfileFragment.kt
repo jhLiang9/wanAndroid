@@ -2,32 +2,24 @@ package com.example.wanandroid.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.database.DatabaseUtils
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.wanandroid.R
 import com.example.wanandroid.WanAndroidApplication
 import com.example.wanandroid.activity.*
 import com.example.wanandroid.databinding.FragmentProfileBinding
-import com.example.wanandroid.entity.User
 import com.example.wanandroid.event.UserEvent
-import com.example.wanandroid.event.refresh.QARefreshEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
 import com.example.wanandroid.viewmodel.ProfileViewModel
-import com.example.wanandroid.viewmodel.UserViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

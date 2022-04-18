@@ -9,10 +9,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileViewModel:BaseViewModel() {
-    val isLogin =MutableLiveData<Boolean>()
-    fun logout(){
-        appService.logout().enqueue(object : Callback<BaseResponse>{
+class ProfileViewModel : BaseViewModel() {
+    val isLogin = MutableLiveData<Boolean>()
+    fun logout() {
+        appService.logout().enqueue(object : Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 val headers = response.headers()
                 application.clearUser()

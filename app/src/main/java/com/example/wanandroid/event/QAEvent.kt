@@ -1,5 +1,3 @@
 package com.example.wanandroid.event
 
-class QAEvent {
-
-}
+class QAEvent

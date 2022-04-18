@@ -9,7 +9,6 @@ import com.example.wanandroid.R
 import com.example.wanandroid.entity.CoinDetail
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CoinDetailAdapter(val list: ArrayList<CoinDetail>) :
     RecyclerView.Adapter<CoinDetailAdapter.ViewHolder>() {
@@ -31,7 +30,7 @@ class CoinDetailAdapter(val list: ArrayList<CoinDetail>) :
 
     override fun onBindViewHolder(holder: CoinDetailAdapter.ViewHolder, position: Int) {
         val dNow = Date()
-        val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+        val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         ft.format(dNow)
         val time = list[position].date
         val res = Date(time)

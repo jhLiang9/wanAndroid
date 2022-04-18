@@ -8,12 +8,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchViewModel :BaseViewModel() {
+class SearchViewModel : BaseViewModel() {
     val list = ArrayList<Article>()
-    var articleList=MutableLiveData<ArticleList>()
+    var articleList = MutableLiveData<ArticleList>()
 
-    fun search(page:Int,keyword:String){
-        appService.search(page,keyword).enqueue(object :Callback<ArticleList>{
+    fun search(page: Int, keyword: String) {
+        appService.search(page, keyword).enqueue(object : Callback<ArticleList> {
             override fun onResponse(call: Call<ArticleList>, response: Response<ArticleList>) {
 
                 articleList.postValue(response.body())

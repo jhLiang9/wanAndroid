@@ -1,5 +1,3 @@
-
-
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,25 +11,26 @@ import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.viewmodel.UserViewModel
 
 
-class MyCollectionAdapter(val viewModel :UserViewModel) :RecyclerView.Adapter<MyCollectionAdapter.ViewHolder>(){
+class MyCollectionAdapter(val viewModel: UserViewModel) :
+    RecyclerView.Adapter<MyCollectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
         val author: TextView = view.findViewById(R.id.author)
-        val time:TextView = view.findViewById(R.id.time)
-        val superChapterName: TextView =view.findViewById(R.id.superChapterName)
-        val cardView :CardView = view.findViewById(R.id.card_view)
+        val time: TextView = view.findViewById(R.id.time)
+        val superChapterName: TextView = view.findViewById(R.id.superChapterName)
+        val cardView: CardView = view.findViewById(R.id.card_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
-        val viewHolder=ViewHolder(view)
+        val viewHolder = ViewHolder(view)
         viewHolder.cardView.visibility = View.GONE
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val article =viewModel.collectionList[position]
-            val link=article.link
+            val article = viewModel.collectionList[position]
+            val link = article.link
             val intent = Intent(parent.context, WebViewActivity::class.java)
             intent.putExtra("data", link);
             parent.context.startActivity(intent)
@@ -42,12 +41,12 @@ class MyCollectionAdapter(val viewModel :UserViewModel) :RecyclerView.Adapter<My
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = viewModel.collectionList[position]
-        holder.title.text= article.title
-        holder.author.text=article.author
-        holder.superChapterName.text=article.superChapterName
-        holder.time.text=article.niceDate
+        holder.title.text = article.title
+        holder.author.text = article.author
+        holder.superChapterName.text = article.superChapterName
+        holder.time.text = article.niceDate
         //加载下一页
-        if(position == itemCount-5){
+        if (position == itemCount - 5) {
 //            getNextPage()
 
         }

@@ -1,6 +1,7 @@
 package com.example.wanandroid.adapter
 
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel) :
     }
 
     //渲染
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val nav = viewModel.leftList[position]
@@ -47,11 +49,8 @@ class ProjectNavAdapter(var viewModel: ProjectViewModel) :
 
         if (click == position) {
             holder.relativeLayout.setBackgroundColor(Color.parseColor("#007FFF"))
-//            holder.relativeLayout.background =
             holder.name.setTextColor(Color.parseColor("#FFFFFF"))
         } else {
-            //TODO 了解RecyclerView机制
-            //加else 解决 recyclerView复用错乱问题
             holder.relativeLayout.setBackgroundColor(Color.parseColor("#C0C0C0"))
             holder.name.setTextColor(Color.parseColor("#FFFFFF"))
         }

@@ -1,12 +1,12 @@
 package com.example.wanandroid.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.FragmentOfficialAccountBinding
@@ -55,6 +55,7 @@ class OfficialAccountFragment : BaseFragment() {
         })
         return binding.root
     }
+
     private fun getAccountList() = viewModel.getAccountList()
     private fun initTabs() = viewModel.getAccounts()
 
