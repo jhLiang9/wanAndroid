@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.CoinDetailActivity">
+        tools:context=".activity.me.CoinDetailActivity">
         <View
             android:id="@+id/statu_bar"
             android:layout_width="match_parent"

@@ -40,7 +40,7 @@ class SystemAdapter(val viewModel: SystemViewModel) :
 
 }
 
-class ModuleAdapter(val tree: ArrayList<Tree>, val viewModel: SystemViewModel) :
+class ModuleAdapter(private val tree: ArrayList<Tree>, val viewModel: SystemViewModel) :
     RecyclerView.Adapter<ModuleAdapter.ViewHolder>() {
     private lateinit var binding: ItemSystemDetailBinding
 

@@ -1,8 +1,8 @@
 package com.example.wanandroid.activity
 
-import android.graphics.Color
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.wanandroid.R
@@ -11,6 +11,14 @@ import com.example.wanandroid.databinding.ActivityShareBinding
 
 class ShareActivity : BaseActivity() {
     private lateinit var binding: ActivityShareBinding
+
+    companion object {
+        @JvmStatic
+        fun start(context: Context?) {
+            val intent = Intent(context, ShareActivity::class.java)
+            context?.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

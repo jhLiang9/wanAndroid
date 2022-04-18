@@ -1,7 +1,5 @@
-package com.example.wanandroid.activity
+package com.example.wanandroid.activity.me
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -9,8 +7,6 @@ import com.example.wanandroid.R
 import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.databinding.ActivityMyCoinBinding
 import com.example.wanandroid.entity.CoinData
-import com.example.wanandroid.service.AppService
-import com.example.wanandroid.service.ServiceCreator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +22,7 @@ class MyCoinActivity : BaseActivity() {
         initData()
     }
 
-    private fun initData(){
+    private fun initData() {
         appService.coinData().enqueue(object : Callback<CoinData> {
             override fun onResponse(call: Call<CoinData>, response: Response<CoinData>) {
                 val body = response.body()

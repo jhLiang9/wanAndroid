@@ -4,7 +4,6 @@ import com.example.wanandroid.WanAndroidApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,21 +12,18 @@ object ServiceCreator {
     private val application = WanAndroidApplication
 
     private val httpClient: OkHttpClient.Builder =
-        OkHttpClient.Builder().addInterceptor(object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val original: Request = chain.request()
-                val requestBuilder = original.newBuilder()
-                if (application.cookies["loginUserName"] != "" || application.cookies["loginUserName"] != null) {
-                    requestBuilder.addHeader(
-                        "Cookie",
-                        "loginUserName=" + application.cookies["loginUserName"] + ";token_pass=" + application.cookies["token_pass"]
-                    )
-                    requestBuilder.method(original.method, original.body)
-                }
-                val request: Request = requestBuilder.build()
-                return chain.proceed(request);
-
+        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+            val original: Request = chain.request()
+            val requestBuilder = original.newBuilder()
+            if (application.cookies["loginUserName"] != "" || application.cookies["loginUserName"] != null) {
+                requestBuilder.addHeader(
+                    "Cookie",
+                    "loginUserName=" + application.cookies["loginUserName"] + ";token_pass=" + application.cookies["token_pass"]
+                )
+                requestBuilder.method(original.method, original.body)
             }
+            val request: Request = requestBuilder.build()
+            chain.proceed(request);
         })
 
     private val retrofit: Retrofit = Retrofit.Builder()

@@ -3,12 +3,12 @@ package com.example.wanandroid.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.ArticleList
-import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
+import com.example.wanandroid.viewmodel.defaultviewmodel.DefaultViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlaygroundViewModel : BaseViewModel() {
+class PlaygroundViewModel : DefaultViewModel() {
     private var list = MutableLiveData<ArrayList<Article>>()
     var currentPage: Int = 1
     fun getList() = list

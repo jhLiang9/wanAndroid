@@ -18,16 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid">
         <activity
-            android:name=".activity.CoinDetailActivity"
+            android:name=".activity.me.CoinDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.MyCoinActivity"
+            android:name=".activity.me.MyCoinActivity"
             android:exported="true" />
         <activity
             android:name=".activity.ShareActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.MyCollectionActivity"
+            android:name=".activity.me.MyCollectionActivity"
             android:exported="true" />
         <activity
             android:name=".activity.ShareActivity"
@@ -37,10 +37,10 @@
             android:exported="true" />
         <activity android:name=".activity.WebViewActivity" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.me.RegisterActivity"
             android:label="注册" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.me.LoginActivity"
             android:label="登录" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

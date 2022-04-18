@@ -6,7 +6,7 @@ import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.entity.Tree
 import com.example.wanandroid.entity.TreeList
-import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
+import com.example.wanandroid.viewmodel.defaultviewmodel.DefaultViewModel
 import com.google.gson.Gson
 import okhttp3.Call
 import okhttp3.Callback
@@ -15,7 +15,7 @@ import okhttp3.Response
 import java.io.IOException
 
 
-class ProjectViewModel : BaseViewModel() {
+class ProjectViewModel : DefaultViewModel() {
     var cid = MutableLiveData(294)
     var leftList = ArrayList<Tree>()
     var rightList = ArrayList<Article>()

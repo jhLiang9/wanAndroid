@@ -1,42 +1,19 @@
 package com.example.wanandroid.activity
 
-import android.content.Context
+
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.View
-import android.view.Window
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityMainBinding
-import com.example.wanandroid.entity.User
-import com.example.wanandroid.event.refresh.HomepageGoUpEvent
-import com.example.wanandroid.event.refresh.ProjectRefreshEvent
-import com.example.wanandroid.event.refresh.QARefreshEvent
-import com.example.wanandroid.event.refresh.SystemRefreshEvent
 import com.example.wanandroid.fragment.*
-import com.example.wanandroid.utils.EventBusUtil
-import com.example.wanandroid.viewmodel.ProjectViewModel
-import com.example.wanandroid.viewmodel.UserViewModel
-import com.google.android.material.tabs.TabLayoutMediator
-import org.greenrobot.eventbus.EventBus
-import com.github.moduth.blockcanary.BlockCanaryContext
-
-import com.github.moduth.blockcanary.BlockCanary
 import com.google.android.material.bottomnavigation.BottomNavigationView
-//import android.R
-import android.view.Menu
 import kotlin.system.exitProcess
-import okhttp3.Cookie
-import okhttp3.HttpUrl
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,9 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT
         window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-
-        //BlockCanary
-//        BlockCanary.install(this, BlockCanaryContext()).start()
 
         //hide the title bar
         supportActionBar?.hide()

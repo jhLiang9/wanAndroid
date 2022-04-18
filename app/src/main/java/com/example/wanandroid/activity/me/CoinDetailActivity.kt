@@ -1,16 +1,10 @@
-package com.example.wanandroid.activity
+package com.example.wanandroid.activity.me
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.adapter.CoinDetailAdapter
@@ -20,8 +14,6 @@ import com.example.wanandroid.entity.CoinDetailData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CoinDetailActivity : BaseActivity() {
@@ -32,7 +24,7 @@ class CoinDetailActivity : BaseActivity() {
         @JvmStatic
         fun start(context: Context?){
             if(context!=null){
-                val intent = Intent(context,CoinDetailActivity::class.java)
+                val intent = Intent(context, CoinDetailActivity::class.java)
                 context.startActivity(intent)
             }
         }

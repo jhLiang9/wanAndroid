@@ -1,4 +1,4 @@
-package com.example.wanandroid.activity
+package com.example.wanandroid.activity.me
 
 import android.app.Activity
 import android.content.Context
@@ -22,12 +22,12 @@ class LoginActivity : BaseActivity() {
 
     companion object {
         @JvmStatic
-        fun start(context: Context) {
+        fun start(context: Context?) {
             val intent = Intent(context, LoginActivity::class.java)
             if (context is Activity) {
                 intent.flags = FLAG_ACTIVITY_NEW_TASK
             }
-            context.startActivity(intent)
+            context?.startActivity(intent)
         }
     }
 

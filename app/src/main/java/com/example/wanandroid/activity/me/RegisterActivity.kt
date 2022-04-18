@@ -1,8 +1,7 @@
-package com.example.wanandroid.activity
+package com.example.wanandroid.activity.me
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.wanandroid.activity.baseactivity.BaseActivity

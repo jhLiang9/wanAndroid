@@ -7,12 +7,12 @@ import com.example.wanandroid.entity.ArticleList
 import com.example.wanandroid.entity.UserData
 import com.example.wanandroid.event.UserEvent
 import com.example.wanandroid.utils.EventBusUtil
-import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
+import com.example.wanandroid.viewmodel.defaultviewmodel.DefaultViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserViewModel : BaseViewModel() {
+class UserViewModel : DefaultViewModel() {
     val success = MutableLiveData<Boolean>()
     val collection = MutableLiveData<ArticleList>()
     val collectionList = ArrayList<Article>()

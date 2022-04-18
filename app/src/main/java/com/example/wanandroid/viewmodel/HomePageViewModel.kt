@@ -1,22 +1,15 @@
 package com.example.wanandroid.viewmodel
 
 import androidx.lifecycle.LiveData
-import com.example.wanandroid.utils.HtmlElementUtil
-import kotlinx.coroutines.launch
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.ArticleList
-import com.example.wanandroid.service.AppService
-import com.example.wanandroid.service.ServiceCreator
-import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.wanandroid.viewmodel.defaultviewmodel.DefaultViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-open class HomePageViewModel : BaseViewModel() {
+open class HomePageViewModel : DefaultViewModel() {
 
     private lateinit var set: HashSet<Int>
     private val _articleList = MutableLiveData<ArticleList>()

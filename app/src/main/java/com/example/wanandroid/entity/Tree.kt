@@ -1,9 +1,8 @@
 package com.example.wanandroid.entity
 
-import androidx.room.*
-import com.example.wanandroid.entity.converter.TreeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "tree_table")
 
@@ -33,4 +32,4 @@ data class Tree(
     val visible: Int,
 
 )
-data class TreeList(val data: ArrayList<Tree>):BaseResponse()
+data class TreeList(val data: ArrayList<Tree>): BaseResponse()

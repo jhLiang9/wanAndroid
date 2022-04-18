@@ -2,9 +2,9 @@ package com.example.wanandroid.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.ArticleList
-import com.example.wanandroid.viewmodel.baseviewmodel.BaseViewModel
+import com.example.wanandroid.viewmodel.defaultviewmodel.DefaultViewModel
 
-class QAViewModel : BaseViewModel() {
+class QAViewModel : DefaultViewModel() {
     val list = MutableLiveData<ArticleList>()
     var nextPage = 1
     var pageCount = -1

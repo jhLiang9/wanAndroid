@@ -63,7 +63,7 @@ interface AppService {
      */
     //@Headers("Cookie:loginUserName_wanandroid_com=12345","Cookie:token_pass_wanandroid_com=5d9b90bcb70640183e09d1e755ead823")
     @GET("lg/collect/list/{page}/json")
-    fun getCollection(@Path("page") page: Int):Call<ArticleList>
+    fun getCollection(@Path("page") page: Int): Call<ArticleList>
 
     /**
      * 收藏站内文章
@@ -76,7 +76,11 @@ interface AppService {
      */
     @FormUrlEncoded
     @POST("lg/collect/add/json/")
-    fun postOutsideCollection(@Field("title") title: String,@Field("author") author: String,@Field("link") link: String)
+    fun postOutsideCollection(
+        @Field("title") title: String,
+        @Field("author") author: String,
+        @Field("link") link: String
+    )
 
     /**
      * 广场
@@ -84,13 +88,13 @@ interface AppService {
      * @param page_size 分页数量 【1-40】，不传使用默认值
      */
     @GET("user_article/list/{page}/json")
-    fun getPlayground(@Path("page")page:Int):Call<ArticleList>
+    fun getPlayground(@Path("page") page: Int): Call<ArticleList>
 
     /**
      * 登出
      */
     @GET("user/logout/json")
-    fun logout():Call<BaseResponse>
+    fun logout(): Call<BaseResponse>
     /**
      * {"data":null,"errorCode":0,"errorMsg":""}
      */
@@ -99,7 +103,7 @@ interface AppService {
      * 微信公众号 列表
      */
     @GET("wxarticle/chapters/json")
-    fun getWxAccounts():Call<WXAccountList>
+    fun getWxAccounts(): Call<WXAccountList>
 
     /**
      * 某个微信公众号的历史数据
@@ -107,7 +111,7 @@ interface AppService {
      * @param page 页码
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    fun getWxArticles(@Path("id")id:Int,@Path("page")page:Int):Call<ArticleList>
+    fun getWxArticles(@Path("id") id: Int, @Path("page") page: Int): Call<ArticleList>
 
 
     /**
@@ -116,7 +120,11 @@ interface AppService {
      * @param page 页码
      */
     @GET("wxarticle/list/{id}/{page}/json/")
-    fun getWxKeyArticles(@Path("id")id:Int,@Path("page")page:Int,@Query("k")keyword: String): Observable<ArticleList>
+    fun getWxKeyArticles(
+        @Path("id") id: Int,
+        @Path("page") page: Int,
+        @Query("k") keyword: String
+    ): Observable<ArticleList>
     //TODO 我的收藏
 
     /**
@@ -126,15 +134,16 @@ interface AppService {
      */
     @FormUrlEncoded
     @POST("article/query/{page}/json")
-    fun search(@Path("page")page:Int,@Field("k")keyword:String): Call<ArticleList>
+    fun search(@Path("page") page: Int, @Field("k") keyword: String): Call<ArticleList>
+
     @POST("lg/user_article/add/json")
-    fun shareArticle(@Field("title") title: String,@Field("link") link: String)
+    fun shareArticle(@Field("title") title: String, @Field("link") link: String)
 
     /**
      * 积分详情
      */
     @GET("lg/coin/userinfo/json")
-    fun coinData():Call<CoinData>
+    fun coinData(): Call<CoinData>
 //{
 //    "data": {
 //        "coinCount": 451, //总积分
@@ -149,5 +158,5 @@ interface AppService {
      * 积分来源详情
      */
     @GET("lg/coin/list/{page}/json")
-    fun coinDetail(@Path("page")page:Int):Call<CoinDetailData>
+    fun coinDetail(@Path("page") page: Int): Call<CoinDetailData>
 }

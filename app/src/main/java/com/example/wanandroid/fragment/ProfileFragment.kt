@@ -2,7 +2,6 @@ package com.example.wanandroid.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,11 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.wanandroid.R
 import com.example.wanandroid.WanAndroidApplication
-import com.example.wanandroid.activity.*
+import com.example.wanandroid.activity.ShareActivity
+import com.example.wanandroid.activity.me.CoinDetailActivity
+import com.example.wanandroid.activity.me.LoginActivity
+import com.example.wanandroid.activity.me.MyCoinActivity
+import com.example.wanandroid.activity.me.MyCollectionActivity
 import com.example.wanandroid.databinding.FragmentProfileBinding
 import com.example.wanandroid.event.UserEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
@@ -35,10 +38,24 @@ class ProfileFragment : BaseFragment() {
     ): View {
         EventBusUtil.register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        initView()
+        initViewModel()
+        return binding.root
+    }
+
+    private fun initView() {
         Glide.with(this)
             .load(R.drawable.ic_logo)
             .into(binding.image)
-        viewModel.isLogin.observe(viewLifecycleOwner, {
+        binding.logout.setOnClickListener {
+            val dialogFragment = LogoutDialogFragment()
+            binding.parent.alpha = 0.70f
+            dialogFragment.show(requireActivity().supportFragmentManager, "LogOut")
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel.isLogin.observe(viewLifecycleOwner) {
             binding.parent.alpha = 1f
             if (!it) {
                 binding.logout.visibility = View.GONE
@@ -49,7 +66,7 @@ class ProfileFragment : BaseFragment() {
                 isLogin(true)
                 binding.logout.visibility = View.VISIBLE
             }
-        })
+        }
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
             isLogin(false)
@@ -59,13 +76,6 @@ class ProfileFragment : BaseFragment() {
             //已登录状态
             isLogin(true)
         }
-
-        binding.logout.setOnClickListener {
-            val dialogFragment = LogoutDialogFragment()
-            binding.parent.alpha = 0.70f
-            dialogFragment.show(requireActivity().supportFragmentManager, "missiles")
-        }
-        return binding.root
     }
 
     private fun isLogin(boolean: Boolean) {
@@ -77,12 +87,10 @@ class ProfileFragment : BaseFragment() {
                 startActivity(intent)
             }
             binding.shareArticle.setOnClickListener {
-                val intent = Intent(context, ShareActivity::class.java)
-                startActivity(intent)
+                ShareActivity.start(context)
             }
             binding.shareProject.setOnClickListener {
-                val intent = Intent(context, ShareActivity::class.java)
-                startActivity(intent)
+                ShareActivity.start(context)
             }
             binding.rlRank.setOnClickListener {
                 val intent = Intent(context, CoinDetailActivity::class.java)
@@ -93,31 +101,29 @@ class ProfileFragment : BaseFragment() {
                 startActivity(intent)
             }
         } else {
-            val intent = Intent(context, LoginActivity::class.java)
-
             binding.username.setOnClickListener {
-                context?.let { it1 -> LoginActivity.start(it1) }
+                LoginActivity.start(context)
             }
             binding.image.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.rlRank.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.rlCollection.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.rlProfile.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.rlNavigation.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.shareArticle.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
             binding.shareProject.setOnClickListener {
-                startActivity(intent)
+                LoginActivity.start(context)
             }
         }
 
@@ -151,10 +157,11 @@ class LogoutDialogFragment : DialogFragment() {
             val builder = AlertDialog.Builder(it)
             builder.setMessage("确定退出当前账号")
                 .setTitle("退出账号")
-                .setPositiveButton("确定", DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton("确定") { _, _ ->
                     viewModel.logout()
-                }).setNegativeButton("取消", DialogInterface.OnClickListener { _, _ ->
-                })
+                }.setNegativeButton("取消") { _, _ ->
+                    dismiss()
+                }
             builder.create()
 
         } ?: throw  IllegalStateException("activity can't be null")

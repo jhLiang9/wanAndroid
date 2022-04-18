@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription">
 
     <RelativeLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/parent"
         android:background="@color/light_gray"
         tools:context=".fragment.ProfileFragment">
 
@@ -47,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/tv_rank"
@@ -72,7 +74,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text=""
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,13 +84,13 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/rl_rank"
                 android:background="@color/light_gray" />
 
@@ -99,7 +101,7 @@
                 android:layout_below="@id/rl_rank"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="false">
+                android:focusable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,13 +121,13 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/rl_profile"
                 android:background="@color/light_gray" />
 
@@ -137,7 +139,7 @@
                 android:layout_below="@id/rl_profile"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="false">
+                android:focusable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -157,14 +159,14 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/rl_collection"
                 android:background="@color/light_gray" />
 
@@ -176,7 +178,7 @@
                 android:layout_below="@id/rl_collection"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="false">
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/navigation"
@@ -197,13 +199,13 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/rl_navigation"
                 android:background="@color/light_gray" />
 
@@ -237,13 +239,13 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/share_article"
                 android:background="@color/light_gray" />
 
@@ -254,15 +256,12 @@
                 android:layout_below="@id/share_article"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="false"
-
-                >
+                android:focusable="true">
 
                 <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
@@ -278,13 +277,13 @@
                     android:layout_marginTop="10sp"
                     android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
-                    android:text=">"
+                    android:text="@string/more"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1sp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/share_project"
                 android:background="@color/light_gray" />
 
@@ -304,6 +303,7 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center">
 
                 <TextView
