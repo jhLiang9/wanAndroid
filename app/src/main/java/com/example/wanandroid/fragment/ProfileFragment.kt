@@ -55,31 +55,31 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel.isLogin.observe(viewLifecycleOwner) {
+        viewModel.logout.observe(viewLifecycleOwner) {
             binding.parent.alpha = 1f
             if (!it) {
                 binding.logout.visibility = View.GONE
                 binding.username.text = application.user.username
                 binding.rank.text = application.user.coinCount.toString()
-                isLogin(false)
+                updateView(false)
             } else {
-                isLogin(true)
+                updateView(true)
                 binding.logout.visibility = View.VISIBLE
             }
         }
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
-            isLogin(false)
+            updateView(false)
             binding.logout.visibility = View.GONE
 
         } else {
             //已登录状态
-            isLogin(true)
+            updateView(true)
         }
     }
 
-    private fun isLogin(boolean: Boolean) {
-        if (boolean) {
+    private fun updateView(auth: Boolean) {
+        if (auth) {
             binding.username.text = application.user.username
             binding.rank.text = application.user.coinCount.toString()
             binding.rlCollection.setOnClickListener {
@@ -131,7 +131,7 @@ class ProfileFragment : BaseFragment() {
 
 
     /**
-     * 登录成功后
+     * 登录成功
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: UserEvent) {
@@ -139,7 +139,7 @@ class ProfileFragment : BaseFragment() {
         binding.rank.text = application.user.coinCount.toString()
         binding.logout.visibility = View.VISIBLE
         binding.username.isClickable = false
-        isLogin(true)
+        updateView(true)
     }
 
     override fun onDestroy() {

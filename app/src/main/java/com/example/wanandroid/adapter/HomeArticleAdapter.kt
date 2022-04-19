@@ -1,12 +1,10 @@
 package com.example.wanandroid.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.WebViewActivity
@@ -18,15 +16,15 @@ import com.example.wanandroid.viewmodel.HomePageViewModel
 class HomeArticleAdapter<T>(val viewModel: HomePageViewModel) :
     RecyclerView.Adapter<HomeArticleViewHolder>() {
     private var data: ArrayList<T> = ArrayList()
-    var loadMore = MutableLiveData<Boolean>(false)
+    var loadMore = MutableLiveData(false)
 
-    fun initData() {
-        //TODO
-    }
 
-    fun resetData(data: ArrayList<T>) {
-        this.data.clear()
-        this.data.addAll(data)
+    @SuppressLint("NotifyDataSetChanged")
+    fun resetData(newData: ArrayList<T>) {
+        with(data) {
+            clear()
+            addAll(newData)
+        }
         notifyDataSetChanged()
     }
 

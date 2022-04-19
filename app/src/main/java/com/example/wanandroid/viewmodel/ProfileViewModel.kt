@@ -8,15 +8,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileViewModel : DefaultViewModel() {
-    val isLogin = MutableLiveData<Boolean>()
+    // 退出登录
+    val logout = MutableLiveData<Boolean>()
+
+    /**
+     * 退出登录
+     */
     fun logout() {
         appService.logout().enqueue(object : Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 val headers = response.headers()
                 application.clearUser()
                 application.clearCookies()
-                isLogin.postValue(false)
-
+                logout.postValue(false)
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {

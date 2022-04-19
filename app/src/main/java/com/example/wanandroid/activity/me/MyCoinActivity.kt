@@ -6,42 +6,37 @@ import androidx.databinding.DataBindingUtil
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.baseactivity.BaseActivity
 import com.example.wanandroid.databinding.ActivityMyCoinBinding
-import com.example.wanandroid.entity.CoinData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.wanandroid.viewmodel.CoinViewModel
 
 class MyCoinActivity : BaseActivity() {
     private lateinit var binding: ActivityMyCoinBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_coin)
-        binding.root.alpha = 0.7f
-        binding.loadingPanel.visibility = View.VISIBLE
+    private val viewModel: CoinViewModel = getViewModel(CoinViewModel::class.java)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_coin)
+        initView()
         initData()
+        super.onCreate(savedInstanceState)
     }
 
-    private fun initData() {
-        appService.coinData().enqueue(object : Callback<CoinData> {
-            override fun onResponse(call: Call<CoinData>, response: Response<CoinData>) {
-                val body = response.body()
-                if (body != null) {
-                    binding.coin.text = body.data.coinCount.toString()
-                    binding.rank.text = body.data.rank.toString()
-                    binding.userId.text = body.data.userId.toString()
-                    binding.username.text = body.data.username
-                    binding.root.alpha = 1f
-                    binding.loadingPanel.visibility = View.GONE
+    private fun initData() = viewModel.getCoinInfo()
 
-                }
+
+    private fun initView() {
+        viewModel.coinData.observe(this) {
+            binding.root.alpha = 0.7f
+            binding.loadingPanel.visibility = View.VISIBLE
+
+            with(it) {
+                binding.coin.text = coin.coinCount.toString()
+                binding.rank.text = coin.rank.toString()
+                binding.userId.text = coin.userId.toString()
+                binding.username.text = coin.username
+                binding.root.alpha = 1f
+                binding.loadingPanel.visibility = View.GONE
             }
 
-            override fun onFailure(call: Call<CoinData>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-        })
+        }
     }
 
 }

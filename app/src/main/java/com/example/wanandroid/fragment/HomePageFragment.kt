@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
@@ -170,7 +169,6 @@ class HomePageFragment : BaseFragment() {
     fun onEvent(event: HomepageGoUpEvent) {
         binding.ArticleRecyclerView.scrollY = 0
         binding.ArticleRecyclerView.smoothScrollToPosition(0)
-        //TODO 在首页时，进行刷新
     }
 
     private fun initView() {
@@ -189,15 +187,13 @@ class HomePageFragment : BaseFragment() {
         val adapter = HomeArticleAdapter<Article>(viewModel)
         adapter.appendData(viewModel.presentList)
         binding.ArticleRecyclerView.adapter = adapter
-        viewModel.articleList.observe(viewLifecycleOwner, Observer {
-            //TODO observe 发生变化时 只需要notify就行
-
-            adapter.appendData(it.data.datas)
-            viewModel.pageCount = it.data.pageCount
-
+        viewModel.articleList.observe(viewLifecycleOwner) {
+            it?.let {
+                adapter.appendData(it.datas)
+                viewModel.pageCount = it.pageCount
+            }
             binding.loadingPanel.visibility = View.GONE
-        })
-
+        }
     }
 
 

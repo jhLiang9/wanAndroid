@@ -3,7 +3,7 @@ package com.example.wanandroid.entity
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class CoinData( val data: Coin) : BaseResponse()
+data class CoinData( val coin: Coin) : BaseResponse()
 
 data class Coin(val coinCount:Int,val rank :Int,val userId:Int,val username:String)
 data class CoinDetailData(val data :CoinDetailList):BaseResponse()

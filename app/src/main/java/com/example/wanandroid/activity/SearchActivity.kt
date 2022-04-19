@@ -24,10 +24,10 @@ class SearchActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
         viewModel = getViewModel(SearchViewModel::class.java)
-        viewModel.articleList.observe(this,{
+        viewModel.articleList.observe(this) {
             binding.loadingPanel.visibility = View.GONE
             viewModel.list.addAll(it.data.datas)
-        })
+        }
 
         initView()
     }
@@ -46,9 +46,9 @@ class SearchActivity : BaseActivity() {
                 viewModel.list.clear()
             }
 
-            override fun afterTextChanged(p0: Editable?) {
+            override fun afterTextChanged(keyword: Editable?) {
                 binding.loadingPanel.visibility = View.VISIBLE
-                search(1, p0.toString())
+                search(1, keyword.toString())
             }
         })
     }
