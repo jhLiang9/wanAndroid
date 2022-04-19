@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="projectViewModel"
-            type="com.example.wanandroid.viewmodel.ProjectViewModel" />
-    </data>
-
     <LinearLayout
 
         android:id="@+id/activity_main"
@@ -15,10 +9,10 @@
         android:layout_height="match_parent"
         android:background="#F5F5F5"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="22sp">
-        </View>
+            android:layout_height="22sp" />
 
 
         <FrameLayout
@@ -26,19 +20,21 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-             />
+            android:layout_weight="1" />
+
         <RelativeLayout
             android:id="@+id/loadingPanel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:gravity="center" >
+            android:gravity="center"
+            android:visibility="gone">
+
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true" />
         </RelativeLayout>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"

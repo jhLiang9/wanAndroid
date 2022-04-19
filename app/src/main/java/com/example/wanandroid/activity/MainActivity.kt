@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.ActivityMainBinding
 import com.example.wanandroid.fragment.*
+import com.example.wanandroid.utils.ToastUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.system.exitProcess
 
@@ -27,11 +27,9 @@ class MainActivity : AppCompatActivity() {
         //hide the title bar
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
 
-        val start: FragmentTransaction = supportFragmentManager.beginTransaction()
-        start.replace(R.id.activity_fragment_container, HomePageFragment()).commit()
-        supportFragmentManager.executePendingTransactions()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.activity_fragment_container, HomepageFragment()).commit()
 
         binding.navigation.labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_LABELED
         binding.navigation.setOnNavigationItemSelectedListener(
@@ -43,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.item_news -> {
                         fragmentTransaction.replace(
                             R.id.activity_fragment_container,
-                            HomePageFragment.newInstance()
+                            HomepageFragment.newInstance()
                         ).commit()
                         return@OnNavigationItemSelectedListener true
                     }
@@ -61,8 +59,6 @@ class MainActivity : AppCompatActivity() {
                             R.id.activity_fragment_container,
                             SystemFragment()
                         ).commit()
-//                        addToBackStack就是 加入到回退栈。取决于你是否要在回退的时候显示上一个Fragment。
-//                        fragmentTransaction.add(R.id.activity_fragment_container,ProfileFragment()).addToBackStack("ProfileFragment").commit();
                         return@OnNavigationItemSelectedListener true
                     }
                     //项目
@@ -85,12 +81,12 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         )
-        setContentView(view)
+        setContentView(binding.root)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(com.example.wanandroid.R.menu.menu_toolbar, menu)
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
     }
 
@@ -101,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             KeyEvent.KEYCODE_BACK -> {
                 secondTime = System.currentTimeMillis()
                 if (secondTime - firstTime > 2000) {
-                    Toast.makeText(this, "再按一次返回退出程序", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showToast(this, "再按一次返回退出程序")
                     firstTime = secondTime
                 } else {
                     finish()

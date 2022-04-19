@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--首页展示文章的格式-->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,14 +24,16 @@
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp" />
+                android:textSize="12sp"
+                tools:text="@string/app_name" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textSize="12dp" />
+                android:layout_alignParentEnd="true"
+                android:textSize="12sp"
+                tools:text="@string/app_name" />
         </RelativeLayout>
 
         <LinearLayout
@@ -49,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:maxLines="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="@string/app_name" />
         </LinearLayout>
 
         <RelativeLayout
@@ -63,9 +67,8 @@
             android:layout_marginBottom="3sp"
             android:gravity="center_vertical">
             <!--Card Elevation阴影-->
-            <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card_view"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 card_view:cardBackgroundColor="@color/design_default_color_secondary"
@@ -76,9 +79,10 @@
                     android:id="@+id/superChapterName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
+                    android:padding="2dp"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="test" />
 
             </androidx.cardview.widget.CardView>
 

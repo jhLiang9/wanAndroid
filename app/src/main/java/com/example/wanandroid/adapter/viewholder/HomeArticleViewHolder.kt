@@ -1,15 +1,22 @@
 package com.example.wanandroid.adapter.viewholder
 
-import android.view.View
-import android.widget.TextView
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wanandroid.R
+import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.databinding.ItemArticleBinding
+import com.example.wanandroid.entity.Article
 
-class HomeArticleViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.title)
-        val author: TextView = view.findViewById(R.id.author)
-        val time: TextView = view.findViewById(R.id.time)
-        val superChapterName: TextView = view.findViewById(R.id.superChapterName)
+class HomeArticleViewHolder(val binding: ItemArticleBinding, val context: Context) :
+    RecyclerView.ViewHolder(binding.root) {
 
+    fun onBindViewHolder(article: Article) {
+        binding.title.text = article.title
+        binding.author.text = article.author
+        binding.superChapterName.text = article.superChapterName
+        binding.time.text = article.niceDate
+        itemView.setOnClickListener {
+            WebViewActivity.start(context, article.link)
+        }
+    }
 
 }

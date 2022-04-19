@@ -23,7 +23,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/top"
                 android:background="@color/white_smoke"
                 android:title="我的收藏"/>
             <FrameLayout
