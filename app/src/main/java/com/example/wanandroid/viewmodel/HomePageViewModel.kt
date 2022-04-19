@@ -16,14 +16,13 @@ open class HomePageViewModel : DefaultViewModel() {
     private val _articleList = MutableLiveData<ArticleData?>()
     val articleList: LiveData<ArticleData?> = _articleList
 
-    var presentList = ArrayList<Article>()
     var currentPage = -1
 
     //下一页
-    var nextPage: Int = 1
+    private var nextPage: Int = 1
 
     // 页数
-    var pageCount: Int = -1
+    var pageCount = -1
 
 
     private fun getArticles(page: Int) {
@@ -47,7 +46,6 @@ open class HomePageViewModel : DefaultViewModel() {
 
     fun refresh() {
         //清除数据集，重新加载
-        presentList.clear()
         nextPage = 1
         getFirstPage()
     }

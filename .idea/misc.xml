@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/drawable/bg_round.xml" value="0.1765" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_coin_detail.xml" value="0.4673913043478261" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_login.xml" value="0.4673913043478261" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_main.xml" value="0.4673913043478261" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_my_collection.xml" value="0.2828125" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_register.xml" value="0.4673913043478261" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/activity_search.xml" value="0.4673913043478261" />
+        <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_home_page.xml" value="0.25" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_playground.xml" value="0.4673913043478261" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
         <entry key="..\:/Android/AndroidStudioProjects/wanAndroid/app/src/main/res/layout/fragment_study.xml" value="0.4673913043478261" />

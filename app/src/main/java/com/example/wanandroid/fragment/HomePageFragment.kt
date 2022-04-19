@@ -31,6 +31,7 @@ class HomePageFragment : BaseFragment() {
     private val viewModel by lazy { getViewModel(HomePageViewModel::class.java) }
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var database: ArticleDatabaseDao
+    private val adapter by lazy { HomeArticleAdapter<Article>(viewModel) }
 
     companion object {
         fun newInstance() = HomePageFragment()
@@ -119,48 +120,6 @@ class HomePageFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun showSearch() {
-        binding.searchBar.visibility = View.VISIBLE
-        binding.searchBar.translationY = -binding.searchBar.height.toFloat()
-        binding.searchBar.alpha = 0f
-        binding.searchBar.scaleY = 0f
-        binding.searchBar.animate()
-            .alpha(1f)
-            .translationY(0f)
-            .scaleY(1.0f)
-            .setListener(null)
-            .start()
-    }
-
-    private fun hideSearch() {
-        binding.searchBar.alpha = 1f
-        binding.searchBar.scaleX = 1f
-        binding.searchBar.scaleY = 1f
-        binding.toolbar.animate()
-            .translationY(0f)
-            .setDuration(200L)
-            .start()
-        binding.searchBar.animate()
-            .alpha(0f)
-            .translationY(-binding.searchBar.height.toFloat())
-            .scaleY(0f)
-            .setDuration(100L)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    binding.searchBar.visibility = View.GONE
-                }
-            })
-            .start()
-
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBusUtil.unregister(this)
-    }
-
 
     /**
      * 点击下方导航栏回到顶部
@@ -184,8 +143,7 @@ class HomePageFragment : BaseFragment() {
      * 刷新，重新加载加载数据
      */
     private fun initData() {
-        val adapter = HomeArticleAdapter<Article>(viewModel)
-        adapter.appendData(viewModel.presentList)
+
         binding.ArticleRecyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner) {
             it?.let {
@@ -202,6 +160,52 @@ class HomePageFragment : BaseFragment() {
      */
     private fun initFirstPage() {
         viewModel.getFirstPage()
+    }
+
+    private fun showSearch() {
+        with(binding.searchBar) {
+            visibility = View.VISIBLE
+            translationY = -binding.searchBar.height.toFloat()
+            alpha = 0f
+            scaleY = 0f
+            animate()
+                .alpha(1f)
+                .translationY(0f)
+                .scaleY(1.0f)
+                .setListener(null)
+                .start()
+        }
+    }
+
+    private fun hideSearch() {
+        with(binding.searchBar) {
+            alpha = 1f
+            scaleX = 1f
+            scaleY = 1f
+            animate()
+                .alpha(0f)
+                .translationY(-binding.searchBar.height.toFloat())
+                .scaleY(0f)
+                .setDuration(100L)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        super.onAnimationEnd(animation)
+                        binding.searchBar.visibility = View.GONE
+                    }
+                })
+                .start()
+        }
+
+        binding.toolbar.animate()
+            .translationY(0f)
+            .setDuration(200L)
+            .start()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBusUtil.unregister(this)
     }
 
 
