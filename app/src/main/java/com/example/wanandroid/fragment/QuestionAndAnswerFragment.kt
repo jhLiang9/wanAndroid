@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.QAAdapter
 import com.example.wanandroid.databinding.FragmentQuestionAndAnswerBinding
-import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.refresh.QARefreshEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
@@ -20,14 +19,13 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class QuestionAndAnswerFragment : BaseFragment() {
-
-    private var qaList = ArrayList<Article>()
     private lateinit var binding: FragmentQuestionAndAnswerBinding
     private val viewModel by lazy { getViewModel(QAViewModel::class.java) }
+    private val adapter by lazy { QAAdapter(viewModel) }
 
     companion object {
+        @JvmStatic
         fun newInstance() = QuestionAndAnswerFragment()
-
     }
 
 
@@ -53,33 +51,37 @@ class QuestionAndAnswerFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.QARecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.QARecyclerView.adapter = QAAdapter(qaList, viewModel)
-        binding.QARecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initViewModel() {
-        viewModel.list.observe(viewLifecycleOwner, {
-            qaList.addAll(it.data.datas)
-            binding.QARecyclerView.adapter?.notifyDataSetChanged()
+        viewModel.list.observe(viewLifecycleOwner) {
+            adapter.dataList.addAll(it.data.datas)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
             binding.loadingPanel.visibility = View.GONE
-        })
+        }
     }
+
+    private fun initData() {
+        viewModel.init()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unregister(this)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: QARefreshEvent) {
         binding.loadingPanel.visibility = View.VISIBLE
         initData()
     }
 
-    private fun initData() {
-        viewModel.init()
-    }
+
 }

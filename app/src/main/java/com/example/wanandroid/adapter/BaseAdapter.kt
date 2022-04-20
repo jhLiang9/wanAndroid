@@ -1,28 +1,28 @@
 package com.example.wanandroid.adapter
 
-import android.content.Intent
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.adapter.viewholder.BaseBindingViewHolder
+import com.example.wanandroid.adapter.viewholder.BaseViewHolder
 
-open class BaseAdapter<T> : Adapter<RecyclerView.ViewHolder>() {
-    protected val dataList = ArrayList<T>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener {
-
-        }
-    }
+abstract class BaseAdapter<T> : Adapter<BaseViewHolder<T>>() {
+    val dataList = ArrayList<T>()
+    abstract override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<T>
 
 
     override fun getItemCount(): Int {
         return dataList.size
+    }
+
+    override fun onBindViewHolder(
+        holder: BaseViewHolder<T>,
+        position: Int
+    ) {
+        holder.onBindViewHolder(dataList[position])
     }
 
 }

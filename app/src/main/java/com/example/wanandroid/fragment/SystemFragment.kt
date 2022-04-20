@@ -32,7 +32,7 @@ class SystemFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
+//        database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
         initData()
         return binding.root

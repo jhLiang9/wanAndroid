@@ -35,8 +35,7 @@ class HomeArticleAdapter(val viewModel: HomePageViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeArticleViewHolder =
         HomeArticleViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_article, parent, false),
-            parent.context
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_article, parent, false)
         )
 
 

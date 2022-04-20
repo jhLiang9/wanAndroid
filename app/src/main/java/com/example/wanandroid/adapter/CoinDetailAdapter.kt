@@ -10,7 +10,7 @@ import com.example.wanandroid.entity.CoinDetail
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CoinDetailAdapter(val list: ArrayList<CoinDetail>) :
+class   CoinDetailAdapter(val list: ArrayList<CoinDetail>) :
     RecyclerView.Adapter<CoinDetailAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
