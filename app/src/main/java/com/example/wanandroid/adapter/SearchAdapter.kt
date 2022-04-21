@@ -1,58 +1,38 @@
 package com.example.wanandroid.adapter
 
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
 import com.example.wanandroid.R
-import com.example.wanandroid.activity.WebViewActivity
+import com.example.wanandroid.adapter.viewholder.ArticleViewHolder
+import com.example.wanandroid.adapter.viewholder.BaseViewHolder
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.viewmodel.SearchViewModel
 
 
-class SearchAdapter(val viewModel: SearchViewModel) :
-    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter : BaseAdapter<Article>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.title)
-        val author: TextView = view.findViewById(R.id.author)
-        val time: TextView = view.findViewById(R.id.time)
-        val superChapterName: TextView = view.findViewById(R.id.superChapterName)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
-        val viewHolder = ViewHolder(view)
-
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.bindingAdapterPosition //获取用户点击的position
-            val article = viewModel.list[position]
-            val link = article.link
-            val intent = Intent(parent.context, WebViewActivity::class.java)
-            intent.putExtra("data", link);
-            parent.context.startActivity(intent)
-        }
-        return viewHolder
+        return ArticleViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_article,
+                parent,
+                false
+            )
+        )
 
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article = viewModel.list[position]
-        holder.title.text = article.title
-        holder.author.text = article.author
-        holder.superChapterName.text = article.superChapterName
-        holder.time.text = article.niceDate
-        //加载下一页
+    override fun onBindViewHolder(holder: BaseViewHolder<Article>, position: Int) {
+        super.onBindViewHolder(holder, position)
         if (position == itemCount - 5) {
-//            getNextPage()
-
+            //todo 加载下一页
         }
     }
-//    private fun getNextPage() = viewModel.getArticlesByPage(viewModel.nextPage++)
 
-    override fun getItemCount(): Int = viewModel.list.size
+
+    override fun getItemCount(): Int = dataList.size
 
 }

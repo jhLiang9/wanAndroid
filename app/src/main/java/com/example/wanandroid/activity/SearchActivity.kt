@@ -18,6 +18,8 @@ import com.example.wanandroid.viewmodel.SearchViewModel
 class SearchActivity : BaseActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
+    private val adapter by lazy { SearchAdapter() }
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +28,19 @@ class SearchActivity : BaseActivity() {
         viewModel = getViewModel(SearchViewModel::class.java)
         viewModel.articleList.observe(this) {
             binding.loadingPanel.visibility = View.GONE
-            viewModel.list.addAll(it.data.datas)
+            if (it == null || it.data.datas.isNullOrEmpty()) {
+                adapter.resetDataList()
+            } else {
+                adapter.dataList.addAll(it.data.datas)
+            }
+            adapter.notifyDataSetChanged()
         }
 
         initView()
     }
 
-    private fun initView(){
-        binding.recyclerView.adapter = SearchAdapter(viewModel)
+    private fun initView() {
+        binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.back.setOnClickListener {
             finish()
@@ -43,7 +50,8 @@ class SearchActivity : BaseActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.list.clear()
+                adapter.resetDataList()
+                adapter.notifyDataSetChanged()
             }
 
             override fun afterTextChanged(keyword: Editable?) {

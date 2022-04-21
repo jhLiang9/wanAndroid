@@ -5,15 +5,16 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.wanandroid.adapter.viewholder.BaseViewHolder
 
 abstract class BaseAdapter<T> : Adapter<BaseViewHolder<T>>() {
-    val dataList = ArrayList<T>()
+    var dataList = ArrayList<T>()
     abstract override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder<T>
 
 
-    override fun getItemCount(): Int = dataList.size
-
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
 
     override fun onBindViewHolder(
         holder: BaseViewHolder<T>,
@@ -21,5 +22,10 @@ abstract class BaseAdapter<T> : Adapter<BaseViewHolder<T>>() {
     ) {
         holder.onBindViewHolder(dataList[position])
     }
+
+    fun resetDataList() {
+        dataList = ArrayList<T>()
+    }
+
 
 }

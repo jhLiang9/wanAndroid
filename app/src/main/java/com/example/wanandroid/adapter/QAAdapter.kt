@@ -7,10 +7,8 @@ import com.example.wanandroid.R
 import com.example.wanandroid.adapter.viewholder.BaseViewHolder
 import com.example.wanandroid.adapter.viewholder.QAViewHolder
 import com.example.wanandroid.entity.Article
-import com.example.wanandroid.viewmodel.QAViewModel
 
-class QAAdapter(val viewModel: QAViewModel) :
-    BaseAdapter<Article>() {
+class QAAdapter : BaseAdapter<Article>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,14 +24,5 @@ class QAAdapter(val viewModel: QAViewModel) :
         )
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<Article>, position: Int) {
-        super.onBindViewHolder(holder, position)
-
-        if (position >= itemCount - 5) {
-            if (viewModel.hasNextPage()) {
-                viewModel.getNextPage()
-            }
-        }
-    }
 
 }

@@ -4,7 +4,7 @@ import com.example.wanandroid.activity.WebViewActivity
 import com.example.wanandroid.databinding.ItemArticleBinding
 import com.example.wanandroid.entity.Article
 
-class HomeArticleViewHolder(binding: ItemArticleBinding) :
+class ArticleViewHolder(binding: ItemArticleBinding) :
     BaseBindingViewHolder<Article, ItemArticleBinding>(binding) {
 
     override fun onBindViewHolder(data: Article?) {

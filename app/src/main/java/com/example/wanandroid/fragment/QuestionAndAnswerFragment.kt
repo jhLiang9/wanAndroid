@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode
 class QuestionAndAnswerFragment : BaseFragment() {
     private lateinit var binding: FragmentQuestionAndAnswerBinding
     private val viewModel by lazy { getViewModel(QAViewModel::class.java) }
-    private val adapter by lazy { QAAdapter(viewModel) }
+    private val adapter by lazy { QAAdapter() }
 
     companion object {
         @JvmStatic
@@ -43,8 +43,6 @@ class QuestionAndAnswerFragment : BaseFragment() {
             false
         )
         initData()
-        //分割线
-
         initView()
         initViewModel()
         return binding.root
@@ -54,6 +52,14 @@ class QuestionAndAnswerFragment : BaseFragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()) {
+                    if (viewModel.hasNextPage()) {
+                        viewModel.getNextPage()
+                    }
+                }
+            }
         })
     }
 
