@@ -119,6 +119,10 @@
     <string name="register">注册</string>
     <string name="repeat_password">重复密码:</string>
     <string name="more"><![CDATA[>]]></string>
+    <string name="username">用户名</string>
+    <string name="user_id">用户id</string>
+    <string name="current_rank">当前排名</string>
+    <string name="point">积分</string>
 
 
 </resources>

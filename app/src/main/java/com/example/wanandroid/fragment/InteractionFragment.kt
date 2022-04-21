@@ -30,14 +30,12 @@ class InteractionFragment : Fragment() {
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 2
 
-            //TODO 判断是否存活，存活无须多次创建
             override fun createFragment(position: Int): Fragment = sparseArray.get(position)
         }
         sparseArray.put(0, QuestionAndAnswerFragment.newInstance())
         sparseArray.put(1, PlaygroundFragment.newInstance())
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
-//            tab.icon = ResourcesCompat.getDrawable(resources,icons[position],null)
             tab.view.setOnClickListener {
                 binding.viewPager.currentItem = position
                 if (tab.isSelected) {

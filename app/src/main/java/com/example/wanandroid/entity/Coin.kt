@@ -1,14 +1,29 @@
 package com.example.wanandroid.entity
 
-import java.util.*
-import kotlin.collections.ArrayList
+data class CoinData(val coin: Coin) : BaseResponse()
 
-data class CoinData( val coin: Coin) : BaseResponse()
+data class Coin(val coinCount: Int, val rank: Int, val userId: Int, val username: String)
+data class CoinDetailData(val data: CoinDetailList) : BaseResponse()
+data class CoinDetailList(
+    val curPage: Int,
+    val datas: ArrayList<CoinDetail>,
+    val offset: Int,
+    val over: Boolean,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
+)
 
-data class Coin(val coinCount:Int,val rank :Int,val userId:Int,val username:String)
-data class CoinDetailData(val data :CoinDetailList):BaseResponse()
-data class CoinDetailList(val curPage:Int,val datas:ArrayList<CoinDetail>,val offset:Int,val over:Boolean,val pageCount:Int,val size:Int,val total:Int)
-data class CoinDetail(val coinCount: Int,val date: Long,val desc:String,val id:Int,val reason:String,val type:Int ,val userId:Int,val userName:String)
+data class CoinDetail(
+    val coinCount: Int,
+    val date: Long,
+    val desc: String,
+    val id: Int,
+    val reason: String,
+    val type: Int,
+    val userId: Int,
+    val userName: String
+)
 //{
 //    "data": {
 //        "coinCount": 451, //总积分

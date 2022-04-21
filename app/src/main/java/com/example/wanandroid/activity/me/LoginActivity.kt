@@ -6,14 +6,14 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
-import com.example.wanandroid.R
-import com.example.wanandroid.databinding.ActivityLoginBinding
-import com.example.wanandroid.viewmodel.UserViewModel
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.example.wanandroid.R
 import com.example.wanandroid.activity.baseactivity.BaseActivity
+import com.example.wanandroid.databinding.ActivityLoginBinding
+import com.example.wanandroid.utils.ToastUtils
+import com.example.wanandroid.viewmodel.UserViewModel
 
 
 class LoginActivity : BaseActivity() {
@@ -36,7 +36,6 @@ class LoginActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         initView()
         initViewModel()
-
     }
 
     private fun initView() {
@@ -50,14 +49,16 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.success.observe(this, {
+        viewModel.success.observe(this) {
             //登录成功 finish
-            if (it) { finish() } else {
+            if (it) {
+                finish()
+            } else {
+                ToastUtils.showToast(this, "账号密码不匹配")
                 binding.loadingPanel.visibility = View.GONE
-                binding.mother.alpha = 1f
-                Toast.makeText(this, "账号密码不匹配", Toast.LENGTH_SHORT).show()
+                binding.root.alpha = 1f
             }
-        })
+        }
     }
 
     private fun login() {
@@ -73,7 +74,7 @@ class LoginActivity : BaseActivity() {
     private fun doLogin(name: String, password: String) {
         viewModel.doLogin(name, password)
         binding.loadingPanel.visibility = View.VISIBLE
-        binding.mother.alpha = 0.5f
+        binding.root.alpha = 0.5f
     }
 
 

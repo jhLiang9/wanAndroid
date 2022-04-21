@@ -20,7 +20,7 @@ class ProfileViewModel : DefaultViewModel() {
                 val headers = response.headers()
                 application.clearUser()
                 application.clearCookies()
-                logout.postValue(false)
+                logout.postValue(true)
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {

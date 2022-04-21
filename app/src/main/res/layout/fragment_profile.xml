@@ -18,18 +18,18 @@
             android:background="#F5F5F5">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/iv_avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="20sp"
                 android:layout_marginTop="20sp" />
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
-                android:layout_toEndOf="@id/image"
+                android:layout_toEndOf="@id/iv_avatar"
                 android:text="@string/clk_login"
                 android:textSize="20sp" />
         </RelativeLayout>
@@ -68,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_toEndOf="@+id/tv_rank"
                     android:clickable="true"
@@ -82,7 +81,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />
@@ -108,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/account_detail"
                     android:textSize="18sp" />
@@ -119,7 +117,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />
@@ -146,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/my_collect"
                     android:textSize="18sp" />
@@ -157,7 +154,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />
@@ -186,7 +183,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/tool_navi"
                     android:textSize="18sp" />
@@ -197,7 +193,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />
@@ -226,7 +222,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/share_article"
                     android:textSize="18sp" />
@@ -237,7 +232,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />
@@ -264,7 +259,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/share_project"
                     android:textSize="18sp" />
@@ -275,7 +269,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10sp"
                     android:text="@string/more"
                     android:textSize="18sp" />

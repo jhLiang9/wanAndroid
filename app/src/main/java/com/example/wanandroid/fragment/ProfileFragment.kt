@@ -46,7 +46,7 @@ class ProfileFragment : BaseFragment() {
     private fun initView() {
         Glide.with(this)
             .load(R.drawable.ic_logo)
-            .into(binding.image)
+            .into(binding.ivAvatar)
         binding.logout.setOnClickListener {
             val dialogFragment = LogoutDialogFragment()
             binding.parent.alpha = 0.70f
@@ -57,16 +57,14 @@ class ProfileFragment : BaseFragment() {
     private fun initViewModel() {
         viewModel.logout.observe(viewLifecycleOwner) {
             binding.parent.alpha = 1f
-            if (!it) {
+            if (it) {
                 binding.logout.visibility = View.GONE
-                binding.username.text = application.user.username
+                binding.tvUsername.text = application.user.username
                 binding.rank.text = application.user.coinCount.toString()
                 updateView(false)
-            } else {
-                updateView(true)
-                binding.logout.visibility = View.VISIBLE
             }
         }
+
         if (application.user.id == -1) {
             //未登录状态,点击进行登录
             updateView(false)
@@ -80,12 +78,15 @@ class ProfileFragment : BaseFragment() {
 
     private fun updateView(auth: Boolean) {
         if (auth) {
-            binding.username.text = application.user.username
+            binding.tvUsername.text = application.user.username
             binding.rank.text = application.user.coinCount.toString()
+
             binding.rlCollection.setOnClickListener {
                 val intent = Intent(context, MyCollectionActivity::class.java)
                 startActivity(intent)
             }
+            binding.logout.visibility = View.VISIBLE
+            binding.tvUsername.setOnClickListener(null)
             binding.shareArticle.setOnClickListener {
                 ShareActivity.start(context)
             }
@@ -101,29 +102,31 @@ class ProfileFragment : BaseFragment() {
                 startActivity(intent)
             }
         } else {
-            binding.username.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.image.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.rlRank.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.rlCollection.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.rlProfile.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.rlNavigation.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.shareArticle.setOnClickListener {
-                LoginActivity.start(context)
-            }
-            binding.shareProject.setOnClickListener {
-                LoginActivity.start(context)
+            with(binding) {
+                tvUsername.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                ivAvatar.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                rlRank.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                rlCollection.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                rlProfile.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                rlNavigation.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                shareArticle.setOnClickListener {
+                    LoginActivity.start(context)
+                }
+                shareProject.setOnClickListener {
+                    LoginActivity.start(context)
+                }
             }
         }
 
@@ -135,10 +138,6 @@ class ProfileFragment : BaseFragment() {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: UserEvent) {
-        binding.username.text = application.user.username
-        binding.rank.text = application.user.coinCount.toString()
-        binding.logout.visibility = View.VISIBLE
-        binding.username.isClickable = false
         updateView(true)
     }
 

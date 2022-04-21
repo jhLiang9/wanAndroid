@@ -28,8 +28,8 @@ class UserViewModel : DefaultViewModel() {
                 Log.i("user null", response.body()?.data.toString())
                 val data = response.body()?.data
                 val header = response.headers()
-                val set_cookie = response.headers().values("Set-Cookie")
-                Log.i("set_cookie", set_cookie.toString())
+                val setCookie = response.headers().values("Set-Cookie")
+                Log.i("set_cookie", setCookie.toString())
                 for (i in header) {
                     Log.i("cookie", i.first + " " + i.second)
                     if (i.first == "Set-Cookie") {
@@ -39,10 +39,10 @@ class UserViewModel : DefaultViewModel() {
                             for (t in i.second.indices) {
                                 if (i.second[t] == '=') {
                                     start = t
-                                    Log.i("cookie save", "start" + start)
+                                    Log.i("cookie save", "start$start")
                                 } else if (i.second[t] == ';') {
                                     end = t
-                                    Log.i("cookie save", "end " + end)
+                                    Log.i("cookie save", "end $end")
                                     break
                                 }
 
@@ -55,13 +55,13 @@ class UserViewModel : DefaultViewModel() {
                         } else if (i.second.startsWith("token_pass")) {
                             var start = -1
                             var end = -1
-                            for (t in 0..i.second.length - 1) {
+                            for (t in 0 until i.second.length) {
                                 if (i.second[t] == '=') {
                                     start = t
-                                    Log.i("ccookie save", "start" + start)
+                                    Log.i("ccookie save", "start$start")
                                 } else if (i.second[t] == ';') {
                                     end = t
-                                    Log.i("ccookie save", "end " + end)
+                                    Log.i("ccookie save", "end $end")
                                     break
                                 }
 
