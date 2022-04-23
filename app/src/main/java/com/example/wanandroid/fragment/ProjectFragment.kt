@@ -34,23 +34,23 @@ class ProjectFragment : Fragment() {
         binding.recyclerViewRight.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewLeft.adapter = ProjectNavAdapter(viewModel)
         binding.recyclerViewRight.adapter = ProjectContentAdapter(viewModel.rightList)
-        viewModel.navList.observe(viewLifecycleOwner, {
+        viewModel.navList.observe(viewLifecycleOwner) {
             viewModel.leftList.addAll(it.data)
             binding.recyclerViewLeft.adapter?.notifyDataSetChanged()
-        })
+        }
 
-        viewModel.cid.observe(viewLifecycleOwner, {
+        viewModel.cid.observe(viewLifecycleOwner) {
             viewModel.getProjectContent(it, 1)
             binding.loadingPanel.visibility = View.VISIBLE
-        })
+        }
 
-        viewModel.projectList.observe(viewLifecycleOwner, {
+        viewModel.projectList.observe(viewLifecycleOwner) {
             //TODO 根据是否刷新判断清除
             viewModel.rightList.clear()
             binding.loadingPanel.visibility = View.GONE
             viewModel.rightList.addAll(it.data.datas)
             binding.recyclerViewRight.adapter?.notifyDataSetChanged()
-        })
+        }
 
         return binding.root
     }

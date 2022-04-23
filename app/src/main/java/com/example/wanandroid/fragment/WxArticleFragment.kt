@@ -63,11 +63,11 @@ class WxArticleFragment : BaseFragment() {
         init()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = WxArticleAdapter(articleList)
-        viewModel.getArticleList().observe(viewLifecycleOwner, {
+        viewModel.getArticleList().observe(viewLifecycleOwner) {
             binding.loadingPanel.visibility = View.GONE
             articleList.addAll(it.data.datas)
             binding.recyclerView.adapter?.notifyDataSetChanged()
-        })
+        }
 
         return binding.root
     }

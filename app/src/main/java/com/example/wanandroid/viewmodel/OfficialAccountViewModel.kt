@@ -9,13 +9,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OfficialAccountViewModel : DefaultViewModel() {
-    private var wxAccountList = MutableLiveData<WXAccountList>()
-    fun getAccountList(): LiveData<WXAccountList> = wxAccountList
+    private val _wxAccountList = MutableLiveData<WXAccountList>()
+    val wxAccountList: LiveData<WXAccountList> = _wxAccountList
     fun getAccounts() {
         appService.getWxAccounts().enqueue(object : Callback<WXAccountList> {
             override fun onResponse(call: Call<WXAccountList>, response: Response<WXAccountList>) {
                 val body = response.body()
-                wxAccountList.postValue(body!!)
+                _wxAccountList.postValue(body!!)
             }
 
             override fun onFailure(call: Call<WXAccountList>, t: Throwable) {

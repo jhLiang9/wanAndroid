@@ -1,6 +1,7 @@
 package com.example.wanandroid.viewmodel
 
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wanandroid.entity.Article
 import com.example.wanandroid.entity.ArticleList
@@ -19,7 +20,8 @@ class ProjectViewModel : DefaultViewModel() {
     var cid = MutableLiveData(294)
     var leftList = ArrayList<Tree>()
     var rightList = ArrayList<Article>()
-    val navList = MutableLiveData<TreeList>()
+    private val _navList = MutableLiveData<TreeList>()
+    val navList: LiveData<TreeList> = _navList
     val projectList = MutableLiveData<ArticleList>()
 
 
@@ -38,7 +40,7 @@ class ProjectViewModel : DefaultViewModel() {
                 val responseData = response.body!!.string()
                 val gson = Gson()
                 val data = gson.fromJson(responseData, TreeList::class.java)
-                navList.postValue(data)
+                _navList.postValue(data)
             }
         })
 

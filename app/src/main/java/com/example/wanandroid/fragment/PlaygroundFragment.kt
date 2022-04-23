@@ -36,10 +36,10 @@ class PlaygroundFragment : Fragment() {
         init()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = PlayGroundAdapter(list, viewModel)
-        viewModel.getList().observe(viewLifecycleOwner, {
+        viewModel.getList().observe(viewLifecycleOwner) {
             list.addAll(it)
             binding.recyclerView.adapter?.notifyDataSetChanged()
-        })
+        }
 
         return binding.root
     }

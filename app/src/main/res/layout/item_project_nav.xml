@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:background="?android:attr/selectableItemBackground"
-    android:layout_width="match_parent"
-    android:id="@+id/rl0"
-    android:layout_height="40dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:textColor="@color/white"
-        android:id="@+id/item_project_nav"
+    <RelativeLayout
+        android:id="@+id/rl0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5sp" />
+        android:layout_height="40dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_project_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:textColor="@color/white" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

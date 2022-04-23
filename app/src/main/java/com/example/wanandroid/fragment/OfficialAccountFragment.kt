@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.wanandroid.R
 import com.example.wanandroid.databinding.FragmentOfficialAccountBinding
@@ -18,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class OfficialAccountFragment : BaseFragment() {
 
     companion object {
+        @JvmStatic
         fun newInstance() = OfficialAccountFragment()
     }
 
@@ -28,13 +28,11 @@ class OfficialAccountFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val tabs = ArrayList<WXAccount>()
-
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_official_account, container, false)
-        viewModel = ViewModelProvider(this).get(OfficialAccountViewModel::class.java)
-        initTabs()
+        viewModel = getViewModel(OfficialAccountViewModel::class.java)
 
-        getAccountList().observe(viewLifecycleOwner, {
+        viewModel.wxAccountList.observe(viewLifecycleOwner) {
             if (it.data != null) {
                 tabs.addAll(it.data)
                 binding.wxViewPager.adapter = object : FragmentStateAdapter(this) {
@@ -51,12 +49,14 @@ class OfficialAccountFragment : BaseFragment() {
                         binding.wxViewPager.currentItem = position
                     }
                 }.attach()
+
             }
-        })
+        }
+
+        initTabs()
         return binding.root
     }
 
-    private fun getAccountList() = viewModel.getAccountList()
     private fun initTabs() = viewModel.getAccounts()
 
 

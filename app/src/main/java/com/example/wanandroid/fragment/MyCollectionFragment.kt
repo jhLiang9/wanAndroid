@@ -17,6 +17,13 @@ class MyCollectionFragment : BaseFragment() {
     private lateinit var viewModel: UserViewModel
     private lateinit var binding: FragmentMyCollectionBinding
 
+    companion object {
+        @JvmStatic
+        fun newInstance() = MyCollectionFragment()
+    }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,25 +31,20 @@ class MyCollectionFragment : BaseFragment() {
         viewModel = getViewModel(UserViewModel::class.java)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_my_collection, container, false)
-        binding.recyclerView.adapter = MyCollectionAdapter(viewModel)
+        val adapter = MyCollectionAdapter(viewModel)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
         InitFirstPageCollection()
 
-        viewModel.collection.observe(viewLifecycleOwner, {
+        viewModel.collection.observe(viewLifecycleOwner) {
             viewModel.collectionList.addAll(it.data.datas)
-            binding.recyclerView.adapter?.notifyDataSetChanged()
-        })
+            adapter.notifyDataSetChanged()
+        }
 
         return binding.root
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MyCollectionFragment()
-    }
-
-
-    fun InitFirstPageCollection() = viewModel.getCollection(0)
+    private fun InitFirstPageCollection() = viewModel.getCollection(0)
 
 
 }
