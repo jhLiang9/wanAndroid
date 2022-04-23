@@ -32,7 +32,4 @@ class SearchAdapter : BaseAdapter<Article>() {
         }
     }
 
-
-    override fun getItemCount(): Int = dataList.size
-
 }

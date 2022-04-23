@@ -12,9 +12,7 @@ abstract class BaseAdapter<T> : Adapter<BaseViewHolder<T>>() {
     ): BaseViewHolder<T>
 
 
-    override fun getItemCount(): Int {
-        return dataList.size
-    }
+    override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(
         holder: BaseViewHolder<T>,

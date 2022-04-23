@@ -14,14 +14,7 @@ class QAAdapter : BaseAdapter<Article>() {
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder<Article> {
-        return QAViewHolder(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_qa,
-                parent,
-                false
-            )
-        )
+        return QAViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_qa, parent, false))
     }
 
 
