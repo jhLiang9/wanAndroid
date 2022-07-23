@@ -89,12 +89,11 @@ dependencies {
     //Room
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    annotationProcessor 'androidx.room:room-compiler:2.3.0'
     implementation "androidx.room:room-ktx:2.3.0"
     // To use Kotlin annotation processing tool (kapt)
 //    kapt("androidx.room:room-compiler:2.3.0")
 
-    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    annotationProcessor 'androidx.room:room-compiler:2.3.0'
 
     //Rx
     implementation "io.reactivex.rxjava3:rxjava:3.0.13"

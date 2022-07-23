@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--首页展示文章的格式-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -89,17 +88,6 @@
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:layout_below="@+id/rl_bottom"
-            android:background="@color/light_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5sp"
-            android:layout_above="@+id/rl_top"
-            android:background="@color/light_gray" />
     </RelativeLayout>
 
 

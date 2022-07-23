@@ -15,7 +15,7 @@ import com.example.wanandroid.viewmodel.HomePageViewModel
 class HomeArticleAdapter(val viewModel: HomePageViewModel) :
     RecyclerView.Adapter<ArticleViewHolder>() {
     private var data: ArrayList<Article> = ArrayList()
-    var loadMore = MutableLiveData(false)
+    var loadMore: MutableLiveData<Boolean> = MutableLiveData()
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -27,8 +27,8 @@ class HomeArticleAdapter(val viewModel: HomePageViewModel) :
         notifyDataSetChanged()
     }
 
-    fun appendData(data: ArrayList<Article>) {
-        this.data.addAll(data)
+    fun appendData(list: ArrayList<Article>) {
+        data.addAll(list)
         notifyDataSetChanged()
     }
 

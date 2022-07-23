@@ -4,7 +4,11 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewConfiguration
@@ -15,8 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.SearchActivity
 import com.example.wanandroid.adapter.HomeArticleAdapter
+import com.example.wanandroid.adapter.viewholder.ArticleViewHolder
 import com.example.wanandroid.databinding.FragmentHomePageBinding
-import com.example.wanandroid.entity.Article
 import com.example.wanandroid.event.refresh.BackToTopEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
 import com.example.wanandroid.utils.EventBusUtil
@@ -50,8 +54,6 @@ class HomepageFragment : BaseFragment() {
 
         EventBusUtil.register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
-
-
         initFirstPage()
         initView()
         initData()
@@ -80,6 +82,47 @@ class HomepageFragment : BaseFragment() {
 
         var scrollDownDistance = 0
         var scrollUpDistance = 0
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                super.onDraw(c, parent, state)
+                val left: Int = parent.paddingLeft
+                val right: Int = parent.width - parent.paddingRight
+                val childCount: Int = parent.getChildCount()
+                for (i in 0 until childCount) {
+                    val child: View = parent.getChildAt(i)
+                    val holder = parent.getChildViewHolder(child)
+
+                    if (holder is ArticleViewHolder) {
+                        Log.i("ljh", adapter.getItemViewType(i).toString())
+                    }
+                    val rlp = child.layoutParams as RecyclerView.LayoutParams
+                    val top = child.bottom + rlp.bottomMargin
+                    val bottom: Int = top + 5
+                    val paint = Paint()
+                    paint.color = resources.getColor(R.color.gray, null)
+                    val r = Rect(left, top, right, bottom)
+                    c.drawRect(r, paint)
+                }
+
+            }
+
+            override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                super.onDrawOver(c, parent, state)
+            }
+
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.top = 5
+            }
+        })
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -127,7 +170,6 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.refreshLayout.setOnRefreshListener {
             binding.refreshLayout.isRefreshing = false
             viewModel.refresh()
@@ -140,7 +182,6 @@ class HomepageFragment : BaseFragment() {
      */
     private fun initData() {
 
-        binding.recyclerView.adapter = adapter
         viewModel.articleList.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.appendData(it.datas)

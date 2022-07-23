@@ -49,13 +49,13 @@ class WebViewActivity : BaseActivity() {
         binding.webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 cookieManager.setCookie(url, cookieManager.getCookie(url))
-                Log.i("cookieManager set", cookieManager.getCookie(url))
+//                Log.i("cookieManager set", cookieManager.getCookie(url))
                 super.onPageStarted(view, url, favicon)
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 val cookie = cookieManager.getCookie(url)
-                Log.i("cookieManager", cookie)
+//                Log.i("cookieManager", cookie)
                 super.onPageFinished(view, url)
             }
         }
