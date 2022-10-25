@@ -31,6 +31,7 @@ open class HomePageViewModel : DefaultViewModel() {
                 val data = response.body()?.data ?: return
                 if (data.datas.isNotEmpty()) {
                     _articleList.postValue(data)
+                    pageCount = data.pageCount
                 } else {
                     _articleList.postValue(null)
                 }

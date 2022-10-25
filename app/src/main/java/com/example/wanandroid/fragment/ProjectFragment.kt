@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.ProjectContentAdapter
 import com.example.wanandroid.adapter.ProjectNavAdapter
@@ -30,8 +29,6 @@ class ProjectFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project, container, false)
         initProjectNavigation()
         //初始化导航内容
-        binding.recyclerViewLeft.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewRight.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewLeft.adapter = ProjectNavAdapter(viewModel)
         binding.recyclerViewRight.adapter = ProjectContentAdapter(viewModel.rightList)
         viewModel.navList.observe(viewLifecycleOwner) {

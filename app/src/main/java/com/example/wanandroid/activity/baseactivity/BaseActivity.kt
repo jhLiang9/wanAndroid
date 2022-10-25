@@ -23,16 +23,15 @@ open class BaseActivity : AppCompatActivity() {
         ViewModelProvider(this).get(modelClass)
 
     protected val appService = ServiceCreator.create(AppService::class.java)
-    private val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
     protected fun replaceFragment(id: Int, fragment: Fragment) {
-        fragmentTransaction.replace(id, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(id, fragment).commitAllowingStateLoss()
     }
 
     protected fun addFragment(id: Int, fragment: Fragment) {
-        fragmentTransaction.add(id, fragment).commit()
+        supportFragmentManager.beginTransaction().add(id, fragment).commitAllowingStateLoss()
     }
 
     protected fun addFragment(id: Int, fragment: Fragment, tag: String) {
-        fragmentTransaction.add(id, fragment, tag)
+        supportFragmentManager.beginTransaction().add(id, fragment, tag).commitAllowingStateLoss()
     }
 }

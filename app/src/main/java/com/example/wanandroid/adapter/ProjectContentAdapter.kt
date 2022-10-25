@@ -20,7 +20,6 @@ class ProjectContentAdapter(private val contentList: List<Article>) :
         val title: TextView = view.findViewById(R.id.title)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(parent.context)
@@ -46,7 +45,5 @@ class ProjectContentAdapter(private val contentList: List<Article>) :
         holder.title.text = content.title
     }
 
-    override fun getItemCount(): Int {
-        return contentList.size
-    }
+    override fun getItemCount(): Int = contentList.size
 }

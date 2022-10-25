@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="projectViewModel"
             type="com.example.wanandroid.viewmodel.ProjectViewModel" />
@@ -11,19 +14,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.ProjectFragment"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:context=".fragment.ProjectFragment">
 
         <FrameLayout
             android:id="@+id/project_nav"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:background="@color/silver"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/silver">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_left"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
         </FrameLayout>
@@ -31,9 +36,10 @@
         <FrameLayout
             android:id="@+id/project_content"
             android:layout_width="0dp"
-            android:layout_weight="3"
-            android:background="@color/white_smoke"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/white_smoke">
+
             <RelativeLayout
                 android:id="@+id/loadingPanel"
                 android:layout_width="match_parent"
@@ -46,10 +52,12 @@
                     android:layout_height="wrap_content"
                     android:indeterminate="true" />
             </RelativeLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_right"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
         </FrameLayout>

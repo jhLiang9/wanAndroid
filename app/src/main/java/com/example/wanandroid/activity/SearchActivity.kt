@@ -1,5 +1,7 @@
 package com.example.wanandroid.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -20,6 +22,14 @@ class SearchActivity : BaseActivity() {
     private lateinit var viewModel: SearchViewModel
     private val adapter by lazy { SearchAdapter() }
 
+    companion object {
+        @JvmStatic
+        fun start(context: Context?) {
+            val intent = Intent(context, SearchActivity::class.java)
+            context?.startActivity(intent)
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +38,8 @@ class SearchActivity : BaseActivity() {
         viewModel = getViewModel(SearchViewModel::class.java)
         viewModel.articleList.observe(this) {
             binding.loadingPanel.visibility = View.GONE
-            if (it == null || it.data.datas.isNullOrEmpty()) {
-                adapter.resetDataList()
+            if (it == null || it.data.datas.isEmpty()) {
+                adapter.clearData()
             } else {
                 adapter.dataList.addAll(it.data.datas)
             }
@@ -50,7 +60,7 @@ class SearchActivity : BaseActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                adapter.resetDataList()
+                adapter.clearData()
                 adapter.notifyDataSetChanged()
             }
 

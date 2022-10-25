@@ -3,23 +3,19 @@ package com.example.wanandroid.fragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wanandroid.R
 import com.example.wanandroid.activity.SearchActivity
-import com.example.wanandroid.adapter.HomeArticleAdapter
-import com.example.wanandroid.adapter.viewholder.ArticleViewHolder
+import com.example.wanandroid.adapter.ArticleAdapter
 import com.example.wanandroid.databinding.FragmentHomePageBinding
 import com.example.wanandroid.event.refresh.BackToTopEvent
 import com.example.wanandroid.fragment.basefragment.BaseFragment
@@ -33,7 +29,7 @@ import kotlin.math.abs
 class HomepageFragment : BaseFragment() {
     private val viewModel by lazy { getViewModel(HomePageViewModel::class.java) }
     private lateinit var binding: FragmentHomePageBinding
-    private val adapter by lazy { HomeArticleAdapter(viewModel) }
+    private val adapter by lazy { ArticleAdapter(viewModel) }
 
     companion object {
         fun newInstance() = HomepageFragment()
@@ -47,14 +43,9 @@ class HomepageFragment : BaseFragment() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         EventBusUtil.register(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
-        initFirstPage()
         initView()
         initData()
         return binding.root
@@ -72,18 +63,15 @@ class HomepageFragment : BaseFragment() {
 
     private fun initView() {
         binding.searchView.setOnClickListener {
-            val intent = Intent(context, SearchActivity::class.java)
-            startActivity(intent)
+            SearchActivity.start(context)
         }
         binding.searchBar.setOnClickListener {
-            val intent = Intent(context, SearchActivity::class.java)
-            startActivity(intent)
+            SearchActivity.start(context)
         }
 
         var scrollDownDistance = 0
         var scrollUpDistance = 0
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -93,11 +81,6 @@ class HomepageFragment : BaseFragment() {
                 val childCount: Int = parent.getChildCount()
                 for (i in 0 until childCount) {
                     val child: View = parent.getChildAt(i)
-                    val holder = parent.getChildViewHolder(child)
-
-                    if (holder is ArticleViewHolder) {
-                        Log.i("ljh", adapter.getItemViewType(i).toString())
-                    }
                     val rlp = child.layoutParams as RecyclerView.LayoutParams
                     val top = child.bottom + rlp.bottomMargin
                     val bottom: Int = top + 5
@@ -113,12 +96,7 @@ class HomepageFragment : BaseFragment() {
                 super.onDrawOver(c, parent, state)
             }
 
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
                 outRect.top = 5
             }
@@ -177,25 +155,13 @@ class HomepageFragment : BaseFragment() {
 
     }
 
-    /**
-     * 刷新，重新加载加载数据
-     */
     private fun initData() {
-
+        viewModel.getFirstPage()
         viewModel.articleList.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.appendData(it.datas)
-                viewModel.pageCount = it.pageCount
-            }
+            adapter.appendData(it?.datas)
             binding.loadingPanel.visibility = View.GONE
         }
     }
-
-
-    /**
-     * 加载首页数据
-     */
-    private fun initFirstPage() = viewModel.getFirstPage()
 
 
     private fun showSearch() {
@@ -243,6 +209,5 @@ class HomepageFragment : BaseFragment() {
         super.onDestroy()
         EventBusUtil.unregister(this)
     }
-
 
 }

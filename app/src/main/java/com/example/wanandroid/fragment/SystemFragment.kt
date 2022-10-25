@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wanandroid.R
 import com.example.wanandroid.adapter.SystemAdapter
-import com.example.wanandroid.database.SystemDatabase
 import com.example.wanandroid.database.dao.SystemDatabaseDao
 import com.example.wanandroid.databinding.FragmentSystemBinding
 import com.example.wanandroid.entity.TreeList
@@ -23,15 +22,9 @@ class SystemFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSystemBinding
     private lateinit var database: SystemDatabaseDao
-    private val viewModel: SystemViewModel by lazy {
-        getViewModel(SystemViewModel::class.java)
-    }
+    private lateinit var viewModel: SystemViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 //        database = SystemDatabase.getInstance(requireContext()).systemDatabaseDao
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_system, container, false)
         initData()
@@ -39,6 +32,7 @@ class SystemFragment : BaseFragment() {
     }
 
     private fun initData() {
+        viewModel = getViewModel(SystemViewModel::class.java)
         appService.getSystemTree().enqueue(object : Callback<TreeList> {
             override fun onResponse(call: Call<TreeList>, response: Response<TreeList>) {
                 val body = response.body()
