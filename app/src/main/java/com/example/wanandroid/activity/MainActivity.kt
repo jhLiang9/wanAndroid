@@ -13,6 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 
     private lateinit var binding: ActivityMainBinding
 
